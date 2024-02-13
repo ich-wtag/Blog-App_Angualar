@@ -1,3 +1,3 @@
 # Blog-App_Angualar
 
-This is the blog app project using vanilla js.
+This is the blog app project using Anular framework.
