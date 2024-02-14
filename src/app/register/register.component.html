@@ -1,0 +1,48 @@
+<section>
+  <h2>Registration Form</h2>
+  <form [formGroup]="registrationForm" (ngSubmit)="onRegistration()">
+    <app-input
+      placeholder="Enter your first name"
+      type="text"
+      label="First Name"
+      className="first-name"
+      [control]="getControlName(registrationForm, 'firstName')"
+    ></app-input>
+
+    <app-input
+      placeholder="Enter your first name"
+      type="text"
+      label="Last Name"
+      className="last-name"
+      [control]="getControlName(registrationForm, 'lastName')"
+    ></app-input>
+
+    <app-input
+      placeholder="Enter your user name"
+      type="text"
+      label="User Name"
+      className="user-name"
+      [control]="getControlName(registrationForm, 'userName')"
+    ></app-input>
+
+    <app-input
+      placeholder="Enter your email"
+      type="email"
+      label="Email"
+      className="email"
+      [control]="getControlName(registrationForm, 'email')"
+    ></app-input>
+
+    <app-input
+      placeholder="Enter your password"
+      type="password"
+      label="Password"
+      className="password"
+      [control]="getControlName(registrationForm, 'password')"
+    ></app-input>
+
+    <br /><br />
+    <!-- [disabled]="registrationForm.invalid" -->
+    <app-button> Submit </app-button>
+  </form>
+</section>

@@ -1,0 +1,28 @@
+<section>
+  <h2>Login Form</h2>
+
+  <form [formGroup]="loginForm" (ngSubmit)="onLogIn()">
+    <app-input
+      type="text"
+      placeholder="user name"
+      label="User Name"
+      className="user-name"
+      [control]="getControlName(loginForm, 'userName')"
+    ></app-input>
+
+    <app-input
+      type="password"
+      placeholder="enter your password"
+      label="Password"
+      className="password"
+      [control]="getControlName(loginForm, 'password')"
+    ></app-input>
+
+    <br />
+    <br />
+
+    <app-button [className]="'button-submit'" [disabled]="!loginForm.valid"
+      >Submit</app-button
+    >
+  </form>
+</section>
