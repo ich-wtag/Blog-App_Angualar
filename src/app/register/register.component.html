@@ -1,48 +1,139 @@
-<section>
-  <h2>Registration Form</h2>
-  <form [formGroup]="registrationForm" (ngSubmit)="onRegistration()">
+<section class="form-wrapper">
+  <h1 class="form-title">Registration Form</h1>
+  <form
+    class="form"
+    [formGroup]="registrationForm"
+    (ngSubmit)="onRegistration()"
+  >
     <app-input
       placeholder="Enter your first name"
       type="text"
       label="First Name"
-      className="first-name"
       [control]="getControlName(registrationForm, 'firstName')"
-    ></app-input>
+    >
+      <small
+        class="form__error-message"
+        *ngIf="registrationForm.get('firstName')?.touched && registrationForm.get('firstName')?.errors?.['required']"
+      >
+        *First name is required
+      </small>
+
+      <small
+        class="form__error-message"
+        *ngIf="registrationForm.get('firstName')?.touched && registrationForm.get('firstName')?.errors?.['minlength']"
+      >
+        *Please enter at least 3 character
+      </small>
+    </app-input>
 
     <app-input
       placeholder="Enter your first name"
       type="text"
       label="Last Name"
-      className="last-name"
       [control]="getControlName(registrationForm, 'lastName')"
-    ></app-input>
+    >
+      <small
+        class="form__error-message"
+        *ngIf="registrationForm.get('lastName')?.touched && registrationForm.get('lastName')?.errors?.['required']"
+      >
+        *Last name is required
+      </small>
+
+      <small
+        class="form__error-message"
+        *ngIf="registrationForm.get('lastName')?.touched && registrationForm.get('lastName')?.errors?.['minlength']"
+      >
+        *Please enter at least 3 character
+      </small>
+    </app-input>
 
     <app-input
       placeholder="Enter your user name"
       type="text"
       label="User Name"
-      className="user-name"
       [control]="getControlName(registrationForm, 'userName')"
-    ></app-input>
+    >
+      <small
+        class="form__error-message"
+        *ngIf="registrationForm.get('userName')?.touched && registrationForm.get('userName')?.errors?.['required']"
+      >
+        *User name is required
+      </small>
+
+      <small
+        class="form__error-message"
+        *ngIf="registrationForm.get('userName')?.touched && registrationForm.get('userName')?.errors?.['uniqueUserNameError']"
+      >
+        *This user is already registered
+      </small>
+      <small
+        class="form__error-message"
+        *ngIf="registrationForm.get('userName')?.touched && registrationForm.get('userName')?.errors?.['noSpaceAllowed']"
+      >
+        *No space allowed.
+      </small>
+    </app-input>
 
     <app-input
       placeholder="Enter your email"
       type="email"
       label="Email"
-      className="email"
       [control]="getControlName(registrationForm, 'email')"
-    ></app-input>
+    >
+      <small
+        class="form__error-message"
+        *ngIf="registrationForm.get('email')?.touched && registrationForm.get('email')?.errors?.['required']"
+      >
+        *Email is required
+      </small>
 
+      <small
+        class="form__error-message"
+        *ngIf="registrationForm.get('email')?.touched && registrationForm.get('email')?.errors?.['email']"
+      >
+        *Enter a valid email
+      </small>
+
+      <small
+        class="form__error-message"
+        *ngIf="registrationForm.get('email')?.touched && registrationForm.get('email')?.errors?.['uniqueEmailError']"
+      >
+        *This email id is already taken
+      </small>
+    </app-input>
     <app-input
       placeholder="Enter your password"
       type="password"
       label="Password"
-      className="password"
       [control]="getControlName(registrationForm, 'password')"
-    ></app-input>
+    >
+      <small
+        class="form__error-message"
+        *ngIf="registrationForm.get('password')?.touched && registrationForm.get('password')?.errors?.['required']"
+      >
+        *Password is required
+      </small>
+
+      <small
+        class="form__error-message"
+        *ngIf="registrationForm.get('password')?.touched && registrationForm.get('password')?.errors?.['minlength']"
+      >
+        *Please enter at least 6 character
+      </small>
+    </app-input>
 
     <br /><br />
-    <!-- [disabled]="registrationForm.invalid" -->
-    <app-button> Submit </app-button>
+
+    <app-button
+      [disabled]="registrationForm.invalid"
+      className="primary-button--center"
+    >
+      Submit
+    </app-button>
+
+    <p class="form__navigation">
+      Already registered? Go to
+      <a class="form__navigation-link" routerLink="/login">Log in</a>
+    </p>
   </form>
 </section>

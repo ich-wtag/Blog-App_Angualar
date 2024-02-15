@@ -6,8 +6,9 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { InputComponent } from './Models/input/input.component';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { ButtonComponent } from './Models/button/button.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { ButtonComponent } from './Models/button/button.component';
     RegisterComponent,
     InputComponent,
     ButtonComponent,
+    HomeComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, ReactiveFormsModule],
   providers: [],
