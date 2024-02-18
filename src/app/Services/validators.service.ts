@@ -6,9 +6,7 @@ import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
   providedIn: 'root',
 })
 export class ValidatorsService {
-  userService: UserService = inject(UserService);
-
-  constructor() {}
+  constructor(private userService: UserService) {}
 
   allUsers = this.userService.getAllUsers();
 

@@ -25,7 +25,14 @@ export class UserService {
     password: string
   ) {
     let id = this.getUserId();
-    const user = new User(id, firstName, lastName, userName, email, password);
+    const user: User = {
+      id,
+      firstName,
+      lastName,
+      userName,
+      email,
+      password,
+    };
 
     this.users.push(user);
   }
