@@ -8,7 +8,6 @@ import {
 import { GetControlName } from '../Models/commonFunctions';
 import { UserService } from '../Services/user.service';
 import { AuthService } from '../Services/auth.service';
-import { LoggedInUser } from '../Models/loggedInUser';
 import { ValidatorsService } from '../Services/validators.service';
 import { Router } from '@angular/router';
 
@@ -44,12 +43,7 @@ export class LoginComponent {
   onLogIn() {
     const { userName, password } = this.loginForm.value;
 
-    const loggedInUser: LoggedInUser = {
-      userName,
-      password,
-    };
-
-    this.authService.onLogggedIn(loggedInUser);
+    this.authService.onLogggedIn(userName, password);
 
     this.router.navigate(['/home']);
   }

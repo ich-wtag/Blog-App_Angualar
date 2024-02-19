@@ -1,0 +1,29 @@
+<header class="flex-between header">
+  <h1 class="page-title">
+    <a class="page-title__link" routerLink="/home">WellBlog</a>
+  </h1>
+
+  <div class="greeting">
+    <ng-container *ngIf="isLoggedInObs; else loggedOutView">
+      <div class="greeting__message">Welcome</div>
+      <div class="greeting__user-name">
+        <a class="name" routerLink="/me">
+          {{ loggedInUser?.firstName }}
+        </a>
+      </div>
+      <app-button className="icon-button" (click)="onLogOut()">
+        <img
+          class="icon-button__check-out"
+          src="../../assets/icons/checkout-icon.svg"
+          alt=""
+        />
+      </app-button>
+    </ng-container>
+
+    <ng-template #loggedOutView>
+      <a class="greeting__link" routerLink="/login">Login</a>
+      <span>/</span>
+      <a class="greeting__link" routerLink="/register">Signup</a>
+    </ng-template>
+  </div>
+</header>

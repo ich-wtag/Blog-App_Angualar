@@ -7,7 +7,16 @@ import { User } from '../Models/user';
 export class UserService {
   constructor() {}
 
-  users: User[] = [];
+  users: User[] = [
+    {
+      id: 1,
+      firstName: 'john',
+      lastName: 'doe',
+      userName: 'jd',
+      email: 'jd@gmail.com',
+      password: '123456',
+    },
+  ];
 
   getUserId() {
     const maxId = this.users.reduce(
