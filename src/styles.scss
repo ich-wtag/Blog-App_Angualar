@@ -23,9 +23,13 @@ a {
 
 input,
 button {
-  cursor: pointer;
   font-family: inherit;
   outline: none;
+}
+
+a,
+button {
+  cursor: pointer;
 }
 
 .container {
