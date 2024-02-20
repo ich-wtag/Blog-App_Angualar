@@ -12,6 +12,7 @@ import { HomeComponent } from './home/home.component';
 import { HeaderComponent } from './header/header.component';
 import { UserInfoComponent } from './user-profile/user-info/user-info.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
+import { BlogCreationFormComponent } from './user-profile/blog-creation-form/blog-creation-form.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
     UserInfoComponent,
 
     UserProfileComponent,
+     BlogCreationFormComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, ReactiveFormsModule],
   providers: [],
