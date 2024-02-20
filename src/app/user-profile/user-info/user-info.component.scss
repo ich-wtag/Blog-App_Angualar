@@ -4,6 +4,40 @@
   margin-top: 3rem;
   column-gap: 0.625rem;
 }
+.icon-button {
+  &__plus {
+    width: 100%;
+    height: 100%;
+    transition: transform 0.2s ease-out;
+
+    &::before {
+      content: url("../../../assets/icons/plus-icon.svg");
+    }
+
+    &:hover {
+      transform: scale(1.15);
+      &::before {
+        content: url("../../../assets/icons/plus-icon-blue.svg");
+      }
+    }
+  }
+  &__edit {
+    width: 100%;
+    height: 100%;
+    transition: transform 0.2s ease-out;
+
+    &::before {
+      content: url("../../../assets/icons/edit-icon.svg");
+    }
+
+    &:hover {
+      transform: scale(1.15);
+      &::before {
+        content: url("../../../assets/icons/edit-icon-blue.svg");
+      }
+    }
+  }
+}
 
 .user-wrapper {
   margin-top: 1.5rem;
@@ -38,6 +72,7 @@
     &-name {
       text-align: left;
       .user-name {
+        text-transform: capitalize;
         font-size: 1.25rem;
         line-height: 1.75rem;
         font-weight: 500;

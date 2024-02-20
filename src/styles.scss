@@ -23,6 +23,7 @@ a {
 
 input,
 button {
+  cursor: pointer;
   font-family: inherit;
   outline: none;
 }
@@ -113,8 +114,8 @@ button {
   align-items: center;
   border: none;
   background: none;
-  height: fit-content;
-  width: fit-content;
+  width: 1rem;
+  height: 1rem;
 }
 
 .flex {

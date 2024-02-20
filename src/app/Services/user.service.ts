@@ -14,6 +14,7 @@ export class UserService {
       lastName: 'doe',
       userName: 'jd',
       email: 'jd@gmail.com',
+      joiningDate: '2024-02-20T08:45:10.940Z',
       password: '123456',
     },
   ];
@@ -33,13 +34,15 @@ export class UserService {
     email: string,
     password: string
   ) {
-    let id = this.getUserId();
+    const id = this.getUserId();
+    const joiningDate = new Date().toISOString();
     const user: User = {
       id,
       firstName,
       lastName,
       userName,
       email,
+      joiningDate,
       password,
     };
 

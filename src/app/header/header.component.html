@@ -4,7 +4,7 @@
   </h1>
 
   <div class="greeting">
-    <ng-container *ngIf="isLoggedInObs; else loggedOutView">
+    <ng-container *ngIf="isLoggedIn; else loggedOutView">
       <div class="greeting__message">Welcome</div>
       <div class="greeting__user-name">
         <a class="name" routerLink="/me">
@@ -12,11 +12,7 @@
         </a>
       </div>
       <app-button className="icon-button" (click)="onLogOut()">
-        <img
-          class="icon-button__check-out"
-          src="../../assets/icons/checkout-icon.svg"
-          alt=""
-        />
+        <span class="icon-button__check-out"></span>
       </app-button>
     </ng-container>
 

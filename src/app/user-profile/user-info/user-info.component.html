@@ -1,17 +1,9 @@
 <div class="flex-end button-wrapper">
   <app-button className="icon-button">
-    <img
-      class="icon-button__plus"
-      src="../../../assets/icons/plus-icon.svg"
-      alt="plus icon"
-    />
+    <span class="icon-button__plus"> </span>
   </app-button>
   <app-button className="icon-button">
-    <img
-      class="icon-button__edit"
-      src="../../../assets/icons/edit-icon.svg"
-      alt="edit icon"
-    />
+    <span class="icon-button__edit"></span>
   </app-button>
 </div>
 
@@ -27,7 +19,9 @@
       </div>
 
       <div class="user__info-name">
-        <h2 class="user-name">Jonathan Doe</h2>
+        <h2 class="user-name">
+          {{ loggedInUser?.firstName + " " + loggedInUser?.lastName }}
+        </h2>
         <div class="user-occupation">Collaborator & Editor</div>
       </div>
     </div>
