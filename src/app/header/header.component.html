@@ -15,7 +15,7 @@
     <ng-container *ngIf="isLoggedIn; else loggedOutView">
       <div class="greeting__message">Welcome</div>
       <div class="greeting__user-name">
-        <a class="name">
+        <a class="name" routerLink="/me">
           {{ loggedInUser?.firstName }}
         </a>
       </div>

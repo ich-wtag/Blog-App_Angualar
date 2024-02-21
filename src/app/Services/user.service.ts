@@ -17,7 +17,10 @@ export class UserService {
 
   registerUser(user: User) {
     const id = this.getUserId();
+    const joiningDate = new Date().toISOString();
+
     user.id = id;
+    user.joiningDate = joiningDate;
 
     this.users.push(user);
   }
