@@ -11,7 +11,6 @@ import { HomeComponent } from './home/home.component';
 import { HeaderComponent } from './header/header.component';
 import { UserInfoComponent } from './user-profile/user-info/user-info.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
-import { HeaderComponent } from './header/header.component';
 
 @NgModule({
   declarations: [
