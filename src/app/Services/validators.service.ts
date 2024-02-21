@@ -1,6 +1,6 @@
-import { Injectable, inject } from '@angular/core';
-import { UserService } from './user.service';
+import { Injectable } from '@angular/core';
 import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
+import { UserService } from './user.service';
 
 @Injectable({
   providedIn: 'root',
@@ -52,7 +52,7 @@ export class ValidatorsService {
     };
   }
 
-  nospaceAllowed(): ValidatorFn {
+  noSpaceAllowed(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
       if (control.value != null && control.value.indexOf(' ') != -1) {
         return { noSpaceAllowed: true };

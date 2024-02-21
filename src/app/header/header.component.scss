@@ -1,15 +1,44 @@
-@import "../style/variable.scss";
+@import "../../assets/style/variable.scss";
 
 .header {
+  margin-top: 2.5rem;
   color: $black-color-600;
-}
-.page-title {
-  font-size: 2rem;
-  font-weight: 400;
-  line-height: 1.25rem;
 
-  &__link {
-    color: inherit;
+  &-title {
+    font-size: 2rem;
+    font-weight: 400;
+    line-height: 1.25rem;
+
+    &__link {
+      color: inherit;
+      transition: color 0.2s ease-out;
+
+      &:hover {
+        color: $sky-color-300;
+      }
+    }
+  }
+}
+
+.search-icon {
+  display: inline;
+  position: absolute;
+  width: 1rem;
+  height: 1rem;
+  top: 50%;
+  left: 90%;
+  transform: translateY(-50%);
+  cursor: pointer;
+
+  &::before {
+    transition: all 0.3s ease-out;
+    content: url("../../assets/icons/search-icon.svg");
+  }
+
+  &:hover {
+    &::before {
+      content: url("../../assets/icons/search-icon-blue.svg");
+    }
   }
 }
 
@@ -51,7 +80,7 @@
     &:hover {
       transform: scale(1.15);
       &::before {
-        content: url("../../assets/icons/checkout-icon-blue.svg");
+        content: url("../../assets/icons/checkout-icon-red.svg");
       }
     }
   }

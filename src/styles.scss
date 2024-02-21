@@ -1,6 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap");
 
-@import "./app/style/variable.scss";
+@import "./assets/style/variable.scss";
 
 // global css
 *,
@@ -35,8 +35,8 @@ button {
 .container {
   width: 100%;
   max-width: 88rem;
-  margin: 2rem auto 0;
-  padding: 0 1rem;
+  padding: 1rem 1rem;
+  margin: 0 auto;
 }
 
 .form {
@@ -51,10 +51,21 @@ button {
     transform: translate(-50%, -50%);
   }
 
+  &__group {
+    margin-top: 1.7rem;
+    position: relative;
+  }
+
   &-title {
     font-size: 2rem;
     font-weight: 500;
     text-align: center;
+  }
+
+  &__steric {
+    position: absolute;
+    top: 0;
+    left: 0;
   }
 
   &__error-message {
@@ -74,6 +85,10 @@ button {
       font-weight: 500;
       color: $blue-color-500;
     }
+  }
+
+  &__button-wrapper {
+    margin: 1.5rem 0;
   }
 }
 
@@ -144,5 +159,17 @@ button {
   &-end {
     @extend .flex;
     justify-content: flex-end;
+  }
+}
+
+.header__search-wrapper {
+  position: relative;
+  width: 25rem;
+  height: 3rem;
+
+  .search-box {
+    height: 100%;
+    background-color: $black-color-50;
+    border: none !important;
   }
 }

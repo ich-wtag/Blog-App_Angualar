@@ -1,14 +1,14 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { GetControlName } from '../Models/commonFunctions';
-import { UserService } from '../Services/user.service';
 import { Router } from '@angular/router';
+import { UserService } from '../Services/user.service';
 import { ValidatorsService } from '../Services/validators.service';
+import { GetControlName } from '../Models/commonFunctions';
 
 @Component({
   selector: 'app-register',
@@ -38,7 +38,7 @@ export class RegisterComponent {
     userName: new FormControl('', [
       Validators.required,
       this.validatorService.uniqueUserNameValidator(),
-      this.validatorService.nospaceAllowed(),
+      this.validatorService.noSpaceAllowed(),
     ]),
     email: new FormControl('', [
       Validators.required,
@@ -52,16 +52,7 @@ export class RegisterComponent {
   });
 
   onRegistration() {
-    const { firstName, lastName, userName, email, password } =
-      this.registrationForm.value;
-
-    this.userService.registerUser(
-      firstName.trim(),
-      lastName.trim(),
-      userName,
-      email.trim(),
-      password.trim()
-    );
+    this.userService.registerUser(this.registrationForm.value);
 
     this.router.navigate(['/login']);
   }
