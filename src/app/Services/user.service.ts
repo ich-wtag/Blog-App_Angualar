@@ -5,8 +5,6 @@ import { User } from '../Models/user';
   providedIn: 'root',
 })
 export class UserService {
-  constructor() {}
-
   users: User[] = [];
 
   getUserId() {
@@ -17,22 +15,9 @@ export class UserService {
     return maxId + 1;
   }
 
-  registerUser(
-    firstName: string,
-    lastName: string,
-    userName: string,
-    email: string,
-    password: string
-  ) {
-    let id = this.getUserId();
-    const user: User = {
-      id,
-      firstName,
-      lastName,
-      userName,
-      email,
-      password,
-    };
+  registerUser(user: User) {
+    const id = this.getUserId();
+    user.id = id;
 
     this.users.push(user);
   }

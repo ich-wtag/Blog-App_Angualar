@@ -1,16 +1,14 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { GetControlName } from '../Models/commonFunctions';
-import { UserService } from '../Services/user.service';
-import { AuthService } from '../Services/auth.service';
-import { LoggedInUser } from '../Models/loggedInUser';
-import { ValidatorsService } from '../Services/validators.service';
 import { Router } from '@angular/router';
+import { AuthService } from '../Services/auth.service';
+import { ValidatorsService } from '../Services/validators.service';
+import { GetControlName } from '../Models/commonFunctions';
 
 @Component({
   selector: 'app-login',
@@ -21,12 +19,9 @@ export class LoginComponent {
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
-    private userService: UserService,
     private router: Router,
     private validatorService: ValidatorsService
   ) {}
-
-  registeredUser = this.userService.getAllUsers();
 
   loginForm: FormGroup = this.formBuilder.group({
     userName: new FormControl('', [
@@ -44,13 +39,7 @@ export class LoginComponent {
   onLogIn() {
     const { userName, password } = this.loginForm.value;
 
-    const loggedInUser: LoggedInUser = {
-      userName,
-      password,
-    };
-
-    this.authService.onLogggedIn(loggedInUser);
-
+    this.authService.onLogggedIn(userName, password);
     this.router.navigate(['/home']);
   }
 }

@@ -1,5 +1,5 @@
-import { Component, Input, Output } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { Component, Input } from '@angular/core';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-input',
@@ -9,6 +9,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 export class InputComponent {
   @Input() label?: string;
   @Input() placeholder?: string;
+  @Input() wrapperClassName?: string;
   @Input() className?: string;
   @Input() type?: 'text' | 'password' | 'email' | 'number';
   @Input() control = new FormControl();
