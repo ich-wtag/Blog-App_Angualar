@@ -5,7 +5,7 @@
 
   <div class="flex-end greeting--wrapper">
     <app-input
-    *ngIf="!showSearchBox"
+      *ngIf="!showSearchBox"
       type="text"
       wrapperClassName="header__search-wrapper"
       placeholder="Search"
@@ -18,7 +18,7 @@
       <ng-container *ngIf="isLoggedIn; else loggedOutView">
         <div class="greeting__message">Welcome</div>
         <div class="greeting__user-name">
-          <a class="name">
+          <a class="name" routerLink="/me">
             {{ loggedInUser?.firstName }}
           </a>
         </div>
@@ -27,10 +27,11 @@
         </app-button>
       </ng-container>
 
-    <ng-template #loggedOutView>
-      <a class="greeting__link" routerLink="/login">Login</a>
-      <span>/</span>
-      <a class="greeting__link" routerLink="/register">Signup</a>
-    </ng-template>
+      <ng-template #loggedOutView>
+        <a class="greeting__link" routerLink="/login">Login</a>
+        <span>/</span>
+        <a class="greeting__link" routerLink="/register">Signup</a>
+      </ng-template>
+    </div>
   </div>
 </header>
