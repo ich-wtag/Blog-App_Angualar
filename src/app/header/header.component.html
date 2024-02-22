@@ -3,6 +3,7 @@
     <a class="header-title__link" routerLink="/home">WellBlog</a>
   </h1>
   <app-input
+    *ngIf="!showSearchBox"
     type="text"
     wrapperClassName="header__search-wrapper"
     placeholder="Search"
