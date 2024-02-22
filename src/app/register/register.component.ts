@@ -52,7 +52,7 @@ export class RegisterComponent {
   });
 
   onRegistration() {
-    this.userService.registerUser(this.registrationForm.value);
+    this.userService.registerUser(this.registrationForm);
 
     this.router.navigate(['/login']);
   }
