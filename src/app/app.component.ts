@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Event, NavigationEnd, NavigationStart, Router } from '@angular/router';
+import { Event, NavigationEnd, Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',

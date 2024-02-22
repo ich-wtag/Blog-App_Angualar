@@ -1,19 +1,16 @@
-@import "../../style/variable.scss";
+@import "../../../assets/style/variable.scss";
 
 .form {
-  &__group {
-    margin-top: 1.7rem;
-  }
-
   &__label {
     display: block;
     font-size: 1.2rem;
     font-weight: 500;
+    padding-left: 0.65rem;
+    margin-bottom: 0.5rem;
   }
 
   &__input {
     display: block;
-    margin-top: 0.5rem;
     width: 100%;
     padding: 0.6rem 1rem;
     border-radius: 0.3rem;

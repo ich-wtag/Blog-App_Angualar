@@ -1,7 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { AuthService } from '../Services/auth.service';
-import { Router } from '@angular/router';
+import { Event, NavigationEnd, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { AuthService } from '../Services/auth.service';
+import { USER } from '../Models/constants';
 
 @Component({
   selector: 'app-header',
@@ -13,8 +14,19 @@ export class HeaderComponent implements OnInit, OnDestroy {
   loggedInUser = this.authService.loggedInUser;
   isLoggedIn: boolean = false;
   loggerObserver!: Subscription;
+  showSearchBox: boolean = false;
 
   ngOnInit(): void {
+    this.router.events.subscribe((routerEvent: Event) => {
+      if (routerEvent instanceof NavigationEnd) {
+        if (routerEvent.url === '/me') {
+          this.showSearchBox = true;
+        } else {
+          this.showSearchBox = false;
+        }
+      }
+    });
+
     this.loggerObserver = this.authService.loggerObserver.subscribe((data) => {
       this.isLoggedIn = data;
     });

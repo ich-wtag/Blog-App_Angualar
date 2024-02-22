@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { User } from '../Models/user';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
-  constructor() {}
-
   users: User[] = [];
 
   getUserId() {
@@ -17,23 +16,20 @@ export class UserService {
     return maxId + 1;
   }
 
-  registerUser(
-    firstName: string,
-    lastName: string,
-    userName: string,
-    email: string,
-    password: string
-  ) {
+  registerUser(formGroupData: FormGroup) {
     const id = this.getUserId();
+    const { firstName, lastName, email, userName, password } =
+      formGroupData.value;
+
     const joiningDate = new Date().toISOString();
     const user: User = {
       id,
       firstName,
       lastName,
-      userName,
       email,
-      joiningDate,
+      userName,
       password,
+      joiningDate,
     };
 
     this.users.push(user);
