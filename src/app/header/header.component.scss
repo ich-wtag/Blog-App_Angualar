@@ -49,6 +49,10 @@
   font-size: 1.2rem;
   column-gap: 0.625rem;
 
+  &--wrapper {
+    column-gap: 3rem;
+  }
+
   &__message {
     font-weight: 400;
   }
@@ -64,6 +68,10 @@
 
   &__link {
     color: $sky-color-300;
+    transition: color 0.3s ease-out;
+    &:hover {
+      color: $black-color-300;
+    }
   }
 }
 
