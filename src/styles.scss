@@ -54,12 +54,29 @@ button {
   &__group {
     margin-top: 1.7rem;
     position: relative;
+    &--blogs {
+      @extend .form__group;
+      flex: 1;
+      flex-basis: 100%;
+
+      .form__label {
+        padding: 0;
+      }
+    }
   }
 
   &-title {
     font-size: 2rem;
     font-weight: 500;
     text-align: center;
+  }
+
+  &__label {
+    display: block;
+    font-size: 1.2rem;
+    font-weight: 500;
+    padding-left: 0.65rem;
+    margin-bottom: 0.5rem;
   }
 
   &__steric {
@@ -89,6 +106,7 @@ button {
 
   &__button-wrapper {
     margin: 1.5rem 0;
+    column-gap: 1.4rem;
   }
 }
 
@@ -123,8 +141,8 @@ button {
 
 .secondary-button {
   @extend .button;
-  color: $white-color;
-  background-color: $blue-color-500;
+  color: $black-color-400;
+  background-color: $black-color-75;
 }
 
 .icon-button {

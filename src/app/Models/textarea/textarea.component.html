@@ -1,12 +1,9 @@
 <div [class]="wrapperClassName">
-  <label *ngIf="label" class="form__label">{{ label }}</label>
-  <input
-    class="form__input"
+  <label *ngIf="label" class="form__label"> {{ label }} </label>
+  <textarea
+    class="form__textarea"
     [class]="className"
-    [type]="type"
     placeholder="{{ placeholder?.length ? placeholder : placeholder }}"
     [formControl]="control"
-  />
-
-  <ng-content></ng-content>
+  ></textarea>
 </div>

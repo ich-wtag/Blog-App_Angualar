@@ -12,6 +12,7 @@ import { HeaderComponent } from './header/header.component';
 import { UserInfoComponent } from './user-profile/user-info/user-info.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { BlogCreationFormComponent } from './user-profile/blog-creation-form/blog-creation-form.component';
+import { TextareaComponent } from './Models/textarea/textarea.component';
 
 @NgModule({
   declarations: [
@@ -23,9 +24,9 @@ import { BlogCreationFormComponent } from './user-profile/blog-creation-form/blo
     HomeComponent,
     HeaderComponent,
     UserInfoComponent,
-
     UserProfileComponent,
-     BlogCreationFormComponent,
+    BlogCreationFormComponent,
+    TextareaComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, ReactiveFormsModule],
   providers: [],
