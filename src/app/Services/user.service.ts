@@ -21,11 +21,16 @@ export class UserService {
     const { firstName, lastName, email, userName, password } =
       formGroupData.value;
 
-    const user: User = { id, firstName, lastName, email, userName, password };
     const joiningDate = new Date().toISOString();
-
-    user.id = id;
-    user.joiningDate = joiningDate;
+    const user: User = {
+      id,
+      firstName,
+      lastName,
+      email,
+      userName,
+      password,
+      joiningDate,
+    };
 
     this.users.push(user);
   }
