@@ -14,9 +14,45 @@
     }
   }
 
+  &__suported-files {
+    font-weight: 500;
+    color: $black-color-100;
+  }
+
   &__group--blogs {
     .form__input {
       border-color: $black-color-60;
     }
+  }
+}
+
+.header__search-wrapper {
+  position: relative;
+  width: 25rem;
+  height: 3rem;
+
+  .search-box {
+    height: 100%;
+    background-color: $black-color-50;
+    border: none;
+  }
+}
+
+.banner-image {
+  &__field {
+    flex-direction: column;
+    height: 12rem;
+    background-color: $white-color;
+    border-radius: 0.375rem;
+    border: 0.125rem dashed $black-color-60;
+  }
+
+  &__input {
+    display: none;
+  }
+
+  &__label {
+    cursor: pointer;
+    color: $blue-color-500;
   }
 }

@@ -13,6 +13,7 @@ import { UserInfoComponent } from './user-profile/user-info/user-info.component'
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { BlogCreationFormComponent } from './user-profile/blog-creation-form/blog-creation-form.component';
 import { TextareaComponent } from './Models/textarea/textarea.component';
+import { SelectComponent } from './Models/select/select.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { TextareaComponent } from './Models/textarea/textarea.component';
     UserProfileComponent,
     BlogCreationFormComponent,
     TextareaComponent,
+    SelectComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, ReactiveFormsModule],
   providers: [],

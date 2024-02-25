@@ -13,4 +13,7 @@ export class InputComponent {
   @Input() className?: string;
   @Input() type?: 'text' | 'password' | 'email' | 'number' | 'file';
   @Input() control = new FormControl();
+
+  @Input() inputFileWrapperClass?: string;
+  @Input() selectableLabelClass?: string;
 }

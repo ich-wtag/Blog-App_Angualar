@@ -5,18 +5,30 @@
       wrapperClassName="form__group--blogs"
       label="Title"
     ></app-input>
-    <app-input
+    <!-- <app-input
       type="text"
       wrapperClassName="form__group--blogs"
       label="Tags"
-    ></app-input>
+    ></app-input> -->
+    <app-select
+      wrapperClassName="form__group--blogs"
+      className="select-items"
+      label="Tags"
+    ></app-select>
   </div>
 
   <app-input
     type="file"
-    wrapperClassName="form__group--blogs"
+    wrapperClassName="form__group--blogs banner-image"
     label="Banner Image"
-  ></app-input>
+    className="banner-image__input"
+    inputFileWrapperClass="banner-image__field"
+    selectableLabelClass="banner-image__label"
+  >
+    <span class="flex-center banner-image__uploaded-file">
+      Uploaded file: No file uploaded.
+    </span>
+  </app-input>
   <!-- [control]="getControlName(registrationForm, 'password')" -->
 
   <app-textarea

@@ -77,6 +77,7 @@ button {
     font-weight: 500;
     padding-left: 0.65rem;
     margin-bottom: 0.5rem;
+    line-height: 1.75rem;
   }
 
   &__steric {
@@ -177,17 +178,5 @@ button {
   &-end {
     @extend .flex;
     justify-content: flex-end;
-  }
-}
-
-.header__search-wrapper {
-  position: relative;
-  width: 25rem;
-  height: 3rem;
-
-  .search-box {
-    height: 100%;
-    background-color: $black-color-50;
-    border: none !important;
   }
 }
