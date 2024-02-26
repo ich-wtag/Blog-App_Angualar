@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
 @Component({
@@ -16,4 +16,10 @@ export class InputComponent {
 
   @Input() inputFileWrapperClass?: string;
   @Input() selectableLabelClass?: string;
+
+  @Output() OnChangeEvent: EventEmitter<Event> = new EventEmitter<Event>();
+
+  onChangeImage(event: any) {
+    this.OnChangeEvent.emit(event);
+  }
 }

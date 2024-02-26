@@ -1,9 +1,14 @@
-<form class="form blog-form">
+<form
+  class="form blog-form"
+  [formGroup]="blogForm"
+  (ngSubmit)="onBlogCreation()"
+>
   <div class="flex tags-wrapper">
     <app-input
       type="text"
       wrapperClassName="form__group--blogs"
       label="Title"
+      [control]="getControlName(blogForm, 'title')"
     ></app-input>
     <app-select
       wrapperClassName="form__group--blogs"
@@ -19,18 +24,20 @@
     className="banner-image__input"
     inputFileWrapperClass="banner-image__field"
     selectableLabelClass="banner-image__label"
+    [control]="getControlName(blogForm, 'bannerImage')"
+    (OnChangeEvent)="onImageSelection($event)"
   >
     <span class="flex-center banner-image__uploaded-file">
       Uploaded file: No file uploaded.
     </span>
   </app-input>
-  <!-- [control]="getControlName(registrationForm, 'password')" -->
 
   <app-textarea
     type="password"
     placeholder=""
     wrapperClassName="form__group--blogs"
     label="Body"
+    [control]="getControlName(blogForm, 'description')"
   ></app-textarea>
 
   <div class="flex-center form__button-wrapper">

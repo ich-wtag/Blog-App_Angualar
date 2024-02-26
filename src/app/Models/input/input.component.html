@@ -23,10 +23,12 @@
         browse
         <input
           class="form__input"
+          accept="image/*"
+          placeholder="{{ placeholder?.length ? placeholder : placeholder }}"
           [class]="className"
           [type]="type"
-          placeholder="{{ placeholder?.length ? placeholder : placeholder }}"
-          [formControl]="control"
+          (drop)="onChangeImage($event)"
+          (change)="onChangeImage($event)"
         />
       </label>
     </span>

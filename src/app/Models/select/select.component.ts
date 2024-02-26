@@ -12,6 +12,4 @@ export class SelectComponent {
   @Input() wrapperClassName?: string;
   @Input() className?: string;
   @Input() control = new FormControl();
-
-  selectedItemFunc() {}
 }
