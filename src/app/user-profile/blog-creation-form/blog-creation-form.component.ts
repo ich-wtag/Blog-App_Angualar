@@ -1,5 +1,11 @@
 import { Component, ElementRef } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import {
+  FormArray,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { GetControlName } from 'src/app/Models/commonFunctions';
 import { ValidatorsService } from 'src/app/Services/validators.service';
 
@@ -20,15 +26,26 @@ export class BlogCreationFormComponent {
   getControlName = GetControlName;
 
   blogForm: FormGroup = this.formBuilder.group({
-    title: new FormControl(''),
-    tags: new FormArray([
-      new FormControl('Technology'),
-      new FormControl('Poetry'),
-      new FormControl('Films'),
-      new FormControl('World Politics'),
-    ]),
-    bannerImage: new FormControl(Object),
-    description: new FormControl(''),
+    title: new FormControl('', {
+      validators: [Validators.required],
+    }),
+    tags: new FormArray(
+      [
+        new FormControl('Technology'),
+        new FormControl('Poetry'),
+        new FormControl('Films'),
+        new FormControl('World Politics'),
+      ],
+      {
+        validators: [Validators.required],
+      }
+    ),
+    bannerImage: new FormControl(Object, {
+      validators: [Validators.required],
+    }),
+    description: new FormControl('', {
+      validators: [Validators.required],
+    }),
   });
 
   onBlogCreation() {
