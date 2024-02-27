@@ -14,6 +14,8 @@
       wrapperClassName="form__group--blogs"
       className="select-items"
       label="Tags"
+      (SelectedTags)="getSelectedTag($event)"
+      (UnSelectTag)="removeUnselectedTags($event)"
     ></app-select>
   </div>
 
@@ -28,7 +30,8 @@
     (OnChangeEvent)="onImageSelection($event)"
   >
     <span class="flex-center banner-image__uploaded-file">
-      Uploaded file: No file uploaded.
+      Uploaded file:
+      {{ imageFileName?.length ? imageFileName : "No file uploaded" }}
     </span>
   </app-input>
 

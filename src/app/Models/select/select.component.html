@@ -1,35 +1,33 @@
 <div class="form__select" [class]="wrapperClassName">
   <label *ngIf="label" class="form__label"> {{ label }} </label>
   <div class="flex-start form__selected-field">
-    <span class="form__selected-item"
-      >Technology <span class="close-icon"></span>
+    <span
+      class="form__selected-item"
+      *ngFor="let tag of availableTags; let i = index"
+    >
+      {{ tag }}
+      <span class="close-icon" (click)="cancelButtonClicked(tag, i)"> </span>
     </span>
-    <span class="form__selected-item"
-      >Poetry <span class="close-icon"></span
-    ></span>
-    <span class="form__selected-item"
-      >Films <span class="close-icon"></span
-    ></span>
-    <span class="form__selected-item"
-      >World politics <span class="close-icon"></span
-    ></span>
-    <span class="form__dropdown-icon"> </span>
+
+    <span
+      *ngIf="selectedTags.length"
+      #dropdownArrow
+      class="form__dropdown-icon"
+      (click)="dropDownClicked()"
+    >
+    </span>
   </div>
-  <div class="form__select-options--wrapper">
-    <div class="form__select-options">
-      <label class="select-options__text"
-        ><input type="checkbox" /> Option 1</label
-      >
-    </div>
-    <div class="form__select-options">
-      <label class="select-options__text"
-        ><input type="checkbox" /> Option 2</label
-      >
-    </div>
-    <div class="form__select-options">
-      <label class="select-options__text"
-        ><input type="checkbox" /> Option 3</label
-      >
-    </div>
+  <div
+    *ngIf="isDropdownVisible && selectedTags.length > 0"
+    #dropdownOptionWrapper
+    class="form__select-options--wrapper"
+  >
+    <ng-container *ngFor="let option of selectedTags; let i = index">
+      <div class="form__select-options" (click)="optionClicked(option, i)">
+        <label class="select-options__text"
+          ><input type="checkbox" /> {{ option }}</label
+        >
+      </div>
+    </ng-container>
   </div>
 </div>

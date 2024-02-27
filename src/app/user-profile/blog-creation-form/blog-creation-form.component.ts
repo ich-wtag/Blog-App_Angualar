@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { GetControlName } from 'src/app/Models/commonFunctions';
 import { ValidatorsService } from 'src/app/Services/validators.service';
@@ -10,7 +10,8 @@ import { ValidatorsService } from 'src/app/Services/validators.service';
 })
 export class BlogCreationFormComponent {
   imageSrc?: string;
-  bannerImage: string = '';
+  imageFileName?: string;
+
   constructor(
     private formBuilder: FormBuilder,
     private validatorService: ValidatorsService
@@ -20,23 +21,38 @@ export class BlogCreationFormComponent {
 
   blogForm: FormGroup = this.formBuilder.group({
     title: new FormControl(''),
-    tags: new FormArray([new FormControl('')]),
+    tags: new FormArray([
+      new FormControl('Technology'),
+      new FormControl('Poetry'),
+      new FormControl('Films'),
+      new FormControl('World Politics'),
+    ]),
     bannerImage: new FormControl(Object),
     description: new FormControl(''),
   });
 
   onBlogCreation() {
-    this.blogForm.patchValue({
-      bannerImage: this.imageSrc,
-    });
+    console.log(this.blogForm.value);
   }
 
   onImageSelection(event: any) {
-    this.bannerImage = event.target.files[0];
-    console.log(URL.createObjectURL(event.target.files[0]));
+    if (event.target?.files?.length) {
+      this.imageSrc = URL.createObjectURL(event.target.files[0]);
+      this.imageFileName = event.target.files[0].name;
 
-    this.imageSrc = URL.createObjectURL(event.target.files[0]);
+      this.blogForm.patchValue({
+        bannerImage: this.imageSrc,
+      });
+    }
+  }
+
+  getSelectedTag(tag: string) {
+    const tagArray = <FormArray>this.blogForm.get('tags');
+    tagArray.push(new FormControl(tag));
+  }
+
+  removeUnselectedTags(indexNumber: number) {
+    let tagArray = <FormArray>this.blogForm.get('tags');
+    tagArray.removeAt(indexNumber);
   }
 }
-
-

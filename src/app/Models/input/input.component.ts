@@ -19,7 +19,7 @@ export class InputComponent {
 
   @Output() OnChangeEvent: EventEmitter<Event> = new EventEmitter<Event>();
 
-  onChangeImage(event: any) {
+  onChangeImage(event: Event) {
     this.OnChangeEvent.emit(event);
   }
 }
