@@ -38,3 +38,5 @@ export class BlogCreationFormComponent {
     this.imageSrc = URL.createObjectURL(event.target.files[0]);
   }
 }
+
+
