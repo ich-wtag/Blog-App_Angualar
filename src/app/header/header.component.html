@@ -5,13 +5,13 @@
 
   <div class="flex-end greeting--wrapper">
     <app-input
-      *ngIf="!showSearchBox"
+      *ngIf="showSearchBox"
       type="text"
       wrapperClassName="header__search-wrapper"
       placeholder="Search"
       className="search-box"
     >
-      <span class="icon-button search-icon"></span>
+      <span class="icon-button search-icon" title></span>
     </app-input>
 
     <div class="greeting">
