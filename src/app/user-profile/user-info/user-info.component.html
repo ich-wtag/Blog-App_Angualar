@@ -1,9 +1,9 @@
 <div class="flex-end button-wrapper">
   <app-button className="icon-button">
-    <span class="icon-button__plus"> </span>
+    <span class="icon-button__plus" title> </span>
   </app-button>
   <app-button className="icon-button">
-    <span class="icon-button__edit"></span>
+    <span class="icon-button__edit" title></span>
   </app-button>
 </div>
 
@@ -11,11 +11,7 @@
   <div class="flex-center user">
     <div class="flex user__info">
       <div class="user__info-image">
-        <img
-          class="user-image"
-          src="../../../assets/images/user-image.png"
-          alt="user name"
-        />
+        <img class="user-image" [src]="userImage" alt="user name" />
       </div>
 
       <div class="user__info-name">
@@ -31,31 +27,31 @@
     </div>
 
     <div class="flex user__contact">
-      <a class="flex-center user__contact-icon">
+      <a class="flex-center user__contact-icon" title>
         <img
-          class="icon-facebook"
-          src="../../../assets/icons/facebook-icon.svg"
+          class="icon-image icon-facebook"
+          [src]="facebookIcon"
           alt="facebook icon"
         />
       </a>
-      <a class="flex-center user__contact-icon">
+      <a class="flex-center user__contact-icon" title>
         <img
-          class="icon-twitter"
-          src="../../../assets/icons/twitter-icon.svg"
+          class="icon-image icon-twitter"
+          [src]="twitterIcon"
           alt="twitter icon"
         />
       </a>
-      <a class="flex-center user__contact-icon">
+      <a class="flex-center user__contact-icon" title>
         <img
-          class="icon-instragram"
-          src="../../../assets/icons/instragram-icon.svg"
+          class="icon-image icon-instragram"
+          [src]="instragamIcon"
           alt="instragram icon"
         />
       </a>
-      <a class="flex-center user__contact-icon">
+      <a class="flex-center user__contact-icon" title>
         <img
-          class="icon-youtube"
-          src="../../../assets/icons/youtube-icon.svg"
+          class="icon-image icon-youtube"
+          [src]="youtubeIcon"
           alt="youtube icon"
         />
       </a>
