@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Event, NavigationEnd, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../Services/auth.service';
 import { USER } from '../Models/constants';
@@ -11,20 +11,16 @@ import { USER } from '../Models/constants';
 })
 export class HeaderComponent implements OnInit, OnDestroy {
   constructor(private authService: AuthService, private router: Router) {}
+
   loggedInUser = this.authService.loggedInUser;
   isLoggedIn: boolean = false;
   loggerObserver!: Subscription;
+  navigatorObserver!: Subscription;
   showSearchBox: boolean = false;
 
   ngOnInit(): void {
-    this.router.events.subscribe((routerEvent: Event) => {
-      if (routerEvent instanceof NavigationEnd) {
-        if (routerEvent.url === '/me') {
-          this.showSearchBox = true;
-        } else {
-          this.showSearchBox = false;
-        }
-      }
+    this.navigatorObserver = this.router.events.subscribe(() => {
+      this.checkRoute();
     });
 
     this.loggerObserver = this.authService.loggerObserver.subscribe((data) => {
@@ -38,5 +34,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
   ngOnDestroy(): void {
     this.loggerObserver.unsubscribe();
+    this.navigatorObserver.unsubscribe();
+  }
+
+  checkRoute(): void {
+    const currentRoute = this.router.url;
+    this.showSearchBox = currentRoute === '/' || currentRoute === '/home';
   }
 }

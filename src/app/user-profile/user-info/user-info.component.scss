@@ -11,14 +11,26 @@
     transition: transform 0.2s ease-out;
 
     &::before {
-      content: url("../../../assets/icons/plus-icon.svg");
+      content: url($plus-icon);
     }
 
     &:hover {
       transform: scale(1.15);
       &::before {
-        content: url("../../../assets/icons/plus-icon-blue.svg");
+        content: url($plus-icon-blue);
       }
+    }
+
+    &[title]:hover::after {
+      content: "Add Blog";
+      position: absolute;
+      top: 140%;
+      right: 0;
+      border-radius: 0.35rem;
+      color: $white-color;
+      text-wrap: nowrap;
+      padding: 0.35rem 0.65rem;
+      background-color: $sky-color-300;
     }
   }
   &__edit {
@@ -27,14 +39,26 @@
     transition: transform 0.2s ease-out;
 
     &::before {
-      content: url("../../../assets/icons/edit-icon.svg");
+      content: url($edit-icon);
     }
 
     &:hover {
       transform: scale(1.15);
       &::before {
-        content: url("../../../assets/icons/edit-icon-blue.svg");
+        content: url($edit-icon-blue);
       }
+    }
+
+    &[title]:hover::after {
+      content: "Edit Profile";
+      position: absolute;
+      top: 140%;
+      right: 0;
+      border-radius: 0.35rem;
+      color: $white-color;
+      text-wrap: nowrap;
+      padding: 0.35rem 0.65rem;
+      background-color: $sky-color-300;
     }
   }
 }
@@ -45,6 +69,7 @@
   border-radius: 0.75rem;
   padding: 3rem 0;
 }
+
 .user {
   width: 100%;
   max-width: 44rem;
@@ -99,10 +124,47 @@
     column-gap: 0.5rem;
 
     &-icon {
+      position: relative;
       height: 2rem;
       width: 2rem;
       background-color: $black-color-200;
       border-radius: 0.375rem;
+
+      .icon-image {
+        transition: all 0.5s ease-out;
+      }
+
+      &:hover {
+        background-color: $sky-color-300;
+
+        .icon-image {
+          transform: rotateY(360deg);
+        }
+      }
+
+      &[title]:hover::after {
+        position: absolute;
+        border-radius: 0.35rem;
+        color: $white-color;
+        top: 120%;
+        right: 0;
+        text-wrap: nowrap;
+        padding: 0.35rem 0.65rem;
+        background-color: $sky-color-300;
+      }
+
+      &[title]:has(.icon-facebook):hover::after {
+        content: "Facebook";
+      }
+      &[title]:has(.icon-twitter):hover::after {
+        content: "Twitter";
+      }
+      &[title]:has(.icon-instragram):hover::after {
+        content: "Instragram";
+      }
+      &[title]:has(.icon-youtube):hover::after {
+        content: "Youtube";
+      }
 
       .icon-facebook {
         width: 0.875rem;

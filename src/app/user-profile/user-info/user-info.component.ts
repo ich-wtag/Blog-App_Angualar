@@ -1,4 +1,11 @@
 import { Component } from '@angular/core';
+import {
+  FACEBOOKICON,
+  INSTRAGRAMICON,
+  TWITTERICON,
+  USERIMAGE,
+  YOUTUBEICON,
+} from 'src/app/Models/constants';
 import { User } from 'src/app/Models/user';
 import { AuthService } from 'src/app/Services/auth.service';
 
@@ -9,6 +16,11 @@ import { AuthService } from 'src/app/Services/auth.service';
 })
 export class UserInfoComponent {
   constructor(private authService: AuthService) {}
+  userImage: string = USERIMAGE;
+  facebookIcon: string = FACEBOOKICON;
+  twitterIcon: string = TWITTERICON;
+  instragamIcon: string = INSTRAGRAMICON;
+  youtubeIcon: string = YOUTUBEICON;
 
   loggedInUser = this.authService.loggedInUser;
 
