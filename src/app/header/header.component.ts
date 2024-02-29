@@ -1,15 +1,8 @@
-import {
-  AfterViewChecked,
-  AfterViewInit,
-  Component,
-  OnDestroy,
-  OnInit,
-} from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../Services/auth.service';
 import { USER } from '../Models/constants';
-import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-header',
