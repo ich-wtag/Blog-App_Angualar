@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../Services/auth.service';
 import { USER } from '../Models/constants';
@@ -10,7 +10,11 @@ import { USER } from '../Models/constants';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit, OnDestroy {
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute
+  ) {}
 
   loggedInUser = this.authService.loggedInUser;
   isLoggedIn: boolean = false;
@@ -20,7 +24,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.navigatorObserver = this.router.events.subscribe(() => {
-      this.checkRoute();
+      const isStateDataAvailable =
+        this.activatedRoute.snapshot.children[0].data['showSearchBox'];
+      if (isStateDataAvailable) {
+        this.showSearchBox = isStateDataAvailable;
+      } else {
+        this.showSearchBox = false;
+      }
     });
 
     this.loggerObserver = this.authService.loggerObserver.subscribe((data) => {
@@ -30,15 +40,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   onLogOut() {
     this.authService.onLogOut();
-    this.router.navigate(['/home']);
+    this.router.navigate(['/home', { showSearchBox: true }]);
   }
   ngOnDestroy(): void {
     this.loggerObserver.unsubscribe();
     this.navigatorObserver.unsubscribe();
-  }
-
-  checkRoute(): void {
-    const currentRoute = this.router.url;
-    this.showSearchBox = currentRoute === '/' || currentRoute === '/home';
   }
 }
