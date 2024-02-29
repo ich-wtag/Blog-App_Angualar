@@ -7,8 +7,8 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
 import { HOME, LOGIN, REGISTER, USER } from './Models/constants';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
-  { path: HOME, component: HomeComponent },
+  { path: '', component: HomeComponent, data: { showSearchBox: true } },
+  { path: HOME, component: HomeComponent, data: { showSearchBox: true } },
   { path: LOGIN, component: LoginComponent },
   { path: REGISTER, component: RegisterComponent },
   { path: USER, component: UserProfileComponent },
