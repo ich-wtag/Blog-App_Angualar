@@ -1,16 +1,18 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
+import { BLOGTAGS } from '../Models/constants';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CustomService {
-  hideShowDropdown: Subject<boolean> = new Subject();
+  blogArrays = BLOGTAGS;
 
-  hideDropdown() {
-    this.hideShowDropdown.next(false);
-  }
-  showDropdown() {
-    this.hideShowDropdown.next(true);
+  blogTagsArray: BehaviorSubject<string[]> = new BehaviorSubject(
+    this.blogArrays
+  );
+
+  setBlogsArray(blogs: string[]) {
+    this.blogTagsArray.next(blogs);
   }
 }

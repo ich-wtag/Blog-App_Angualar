@@ -17,7 +17,6 @@ import { BLOGTAGS } from '../constants';
 })
 export class SelectComponent {
   isDropdownVisible: boolean = false;
-  availableTags: string[] = BLOGTAGS;
   selectedTags: string[] = [];
 
   @Input() label?: string;
@@ -25,6 +24,7 @@ export class SelectComponent {
   @Input() wrapperClassName?: string;
   @Input() className?: string;
   @Input() control = new FormControl();
+  @Input() availableTags: string[] = [];
 
   @ViewChild('dropdownArrow') dropDownElem?: ElementRef;
 
@@ -51,8 +51,6 @@ export class SelectComponent {
       this.selectedTags.splice(index, 1);
       this.onSelectedTags(value);
     }
-
-    // this.onSelectedTags(this.selectedTags);
   }
 
   cancelButtonClicked(value: string, index: number) {

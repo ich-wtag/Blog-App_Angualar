@@ -14,6 +14,7 @@
       wrapperClassName="form__group--blogs"
       className="select-items"
       label="Tags"
+      [availableTags]="getControlName(blogForm, 'tags').value"
       (SelectedTags)="getSelectedTag($event)"
       (UnSelectTag)="removeUnselectedTags($event)"
     ></app-select>
@@ -44,7 +45,14 @@
   ></app-textarea>
 
   <div class="flex-center form__button-wrapper">
-    <app-button className="primary-button">Submit</app-button>
-    <app-button className="secondary-button">Cancel</app-button>
+    <app-button className="primary-button" [disabled]="!blogForm.valid"
+      >Submit</app-button
+    >
+    <app-button
+      className="secondary-button"
+      buttonType="button"
+      (click)="onCancelClicked()"
+      >Cancel</app-button
+    >
   </div>
 </form>
