@@ -26,7 +26,7 @@ input[type="checkbox"] {
     border-radius: 0.3rem;
 
     &:not(:first-child) {
-      margin-left: 0.415rem;
+      margin-left: 0.65rem;
     }
 
     .close-icon {
@@ -44,11 +44,16 @@ input[type="checkbox"] {
     cursor: pointer;
     margin-left: auto;
     width: fit-content;
+    transition: all 0.3s ease;
     content: url("../../../assets/icons/chevron-down.svg");
 
     &:hover {
       content: url("../../../assets/icons/chevron-down-black.svg");
     }
+  }
+
+  &.rotate {
+    transform: rotate(180deg);
   }
 
   &__select-options--wrapper {
@@ -62,6 +67,7 @@ input[type="checkbox"] {
     z-index: 2;
   }
   &__select-options {
+    cursor: pointer;
     padding: 0.72rem 1rem;
     margin: 0.125rem 0;
     border-radius: 0.375rem;
