@@ -6,8 +6,9 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { GetControlName } from 'src/app/Models/commonFunctions';
+import { GetControlName, imageTypeCheck } from 'src/app/Models/commonFunctions';
 import { BLOGTAGS } from 'src/app/Models/constants';
+import { BlogService } from 'src/app/Services/blog.service';
 import { ValidatorsService } from 'src/app/Services/validators.service';
 
 @Component({
@@ -16,44 +17,57 @@ import { ValidatorsService } from 'src/app/Services/validators.service';
   styleUrls: ['./blog-creation-form.component.scss'],
 })
 export class BlogCreationFormComponent implements OnInit {
-  imageSrc?: string;
   imageFileName?: string;
   blogTags: string[] = BLOGTAGS;
+  isFormatError: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
-    private validatorService: ValidatorsService
+    private blogService: BlogService
   ) {}
 
   getControlName = GetControlName;
 
   blogForm: FormGroup = this.formBuilder.group({
     title: new FormControl('', {
-      validators: [Validators.required],
+      validators: [Validators.required, Validators.minLength(8)],
     }),
     tags: new FormArray([], {
       validators: [Validators.required],
     }),
-    bannerImage: new FormControl('', {
+    blogImage: new FormControl('', {
       validators: [Validators.required],
     }),
     description: new FormControl('', {
-      validators: [Validators.required],
+      validators: [Validators.required, Validators.minLength(10)],
     }),
   });
 
   onBlogCreation() {
-    console.log(this.blogForm.value);
+    this.blogService.addBlog(this.blogForm);
+    this.resetForm();
+    this.toggleBlogForm();
   }
 
   onImageSelection(event: any) {
     if (event.target?.files?.length) {
-      this.imageSrc = URL.createObjectURL(event.target.files[0]);
-      this.imageFileName = event.target.files[0].name;
+      const file: File = event.target.files[0];
 
-      this.blogForm.patchValue({
-        bannerImage: this.imageSrc,
-      });
+      if (imageTypeCheck(file.name)) {
+        this.isFormatError = false;
+        this.imageFileName = file.name;
+        const reader: FileReader = new FileReader();
+
+        reader.onload = (e) => {
+          this.blogForm.patchValue({
+            blogImage: e.target?.result,
+          });
+        };
+        reader.readAsDataURL(file);
+      } else {
+        this.isFormatError = true;
+        this.imageFileName = '';
+      }
     }
   }
 
@@ -67,23 +81,29 @@ export class BlogCreationFormComponent implements OnInit {
     tagArray.removeAt(indexNumber);
   }
 
+  onCancelClicked() {
+    this.resetForm();
+  }
+
   ngOnInit(): void {
     this.updateFormTagsArray();
   }
 
-  onCancelClicked() {
-    // this.blogForm.reset();
-    this.imageFileName = '';
-    this.imageSrc = '';
-    this.updateFormTagsArray();
-    console.log(this.blogForm.value);
-  }
-
   private updateFormTagsArray() {
     const tagArray = <FormArray>this.blogForm.get('tags');
-    tagArray.reset();
+    tagArray.clear();
     this.blogTags.forEach((tag) => {
       tagArray.push(new FormControl(tag));
     });
+  }
+
+  private resetForm() {
+    this.blogForm.reset();
+    this.imageFileName = '';
+    this.updateFormTagsArray();
+  }
+
+  private toggleBlogForm() {
+    this.blogService.hideShowBlogForm();
   }
 }

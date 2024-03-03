@@ -1,0 +1,27 @@
+@import "../../../assets/style/variable.scss";
+
+.published-blogs {
+  margin-top: 5rem;
+
+  &__title {
+    font-size: 1.5rem;
+    font-weight: 500;
+    line-height: 1.75rem;
+    color: $black-color-600;
+  }
+
+  .blog-wrapper {
+    margin-top: 1rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 2rem;
+    row-gap: 2.5rem;
+  }
+
+  .no-blog-message {
+    font-size: 1.3rem;
+    font-weight: 500;
+    line-height: 1.5rem;
+    color: $red-color-500;
+  }
+}

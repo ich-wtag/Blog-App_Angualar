@@ -14,6 +14,8 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
 import { BlogCreationFormComponent } from './user-profile/blog-creation-form/blog-creation-form.component';
 import { TextareaComponent } from './Models/textarea/textarea.component';
 import { SelectComponent } from './Models/select/select.component';
+import { PersonalBlogsComponent } from './user-profile/personal-blogs/personal-blogs.component';
+import { BlogComponent } from './Models/blog/blog.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +31,8 @@ import { SelectComponent } from './Models/select/select.component';
     BlogCreationFormComponent,
     TextareaComponent,
     SelectComponent,
+    PersonalBlogsComponent,
+    BlogComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, ReactiveFormsModule],
   providers: [],

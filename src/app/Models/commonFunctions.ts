@@ -6,3 +6,11 @@ export const GetControlName = (
 ) => {
   return formControlGroup.get(formControl) as FormControl;
 };
+
+export const imageTypeCheck = (imageName: string) => {
+  if (/\.(jpe?g|png|gif)$/i.test(imageName)) {
+    return true;
+  }
+
+  return false;
+};

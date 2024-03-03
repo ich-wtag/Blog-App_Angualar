@@ -1,0 +1,31 @@
+<div class="blog">
+  <div class="blog__image" [routerLink]="'/blog/' + blog.blogId">
+    <img class="image" [src]="blog.blogImage" [alt]="blog.blogTitle" />
+  </div>
+
+  <div class="blog__details">
+    <div class="blog__tag">
+      <span *ngFor="let tag of blog.tags" class="tag"> {{ tag }} </span>
+    </div>
+
+    <h3 class="blog__title" [routerLink]="'/blog/' + blog.blogId">
+      {{ blog.blogTitle }}
+    </h3>
+
+    <div class="flex-between blog__creator">
+      <div class="flex-start blog__creator__info">
+        <div class="blog__creator__image">
+          <img
+            class="image"
+            [src]="blog.bloggerImage ? blog.bloggerImage : dummyUSerImage"
+            [alt]="blog.bloggerName"
+          />
+        </div>
+        <h5 class="blog__creator__name">{{ blog.bloggerName }}</h5>
+      </div>
+      <div class="blog__creator__created">
+        {{ blog.createdAt | date : "longDate" }}
+      </div>
+    </div>
+  </div>
+</div>

@@ -8,6 +8,7 @@ import {
 } from 'src/app/Models/constants';
 import { User } from 'src/app/Models/user';
 import { AuthService } from 'src/app/Services/auth.service';
+import { BlogService } from 'src/app/Services/blog.service';
 
 @Component({
   selector: 'app-user-info',
@@ -15,7 +16,10 @@ import { AuthService } from 'src/app/Services/auth.service';
   styleUrls: ['./user-info.component.scss'],
 })
 export class UserInfoComponent {
-  constructor(private authService: AuthService) {}
+  constructor(
+    private authService: AuthService,
+    private blogService: BlogService
+  ) {}
   userImage: string = USERIMAGE;
   facebookIcon: string = FACEBOOKICON;
   twitterIcon: string = TWITTERICON;
@@ -26,4 +30,8 @@ export class UserInfoComponent {
 
   userDescription: string =
     'Meet Jonathan Doe, a passionate writer and blogger with a love for technology and travel. Jonathan holds a degree in Computer Science and has spent years working in the tech industry, gaining a deep understanding of the impact technology has on our lives.';
+
+  toggleBlogFrom() {
+    this.blogService.hideShowBlogForm();
+  }
 }
