@@ -56,6 +56,10 @@ input[type="checkbox"] {
     }
   }
 
+  &.rotate {
+    transform: rotate(180deg);
+  }
+
   &__select-options--wrapper {
     position: absolute;
     width: 100%;
