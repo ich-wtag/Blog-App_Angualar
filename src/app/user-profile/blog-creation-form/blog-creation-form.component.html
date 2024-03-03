@@ -35,6 +35,10 @@
       Uploaded file:
       {{ imageFileName?.length ? imageFileName : "No file uploaded" }}
     </span>
+
+    <span *ngIf="isFormatError" class="form__error-message">
+      Please select the correct image format
+    </span>
   </app-input>
 
   <app-textarea
