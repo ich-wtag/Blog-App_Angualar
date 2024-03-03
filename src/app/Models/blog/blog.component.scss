@@ -46,6 +46,7 @@
     cursor: pointer;
     display: -webkit-box;
     width: 100%;
+    min-height: 5.25rem;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     text-overflow: ellipsis;
