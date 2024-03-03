@@ -16,6 +16,8 @@ import { TextareaComponent } from './Models/textarea/textarea.component';
 import { SelectComponent } from './Models/select/select.component';
 import { PersonalBlogsComponent } from './user-profile/personal-blogs/personal-blogs.component';
 import { BlogComponent } from './Models/blog/blog.component';
+import { BlogDetailsComponent } from './blog-details/blog-details.component';
+import { SentenceCasePipe } from './Pipes/sentence-case.pipe';
 
 @NgModule({
   declarations: [
@@ -33,6 +35,8 @@ import { BlogComponent } from './Models/blog/blog.component';
     SelectComponent,
     PersonalBlogsComponent,
     BlogComponent,
+    BlogDetailsComponent,
+    SentenceCasePipe,
   ],
   imports: [BrowserModule, AppRoutingModule, ReactiveFormsModule],
   providers: [],

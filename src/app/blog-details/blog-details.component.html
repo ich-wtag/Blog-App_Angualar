@@ -1,0 +1,38 @@
+<article class="blog-details">
+  <div class="blog-details__tags">
+    <span *ngFor="let tag of selectedBlog?.tags" class="tag"> {{ tag }} </span>
+  </div>
+
+  <h2 class="blog-details__title">{{ selectedBlog?.blogTitle }}</h2>
+
+  <div class="flex-start blog-details__creator">
+    <div class="flex-start blog-details__creator__info">
+      <div class="blog-details__creator__image">
+        <img
+          class="image"
+          [src]="
+            selectedBlog?.bloggerImage
+              ? selectedBlog?.bloggerImage
+              : dummyUserImage
+          "
+          alt="blogger"
+        />
+      </div>
+
+      <strong class="blog-details__creator__author">
+        {{ selectedBlog?.bloggerName }}
+      </strong>
+    </div>
+    <div class="blog-details__creator__created">
+      {{ selectedBlog?.createdAt | date : "longDate" }}
+    </div>
+  </div>
+
+  <div class="blog-details__image">
+    <img class="image" [src]="selectedBlog?.blogImage" alt="blog title" />
+  </div>
+
+  <p class="blog-details__description">
+    {{ selectedBlog?.description | sentenceCase }}
+  </p>
+</article>

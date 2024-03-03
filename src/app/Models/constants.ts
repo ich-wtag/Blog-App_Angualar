@@ -2,6 +2,7 @@ export const LOGIN = 'login';
 export const REGISTER = 'register';
 export const HOME = 'home';
 export const USER = 'me';
+export const BLOGID = 'blog/:id';
 export const USERIMAGE = '../../../assets/images/user-image.png';
 export const FACEBOOKICON = '../../../assets/icons/facebook-icon.svg';
 export const TWITTERICON = '../../../assets/icons/twitter-icon.svg';
