@@ -32,7 +32,7 @@ export class SelectComponent {
   @Output() UnSelectTag: EventEmitter<number> = new EventEmitter<number>();
 
   dropDownClicked() {
-    if (this.isDropdownVisible) {
+    if (this.isDropdownVisible || this.selectedTags.length === 0) {
       this.hideDropdown();
     } else {
       this.dropDownElem?.nativeElement.classList.add('rotate');
@@ -50,14 +50,20 @@ export class SelectComponent {
       this.availableTags.push(value);
       this.selectedTags.splice(index, 1);
       this.onSelectedTags(value);
+
+      if (this.selectedTags.length === 0) {
+        this.hideDropdown();
+      }
     }
   }
 
   cancelButtonClicked(value: string, index: number) {
-    if (!this.selectedTags.includes(value)) {
+    if (!this.selectedTags.includes(value) && this.availableTags.length > 1) {
       this.selectedTags.push(value);
       this.availableTags.splice(index, 1);
       this.onUnSelectTag(index);
+    } else if (this.selectedTags.length === 0) {
+      this.hideDropdown();
     }
   }
 
