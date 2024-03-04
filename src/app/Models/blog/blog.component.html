@@ -1,6 +1,11 @@
 <div class="blog">
   <div class="blog__image">
-    <img class="image" [src]="blog.blogImage" [alt]="blog.blogTitle" />
+    <img
+      class="image"
+      [src]="blog.blogImage"
+      [alt]="blog.blogTitle"
+      [routerLink]="'/blog/' + blog.blogId"
+    />
   </div>
 
   <div class="blog__details">
@@ -8,7 +13,7 @@
       <span *ngFor="let tag of blog.tags" class="tag"> {{ tag }} </span>
     </div>
 
-    <h3 class="blog__title">
+    <h3 class="blog__title" [routerLink]="'/blog/' + blog.blogId">
       {{ blog.blogTitle }}
     </h3>
 
