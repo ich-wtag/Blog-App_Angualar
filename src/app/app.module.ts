@@ -17,7 +17,7 @@ import { SelectComponent } from './Models/select/select.component';
 import { PersonalBlogsComponent } from './user-profile/personal-blogs/personal-blogs.component';
 import { BlogComponent } from './Models/blog/blog.component';
 import { BlogDetailsComponent } from './blog-details/blog-details.component';
-import { SentenceCasePipe } from './Pipes/sentence-case.pipe';
+import { EditorModule } from '@tinymce/tinymce-angular';
 
 @NgModule({
   declarations: [
@@ -36,9 +36,8 @@ import { SentenceCasePipe } from './Pipes/sentence-case.pipe';
     PersonalBlogsComponent,
     BlogComponent,
     BlogDetailsComponent,
-    SentenceCasePipe,
   ],
-  imports: [BrowserModule, AppRoutingModule, ReactiveFormsModule],
+  imports: [BrowserModule, AppRoutingModule, ReactiveFormsModule, EditorModule],
   providers: [],
   bootstrap: [AppComponent],
 })

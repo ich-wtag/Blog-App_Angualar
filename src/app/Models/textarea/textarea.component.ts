@@ -1,3 +1,4 @@
+import { HtmlParser } from '@angular/compiler';
 import { Component, Input } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
@@ -12,4 +13,10 @@ export class TextareaComponent {
   @Input() wrapperClassName?: string;
   @Input() className?: string;
   @Input() control = new FormControl();
+  @Input() isEditable: boolean = false;
+
+  dataEdit!: HTMLElement;
+  handleEditor(event: any) {
+    console.log(event);
+  }
 }

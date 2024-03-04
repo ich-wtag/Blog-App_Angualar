@@ -203,3 +203,40 @@ button {
     justify-content: flex-end;
   }
 }
+
+.blog-details__description {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  b {
+    margin-top: 2.3rem !important;
+    font-weight: 600;
+    line-height: 120%;
+  }
+  p {
+    margin-top: 1.5rem;
+  }
+
+  h3 {
+    font-size: 1.5rem;
+  }
+
+  h4 {
+    font-size: 1.2rem;
+    line-height: 150%;
+  }
+  h5 {
+    font-size: 1rem;
+    line-height: 150%;
+  }
+  h5 {
+    font-size: 0.875rem;
+    line-height: 150%;
+  }
+}
+.tox-statusbar__right-container {
+  display: none !important;
+}

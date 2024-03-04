@@ -1,4 +1,10 @@
-import { Component } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BlogService } from '../Services/blog.service';
 import { Blog } from '../Models/blog';
@@ -9,7 +15,7 @@ import { DUMMYUSERIMAGE } from '../Models/constants';
   templateUrl: './blog-details.component.html',
   styleUrls: ['./blog-details.component.scss'],
 })
-export class BlogDetailsComponent {
+export class BlogDetailsComponent implements OnInit, AfterViewInit {
   dummyUserImage: string = DUMMYUSERIMAGE;
   selectedBlog?: Blog;
 
@@ -17,13 +23,20 @@ export class BlogDetailsComponent {
     private activatedRoute: ActivatedRoute,
     private blogService: BlogService
   ) {}
+  @ViewChild('descriptionRef') descriptionElement!: ElementRef;
 
   ngOnInit(): void {
     const selectedBlogId: number = Number(
       this.activatedRoute.snapshot.params['id']
     );
+
     this.blogService.blogSubject.subscribe((blogs) => {
       this.selectedBlog = blogs.find((blog) => blog.blogId === selectedBlogId);
     });
+  }
+
+  ngAfterViewInit(): void {
+    this.descriptionElement.nativeElement.innerHTML =
+      this.selectedBlog?.description;
   }
 }

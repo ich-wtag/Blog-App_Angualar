@@ -32,7 +32,5 @@
     <img class="image" [src]="selectedBlog?.blogImage" alt="blog title" />
   </div>
 
-  <p class="blog-details__description">
-    {{ selectedBlog?.description | sentenceCase }}
-  </p>
+  <div #descriptionRef class="blog-details__description"></div>
 </article>
