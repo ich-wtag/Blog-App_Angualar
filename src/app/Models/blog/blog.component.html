@@ -4,7 +4,7 @@
       class="image"
       [src]="blog.blogImage"
       [alt]="blog.blogTitle"
-      [routerLink]="'/blog/' + blog.blogId"
+      [routerLink]="getBlogId(blog.blogId)"
     />
   </div>
 
@@ -13,18 +13,14 @@
       <span *ngFor="let tag of blog.tags" class="tag"> {{ tag }} </span>
     </div>
 
-    <h3 class="blog__title" [routerLink]="'/blog/' + blog.blogId">
+    <h3 class="blog__title" [routerLink]="getBlogId(blog.blogId)">
       {{ blog.blogTitle }}
     </h3>
 
     <div class="flex-between blog__creator">
       <div class="flex-start blog__creator__info">
         <div class="blog__creator__image">
-          <img
-            class="image"
-            [src]="blog.bloggerImage ? blog.bloggerImage : dummyUSerImage"
-            [alt]="blog.bloggerName"
-          />
+          <img class="image" [src]="creatorImage" [alt]="blog.bloggerName" />
         </div>
         <h5 class="blog__creator__name">{{ blog.bloggerName }}</h5>
       </div>

@@ -1,4 +1,3 @@
-import { HtmlParser } from '@angular/compiler';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
@@ -20,9 +19,4 @@ export class TextareaComponent implements OnInit {
     this.placeHolderMessage = this.placeholder?.length ? this.placeholder : '';
   }
   @Input() isEditable: boolean = false;
-
-  dataEdit!: HTMLElement;
-  handleEditor(event: any) {
-    console.log(event);
-  }
 }

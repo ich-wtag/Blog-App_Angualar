@@ -7,10 +7,9 @@ export const GetControlName = (
   return formControlGroup.get(formControl) as FormControl;
 };
 
-export const imageTypeCheck = (imageName: string) => {
-  if (/\.(jpe?g|png|gif)$/i.test(imageName)) {
-    return true;
-  }
+export const imageTypeCheck = (imageName: string) =>
+  /\.(jpe?g|png|gif)$/i.test(imageName);
 
-  return false;
+export const getId = (id: number) => {
+  return `blog/${id}`;
 };
