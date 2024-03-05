@@ -6,17 +6,7 @@ import { User } from '../Models/user';
   providedIn: 'root',
 })
 export class UserService {
-  users: User[] = [
-    {
-      id: 1,
-      firstName: 'john',
-      lastName: 'doe',
-      userName: 'jd',
-      email: 'jd@gmail.com',
-      joiningDate: '2024-02-20T08:45:10.940Z',
-      password: '123456',
-    },
-  ];
+  users: User[] = [];
 
   getUserId() {
     const maxId = this.users.reduce(
