@@ -3,6 +3,7 @@ import {
   ElementRef,
   EventEmitter,
   Input,
+  OnInit,
   Output,
   ViewChild,
 } from '@angular/core';
@@ -15,7 +16,7 @@ import { BLOGTAGS } from '../constants';
   templateUrl: './select.component.html',
   styleUrls: ['./select.component.scss'],
 })
-export class SelectComponent {
+export class SelectComponent implements OnInit {
   isDropdownVisible: boolean = false;
   selectedTags: string[] = [];
 
@@ -25,6 +26,7 @@ export class SelectComponent {
   @Input() className?: string;
   @Input() control = new FormControl();
   @Input() availableTags: string[] = [];
+  @Input() tagsFromEditedBlog: string[] = [];
 
   @ViewChild('dropdownArrow') dropDownElem?: ElementRef;
 
@@ -73,5 +75,12 @@ export class SelectComponent {
 
   onUnSelectTag(index: number) {
     this.UnSelectTag.emit(index);
+  }
+
+  ngOnInit(): void {
+    console.log();
+    if (this.tagsFromEditedBlog.length) {
+      this.selectedTags = this.tagsFromEditedBlog;
+    }
   }
 }

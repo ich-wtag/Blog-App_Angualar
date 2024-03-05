@@ -5,19 +5,28 @@
 
   <h2 class="blog-details__title">{{ selectedBlog?.blogTitle }}</h2>
 
-  <div class="flex-start blog-details__creator">
-    <div class="flex-start blog-details__creator__info">
-      <div class="blog-details__creator__image">
-        <img class="image" [src]="creatorImage" alt="blogger" />
-      </div>
+  <div class="flex-between blog-details__creator--wrapper">
+    <div class="flex-start blog-details__creator">
+      <div class="flex-start blog-details__creator__info">
+        <div class="blog-details__creator__image">
+          <img class="image" [src]="creatorImage" alt="blogger" />
+        </div>
 
-      <strong class="blog-details__creator__author">
-        {{ selectedBlog?.bloggerName }}
-      </strong>
+        <strong class="blog-details__creator__author">
+          {{ selectedBlog?.bloggerName }}
+        </strong>
+      </div>
+      <div class="blog-details__creator__created">
+        {{ selectedBlog?.createdAt | date : "longDate" }}
+      </div>
     </div>
-    <div class="blog-details__creator__created">
-      {{ selectedBlog?.createdAt | date : "longDate" }}
-    </div>
+    <app-button
+      className="icon-button"
+      [routerLink]="['/me']"
+      [queryParams]="{ edit: true, id: selectedBlog?.blogId }"
+    >
+      <span class="icon-button__edit--blog" title></span>
+    </app-button>
   </div>
 
   <div class="blog-details__image">

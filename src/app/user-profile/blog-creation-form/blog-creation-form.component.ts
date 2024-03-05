@@ -6,6 +6,8 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { Blog } from 'src/app/Models/blog';
 import { GetControlName, imageTypeCheck } from 'src/app/Models/commonFunctions';
 import { BLOGTAGS } from 'src/app/Models/constants';
 import { BlogService } from 'src/app/Services/blog.service';
@@ -18,12 +20,14 @@ import { ValidatorsService } from 'src/app/Services/validators.service';
 })
 export class BlogCreationFormComponent implements OnInit {
   imageFileName?: string;
-  blogTags: string[] = BLOGTAGS;
   isFormatError: boolean = false;
+  editedBlog?: Blog;
+  restBlogTags: string[] = [];
 
   constructor(
     private formBuilder: FormBuilder,
-    private blogService: BlogService
+    private blogService: BlogService,
+    private activatedRoute: ActivatedRoute
   ) {}
 
   getControlName = GetControlName;
@@ -86,13 +90,28 @@ export class BlogCreationFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.updateFormTagsArray();
+    const isBlogEdited = this.activatedRoute.snapshot.queryParams['edit'];
+    const editedBlogId = Number(this.activatedRoute.snapshot.queryParams['id']);
+
+    if (editedBlogId !== undefined && isBlogEdited) {
+      this.blogService.blogSubject.subscribe((blogs) => {
+        this.editedBlog = blogs.find((blog) => blog.blogId === editedBlogId);
+      });
+      this.setEditedBlogValue();
+      this.updateFormTagsArray(this.editedBlog?.tags as string[]);
+
+      this.restBlogTags = BLOGTAGS.filter(
+        (tag) => !this.editedBlog?.tags.includes(tag)
+      );
+    } else {
+      this.updateFormTagsArray(BLOGTAGS);
+    }
   }
 
-  private updateFormTagsArray() {
+  private updateFormTagsArray(tags: string[]) {
     const tagArray = <FormArray>this.blogForm.get('tags');
     tagArray.clear();
-    this.blogTags.forEach((tag) => {
+    tags.forEach((tag) => {
       tagArray.push(new FormControl(tag));
     });
   }
@@ -100,10 +119,18 @@ export class BlogCreationFormComponent implements OnInit {
   private resetForm() {
     this.blogForm.reset();
     this.imageFileName = '';
-    this.updateFormTagsArray();
+    this.updateFormTagsArray(BLOGTAGS);
   }
 
   private toggleBlogForm() {
     this.blogService.hideShowBlogForm();
+  }
+
+  private setEditedBlogValue() {
+    this.blogForm.patchValue({
+      title: this.editedBlog?.blogTitle,
+      blogImage: this.editedBlog?.blogImage,
+      description: this.editedBlog?.description,
+    });
   }
 }

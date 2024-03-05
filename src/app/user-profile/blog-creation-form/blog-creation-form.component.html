@@ -18,6 +18,7 @@
       [availableTags]="getControlName(blogForm, 'tags').value"
       (SelectedTags)="getSelectedTag($event)"
       (UnSelectTag)="removeUnselectedTags($event)"
+      [tagsFromEditedBlog]="restBlogTags"
     ></app-select>
   </div>
 
