@@ -5,7 +5,7 @@
       class="form__input"
       [class]="className"
       [type]="type"
-      placeholder="{{ placeholder?.length ? placeholder : placeholder }}"
+      [placeholder]="placeHolderMessage"
       [formControl]="control"
     />
 
@@ -27,6 +27,8 @@
           placeholder="{{ placeholder?.length ? placeholder : placeholder }}"
           [class]="className"
           [type]="type"
+          [placeholder]="placeHolderMessage"
+          [formControl]="control"
           (drop)="onChangeImage($event)"
           (change)="onChangeImage($event)"
         />
@@ -34,5 +36,4 @@
     </span>
     <small class="form__suported-files">Supports: JPG, Jpeg and Png</small>
   </div>
-  <ng-content></ng-content>
 </ng-template>
