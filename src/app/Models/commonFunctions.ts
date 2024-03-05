@@ -11,5 +11,5 @@ export const imageTypeCheck = (imageName: string) =>
   /\.(jpe?g|png|gif)$/i.test(imageName);
 
 export const getId = (id: number) => {
-  return `blog/${id}`;
+  return `/blog/${id}`;
 };
