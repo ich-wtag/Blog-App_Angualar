@@ -12,4 +12,6 @@ export class TextareaComponent {
   @Input() wrapperClassName?: string;
   @Input() className?: string;
   @Input() control = new FormControl();
+
+  placeHolderMessage = this.placeholder?.length && this.placeholder;
 }
