@@ -18,6 +18,7 @@ import { DUMMYUSERIMAGE } from '../Models/constants';
 export class BlogDetailsComponent implements OnInit, AfterViewInit {
   dummyUserImage: string = DUMMYUSERIMAGE;
   selectedBlog?: Blog;
+  creatorImage!: string;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -33,6 +34,10 @@ export class BlogDetailsComponent implements OnInit, AfterViewInit {
     this.blogService.blogSubject.subscribe((blogs) => {
       this.selectedBlog = blogs.find((blog) => blog.blogId === selectedBlogId);
     });
+
+    this.creatorImage = this.selectedBlog?.bloggerImage
+      ? this.selectedBlog?.bloggerImage
+      : this.dummyUserImage;
   }
 
   ngAfterViewInit(): void {

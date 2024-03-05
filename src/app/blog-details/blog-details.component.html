@@ -8,15 +8,7 @@
   <div class="flex-start blog-details__creator">
     <div class="flex-start blog-details__creator__info">
       <div class="blog-details__creator__image">
-        <img
-          class="image"
-          [src]="
-            selectedBlog?.bloggerImage
-              ? selectedBlog?.bloggerImage
-              : dummyUserImage
-          "
-          alt="blogger"
-        />
+        <img class="image" [src]="creatorImage" alt="blogger" />
       </div>
 
       <strong class="blog-details__creator__author">
