@@ -28,18 +28,17 @@
     className="banner-image__input"
     inputFileWrapperClass="banner-image__field"
     selectableLabelClass="banner-image__label"
-    [control]="getControlName(blogForm, 'bannerImage')"
     (OnChangeEvent)="onImageSelection($event)"
   >
-    <span class="flex-center banner-image__uploaded-file">
-      Uploaded file:
-      {{ imageFileName?.length ? imageFileName : "No file uploaded" }}
-    </span>
-
-    <span *ngIf="isFormatError" class="form__error-message">
-      Please select the correct image format
-    </span>
   </app-input>
+  <span class="flex-center banner-image__uploaded-file">
+    Uploaded file:
+    {{ imageFileName?.length ? imageFileName : "No file uploaded" }}
+  </span>
+
+  <span *ngIf="isFormatError" class="form__error-message">
+    Please select the correct image format
+  </span>
 
   <app-textarea
     type="password"
