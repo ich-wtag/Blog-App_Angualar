@@ -19,15 +19,13 @@ export class UserProfileComponent {
   isBlogFormVisible: boolean = false;
 
   ngOnInit(): void {
+    // this.editBlogId = this.activatedRoute.snapshot.queryParams['id'];
+    // this.isBlogEdited = this.activatedRoute.snapshot.queryParams['edit'];
+    // if (this.isBlogEdited && this.editBlogId) {
+    //   this.blogService.hideShowBlogForm();
+    // }
     this.blogService.showBlogFormSubject.subscribe(
       (value) => (this.isBlogFormVisible = value)
     );
-
-    (this.editBlogId = this.activatedRoute.snapshot.queryParams['id']),
-      (this.isBlogEdited = this.activatedRoute.snapshot.queryParams['edit']);
-
-    if (this.isBlogEdited && this.editBlogId) {
-      this.isBlogFormVisible = true;
-    }
   }
 }

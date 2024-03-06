@@ -17,6 +17,7 @@ export class TextareaComponent implements OnInit {
 
   ngOnInit(): void {
     this.placeHolderMessage = this.placeholder?.length ? this.placeholder : '';
+    console.log(this.isEditable);
   }
   @Input() isEditable: boolean = false;
 }

@@ -6,9 +6,13 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Blog } from 'src/app/Models/blog';
-import { GetControlName, imageTypeCheck } from 'src/app/Models/commonFunctions';
+import {
+  GetControlName,
+  getId,
+  imageTypeCheck,
+} from 'src/app/Models/commonFunctions';
 import { BLOGTAGS } from 'src/app/Models/constants';
 import { BlogService } from 'src/app/Services/blog.service';
 import { ValidatorsService } from 'src/app/Services/validators.service';
@@ -22,12 +26,15 @@ export class BlogCreationFormComponent implements OnInit {
   imageFileName?: string;
   isFormatError: boolean = false;
   editedBlog?: Blog;
-  restBlogTags: string[] = [];
+  unSelectedBlogTags: string[] = [];
+  editedBlogId!: number;
+  isBlogEdited: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
     private blogService: BlogService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private router: Router
   ) {}
 
   getControlName = GetControlName;
@@ -48,7 +55,17 @@ export class BlogCreationFormComponent implements OnInit {
   });
 
   onBlogCreation() {
-    this.blogService.addBlog(this.blogForm);
+    if (this.isBlogEdited && this.editedBlogId) {
+      this.blogService.updateBlog(
+        this.editedBlogId,
+        this.blogForm,
+        this.imageFileName as string
+      );
+
+      this.router.navigateByUrl(getId(this.editedBlogId));
+    } else {
+      this.blogService.addBlog(this.blogForm, this.imageFileName as string);
+    }
     this.resetForm();
     this.toggleBlogForm();
   }
@@ -90,17 +107,20 @@ export class BlogCreationFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const isBlogEdited = this.activatedRoute.snapshot.queryParams['edit'];
-    const editedBlogId = Number(this.activatedRoute.snapshot.queryParams['id']);
+    this.isBlogEdited = this.activatedRoute.snapshot.queryParams['edit'];
+    this.editedBlogId = Number(this.activatedRoute.snapshot.queryParams['id']);
 
-    if (editedBlogId !== undefined && isBlogEdited) {
+    if (this.editedBlogId !== undefined && this.isBlogEdited) {
       this.blogService.blogSubject.subscribe((blogs) => {
-        this.editedBlog = blogs.find((blog) => blog.blogId === editedBlogId);
+        this.editedBlog = blogs.find(
+          (blog) => blog.blogId === this.editedBlogId
+        );
       });
       this.setEditedBlogValue();
       this.updateFormTagsArray(this.editedBlog?.tags as string[]);
+      this.imageFileName = this.editedBlog?.blogImageFileName;
 
-      this.restBlogTags = BLOGTAGS.filter(
+      this.unSelectedBlogTags = BLOGTAGS.filter(
         (tag) => !this.editedBlog?.tags.includes(tag)
       );
     } else {

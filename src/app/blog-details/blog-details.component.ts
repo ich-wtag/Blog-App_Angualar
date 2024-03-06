@@ -44,4 +44,10 @@ export class BlogDetailsComponent implements OnInit, AfterViewInit {
     this.descriptionElement.nativeElement.innerHTML =
       this.selectedBlog?.description;
   }
+
+  handleEditClicked() {
+    console.log('clicked');
+
+    this.blogService.hideShowBlogForm();
+  }
 }

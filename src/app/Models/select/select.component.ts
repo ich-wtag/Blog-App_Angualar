@@ -78,7 +78,6 @@ export class SelectComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log();
     if (this.tagsFromEditedBlog.length) {
       this.selectedTags = this.tagsFromEditedBlog;
     }
