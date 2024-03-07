@@ -94,8 +94,8 @@ export class BlogService {
   hideShowBlogForm() {
     this.isBlogFormVisible = !this.isBlogFormVisible;
     this.showBlogFormSubject.next(this.isBlogFormVisible);
-    console.log(this.isBlogFormVisible);
   }
+
   updateBlog(blogId: number, formGroup: FormGroup, blogImageFileName: string) {
     const { title, tags, blogImage, description } = formGroup.value;
     this.createdBlogs = this.createdBlogs.map((blog) => {
