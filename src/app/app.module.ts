@@ -18,6 +18,7 @@ import { PersonalBlogsComponent } from './user-profile/personal-blogs/personal-b
 import { BlogComponent } from './Models/blog/blog.component';
 import { BlogDetailsComponent } from './blog-details/blog-details.component';
 import { EditorModule } from '@tinymce/tinymce-angular';
+import { UserInfoUpdateFormComponent } from './user-profile/user-info-update-form/user-info-update-form.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { EditorModule } from '@tinymce/tinymce-angular';
     PersonalBlogsComponent,
     BlogComponent,
     BlogDetailsComponent,
+    UserInfoUpdateFormComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, ReactiveFormsModule, EditorModule],
   providers: [],

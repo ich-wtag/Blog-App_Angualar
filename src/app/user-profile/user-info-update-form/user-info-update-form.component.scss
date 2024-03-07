@@ -1,0 +1,15 @@
+@import "../../../assets/style/variable.scss";
+
+.form-info {
+  margin-top: 3.2rem;
+  padding: 8rem 6rem;
+  border-radius: 0.5rem;
+  background-color: $black-color-50;
+
+  &--wrapper {
+    column-gap: 3rem;
+    * {
+      flex: 1;
+    }
+  }
+}

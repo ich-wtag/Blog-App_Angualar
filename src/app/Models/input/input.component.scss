@@ -27,6 +27,15 @@
       border-color: $black-color-60;
     }
   }
+  &__group--info {
+    margin-top: 2rem;
+    .form__input {
+      padding: 1rem 0.7rem;
+      font-size: 1rem;
+      font-weight: 500;
+      border-color: $black-color-60;
+    }
+  }
 }
 
 .header__search-wrapper {

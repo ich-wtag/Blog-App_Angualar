@@ -1,0 +1,48 @@
+<form class="form form-info">
+  <div class="flex-between form-info--wrapper">
+    <div class="form-info__details">
+      <app-input
+        type="text"
+        wrapperClassName="form__group--info"
+        label="Name"
+      ></app-input>
+      <app-input
+        type="text"
+        wrapperClassName="form__group--info"
+        label="Subtitle"
+      ></app-input>
+
+      <app-textarea
+        placeholder=""
+        wrapperClassName="form__group--info"
+        label="About"
+        [isEditable]="true"
+      ></app-textarea>
+    </div>
+    <div class="form-info__image--wrapper">
+      <app-input
+        type="file"
+        wrapperClassName="form__group--blogs user-image"
+        label="Profile Image"
+        className="banner-image__input"
+        inputFileWrapperClass="user-image__field"
+        selectableLabelClass="user-image__label"
+      ></app-input>
+
+      <div class="flex form-info__preview">
+        <div class="form-info__preview__filename">
+          Uploaded file: profile_image_1.jpeg
+        </div>
+        <div class="form-info__preview__image">
+          <img class="user-image" [src]="userImageSource" alt="user name" />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="flex-start form__button-wrapper">
+    <app-button className="primary-button"> Submit </app-button>
+    <app-button className="secondary-button" buttonType="button">
+      Cancel
+    </app-button>
+  </div>
+</form>
