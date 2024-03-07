@@ -93,6 +93,7 @@ export class BlogService {
 
   hideShowBlogForm() {
     this.isBlogFormVisible = !this.isBlogFormVisible;
+    console.log(this.isBlogFormVisible);
     this.showBlogFormSubject.next(this.isBlogFormVisible);
   }
 
