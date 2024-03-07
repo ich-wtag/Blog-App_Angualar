@@ -8,6 +8,7 @@ export const TWITTERICON = '../../../assets/icons/twitter-icon.svg';
 export const INSTRAGRAMICON = '../../../assets/icons/instragram-icon.svg';
 export const YOUTUBEICON = '../../../assets/icons/youtube-icon.svg';
 export let BLOGTAGS: string[] = [
+  'Poems',
   'Technology',
   'Poetry',
   'Films',
