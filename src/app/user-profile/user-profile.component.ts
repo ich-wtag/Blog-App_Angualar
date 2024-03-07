@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { BlogService } from '../Services/blog.service';
+import { Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 
@@ -18,10 +19,11 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   isBlogEdited: boolean = false;
 
   isBlogFormVisible: boolean = false;
+  blogFormObserver!: Subscription;
   blogFormVisibilityObserver!: Subscription;
 
   ngOnInit(): void {
-    this.blogFormVisibilityObserver =
+    this.blogFormVisibilityObserver = this.blogFormObserver =
       this.blogService.showBlogFormSubject.subscribe(
         (value) => (this.isBlogFormVisible = value)
       );
@@ -34,5 +36,9 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   }
   ngOnDestroy(): void {
     this.blogFormVisibilityObserver.unsubscribe();
+  }
+
+  ngOnDestroy(): void {
+    this.blogFormObserver.unsubscribe();
   }
 }
