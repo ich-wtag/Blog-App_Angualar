@@ -9,7 +9,7 @@ import { User } from '../Models/user';
 export class AuthService {
   loggedInUser?: User;
 
-  loggerObserver: BehaviorSubject<boolean> = new BehaviorSubject(true);
+  loggerObserver: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
   constructor(private userService: UserService) {}
 
