@@ -9,6 +9,7 @@ import { ActivatedRoute } from '@angular/router';
 import { BlogService } from '../Services/blog.service';
 import { Blog } from '../Models/blog';
 import { DUMMYUSERIMAGE } from '../Models/constants';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-blog-details',
@@ -38,6 +39,8 @@ export class BlogDetailsComponent implements OnInit, AfterViewInit {
     this.creatorImage = this.selectedBlog?.bloggerImage
       ? this.selectedBlog?.bloggerImage
       : this.dummyUserImage;
+
+    this.blogService.hideShowBlogForm();
   }
 
   ngAfterViewInit(): void {
@@ -46,8 +49,6 @@ export class BlogDetailsComponent implements OnInit, AfterViewInit {
   }
 
   handleEditClicked() {
-    console.log('clicked');
-
-    this.blogService.hideShowBlogForm();
+    this.blogService.showBlogFormSubject.next(true);
   }
 }
