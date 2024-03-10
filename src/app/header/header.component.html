@@ -15,7 +15,12 @@
       placeholder="Search"
       className="search-box"
     >
-      <span class="icon-button search-icon" title></span>
+      <span
+        class="icon-button search-icon"
+        matTooltipClass="tooltip-custom"
+        matTooltip="Search"
+        matTooltipPosition="right"
+      ></span>
     </app-input>
 
     <div class="greeting">
@@ -26,7 +31,13 @@
             {{ loggedInUser?.firstName }}
           </a>
         </div>
-        <app-button className="icon-button" (click)="onLogOut()">
+        <app-button
+          className="icon-button"
+          matTooltipClass="tooltip-custom"
+          matTooltip="Log out"
+          matTooltipPosition="below"
+          (click)="onLogOut()"
+        >
           <span class="icon-button__check-out"></span>
         </app-button>
       </ng-container>

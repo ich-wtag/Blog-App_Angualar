@@ -1,20 +1,37 @@
 <div class="flex-end button-wrapper">
-  <app-button className="icon-button">
-    <span class="icon-button__plus" title> </span>
+  <app-button
+    className="icon-button"
+    matTooltipClass="tooltip-custom"
+    matTooltip="Add blog"
+    matTooltipPosition="left"
+  >
+    <span class="icon-button__plus"> </span>
   </app-button>
-  <app-button className="icon-button">
-    <span class="icon-button__edit" title></span>
+  <app-button
+    className="icon-button"
+    matTooltipClass="tooltip-custom"
+    matTooltip="Edit User Info"
+    matTooltipPosition="below"
+  >
+    <span class="icon-button__edit"></span>
   </app-button>
 </div>
 
 <div class="user-wrapper">
   <div class="flex-center user">
     <div class="flex user__info">
-      <div class="user__info-image">
-        <img class="user-image" [src]="userImage" alt="user name" />
+      <div class="user__info__image">
+        <img
+          class="user-image"
+          [src]="userImage"
+          alt="user name"
+          matTooltipClass="tooltip-custom"
+          [matTooltip]="userNameTooltip"
+          matTooltipPosition="left"
+        />
       </div>
 
-      <div class="user__info-name">
+      <div class="user__info__name">
         <h2 class="user-name">
           {{ loggedInUser?.firstName + " " + loggedInUser?.lastName }}
         </h2>
@@ -27,28 +44,48 @@
     </div>
 
     <div class="flex user__contact">
-      <a class="flex-center user__contact-icon" title>
+      <a
+        class="flex-center user__contact__icon"
+        matTooltipClass="tooltip-custom"
+        matTooltip="Facebook"
+        matTooltipPosition="below"
+      >
         <img
           class="icon-image icon-facebook"
           [src]="facebookIcon"
           alt="facebook icon"
         />
       </a>
-      <a class="flex-center user__contact-icon" title>
+      <a
+        class="flex-center user__contact__icon"
+        matTooltipClass="tooltip-custom"
+        matTooltip="Twitter"
+        matTooltipPosition="below"
+      >
         <img
           class="icon-image icon-twitter"
           [src]="twitterIcon"
           alt="twitter icon"
         />
       </a>
-      <a class="flex-center user__contact-icon" title>
+      <a
+        class="flex-center user__contact__icon"
+        matTooltipClass="tooltip-custom"
+        matTooltip="Instragram"
+        matTooltipPosition="below"
+      >
         <img
           class="icon-image icon-instragram"
           [src]="instragamIcon"
           alt="instragram icon"
         />
       </a>
-      <a class="flex-center user__contact-icon" title>
+      <a
+        class="flex-center user__contact__icon"
+        matTooltipClass="tooltip-custom"
+        matTooltip="Youtube"
+        matTooltipPosition="below"
+      >
         <img
           class="icon-image icon-youtube"
           [src]="youtubeIcon"
