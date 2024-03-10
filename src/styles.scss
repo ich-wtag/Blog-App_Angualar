@@ -15,28 +15,10 @@ body {
   font-family: "Work Sans", sans-serif;
   color: $black-color-400;
   line-height: normal;
-  width: calc(100% - 0.475rem);
+  width: calc(100% - 0.45rem);
   position: relative;
   overflow-y: scroll;
-}
-
-::-webkit-scrollbar {
-  position: absolute;
-  right: 0;
-  width: 0.475rem;
-}
-
-::-webkit-scrollbar-track {
-  background: $black-color-50;
-}
-
-::-webkit-scrollbar-thumb {
-  background: $black-color-100;
-  border-radius: 0.2rem;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: $black-color-200;
+  scrollbar-width: 0.45rem;
 }
 
 a {
