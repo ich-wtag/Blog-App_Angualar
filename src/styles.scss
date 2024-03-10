@@ -173,3 +173,13 @@ button {
     border: none !important;
   }
 }
+
+.cdk-overlay-container .mat-mdc-tooltip {
+  --mdc-plain-tooltip-container-color: #49a4cb;
+  --mdc-plain-tooltip-supporting-text-color: white;
+  --mdc-plain-tooltip-container-shape: 0.25rem;
+  --mdc-plain-tooltip-supporting-text-line-height: 1rem;
+  --mdc-plain-tooltip-supporting-text-size: 0.75rem;
+  --mdc-plain-tooltip-supporting-text-weight: 500;
+  --mdc-tooltip-word-break: normal;
+}

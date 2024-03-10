@@ -11,6 +11,8 @@ import { HomeComponent } from './home/home.component';
 import { HeaderComponent } from './header/header.component';
 import { UserInfoComponent } from './user-profile/user-info/user-info.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,13 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
 
     UserProfileComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, ReactiveFormsModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    MatTooltipModule,
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })
