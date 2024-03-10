@@ -1,5 +1,5 @@
 <form
-  class="form blog-form"
+  class="form blog--form"
   [formGroup]="blogForm"
   (ngSubmit)="onBlogCreation()"
 >
@@ -42,13 +42,13 @@
 
   <app-textarea
     type="password"
-    placeholder=""
+    label="Body"
     wrapperClassName="form__group--blogs"
     label="Body"
     [control]="getControlName(blogForm, 'description')"
   ></app-textarea>
 
-  <div class="flex-center form__button-wrapper">
+  <div class="flex-center form__button--wrapper">
     <app-button className="primary-button" [disabled]="!blogForm.valid"
       >Submit</app-button
     >

@@ -25,11 +25,15 @@ export class UserInfoComponent {
   twitterIcon: string = TWITTERICON;
   instragamIcon: string = INSTRAGRAMICON;
   youtubeIcon: string = YOUTUBEICON;
-
   loggedInUser = this.authService.loggedInUser;
-
   userDescription: string =
     'Meet Jonathan Doe, a passionate writer and blogger with a love for technology and travel. Jonathan holds a degree in Computer Science and has spent years working in the tech industry, gaining a deep understanding of the impact technology has on our lives.';
+
+  userNameTooltip = this.loggedInUser?.userName
+    ? this.loggedInUser.userName
+    : 'User Name';
+
+  constructor(private authService: AuthService) {}
 
   toggleBlogFrom() {
     this.blogService.hideShowBlogForm();
