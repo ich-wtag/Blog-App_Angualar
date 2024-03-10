@@ -19,21 +19,15 @@
     color: $black-color-100;
   }
 
-  &__group--blogs {
-    .form__input {
-      padding: 1rem 0.7rem;
-      font-size: 1rem;
-      font-weight: 500;
-      border-color: $black-color-60;
-    }
-  }
-  &__group--info {
-    margin-top: 2rem;
-    .form__input {
-      padding: 1rem 0.7rem;
-      font-size: 1rem;
-      font-weight: 500;
-      border-color: $black-color-60;
+  &__group {
+    &--info,
+    &--blogs {
+      .form__input {
+        padding: 1rem 0.7rem;
+        font-size: 1rem;
+        font-weight: 500;
+        border-color: $black-color-60;
+      }
     }
   }
 }
@@ -50,6 +44,7 @@
   }
 }
 
+.user-image,
 .banner-image {
   &__field {
     flex-direction: column;
@@ -71,5 +66,11 @@
   &__label {
     cursor: pointer;
     color: $blue-color-500;
+  }
+}
+
+.user-image {
+  &__field {
+    height: 14.1rem;
   }
 }
