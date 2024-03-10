@@ -8,8 +8,6 @@ import {
 } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
-import { BLOGTAGS } from '../constants';
-
 @Component({
   selector: 'app-select',
   templateUrl: './select.component.html',

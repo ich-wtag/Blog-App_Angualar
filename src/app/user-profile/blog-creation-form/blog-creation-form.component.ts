@@ -7,7 +7,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { GetControlName, imageTypeCheck } from 'src/app/Models/commonFunctions';
-import { BLOGTAGS } from 'src/app/Models/constants';
+import { BLOG_TAGS } from 'src/app/Models/constants';
 import { BlogService } from 'src/app/Services/blog.service';
 import { ValidatorsService } from 'src/app/Services/validators.service';
 
@@ -18,7 +18,7 @@ import { ValidatorsService } from 'src/app/Services/validators.service';
 })
 export class BlogCreationFormComponent implements OnInit {
   imageFileName?: string;
-  blogTags: string[] = BLOGTAGS;
+  blogTags: string[] = BLOG_TAGS;
   isFormatError: boolean = false;
 
   constructor(

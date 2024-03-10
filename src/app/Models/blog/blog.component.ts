@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Blog } from '../blog';
-import { DUMMYUSERIMAGE } from '../constants';
+import { DUMMY_USER_IMAGE } from '../constants';
 
 @Component({
   selector: 'app-blog',
@@ -10,5 +10,5 @@ import { DUMMYUSERIMAGE } from '../constants';
 export class BlogComponent {
   @Input() blog!: Blog;
 
-  dummyUSerImage: string = DUMMYUSERIMAGE;
+  dummyUSerImage: string = DUMMY_USER_IMAGE;
 }

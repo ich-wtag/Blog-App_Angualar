@@ -1,4 +1,5 @@
 import { FormControl, FormGroup } from '@angular/forms';
+import { IMAGE_FILE_FORMAT } from './rexgs';
 
 export const GetControlName = (
   formControlGroup: FormGroup,
@@ -8,7 +9,7 @@ export const GetControlName = (
 };
 
 export const imageTypeCheck = (imageName: string) => {
-  if (/\.(jpe?g|png|gif)$/i.test(imageName)) {
+  if (IMAGE_FILE_FORMAT.test(imageName)) {
     return true;
   }
 

@@ -1,11 +1,17 @@
 <div class="blog">
   <div class="blog__image">
-    <img class="image" [src]="blog.blogImage" [alt]="blog.blogTitle" />
+    <img
+      class="blog__image--item"
+      [src]="blog.blogImage"
+      [alt]="blog.blogTitle"
+    />
   </div>
 
   <div class="blog__details">
     <div class="blog__tag">
-      <span *ngFor="let tag of blog.tags" class="tag"> {{ tag }} </span>
+      <span *ngFor="let tag of blog.tags" class="blog__tag--item">
+        {{ tag }}
+      </span>
     </div>
 
     <h3 class="blog__title">
@@ -16,7 +22,7 @@
       <div class="flex-start blog__creator__info">
         <div class="blog__creator__image">
           <img
-            class="image"
+            class="blog__creator__image--individual"
             [src]="blog.bloggerImage ? blog.bloggerImage : dummyUSerImage"
             [alt]="blog.bloggerName"
           />

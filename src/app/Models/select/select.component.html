@@ -12,49 +12,23 @@
     <span
       *ngIf="selectedTags.length"
       #dropdownArrow
-      class="form__dropdown-icon"
+      class="form__dropdown"
       (click)="dropDownClicked()"
     >
     </span>
-    <span class="form__selected__item"
-      >Poetry <span class="close-icon"></span
-    ></span>
-    <span class="form__selected__item"
-      >Films <span class="close-icon"></span
-    ></span>
-    <span class="form__selected__item"
-      >World politics <span class="close-icon"></span
-    ></span>
-    <span class="form__dropdown"> </span>
   </div>
-  <div class="select-options--wrapper">
-    <div class="select-options">
-      <label class="select-options__text"
-        ><input type="checkbox" /> Option 1</label
-      >
-    </div>
-    <div class="select-options">
-      <label class="select-options__text"
-        ><input type="checkbox" /> Option 2</label
-      >
-    </div>
-    <div class="select-options">
-      <label class="select-options__text"
-        ><input type="checkbox" /> Option 3</label
-      >
-    </div>
-    <div
-      *ngIf="isDropdownVisible && selectedTags.length > 0"
-      #dropdownOptionWrapper
-      class="form__select-options--wrapper"
-    >
-      <ng-container *ngFor="let option of selectedTags; let i = index">
-        <div class="form__select-options" (click)="optionClicked(option, i)">
-          <label class="select-options__text"
-            ><input type="checkbox" /> {{ option }}</label
-          >
-        </div>
-      </ng-container>
-    </div>
+
+  <div
+    *ngIf="isDropdownVisible && selectedTags.length > 0"
+    #dropdownOptionWrapper
+    class="select-options--wrapper"
+  >
+    <ng-container *ngFor="let option of selectedTags; let i = index">
+      <div class="select-options" (click)="optionClicked(option, i)">
+        <label class="select-options__text"
+          ><input type="checkbox" /> {{ option }}</label
+        >
+      </div>
+    </ng-container>
   </div>
 </div>

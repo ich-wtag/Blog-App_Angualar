@@ -16,10 +16,6 @@ import { BlogService } from 'src/app/Services/blog.service';
   styleUrls: ['./user-info.component.scss'],
 })
 export class UserInfoComponent {
-  constructor(
-    private authService: AuthService,
-    private blogService: BlogService
-  ) {}
   userImage: string = USERIMAGE;
   facebookIcon: string = FACEBOOKICON;
   twitterIcon: string = TWITTERICON;
@@ -33,7 +29,10 @@ export class UserInfoComponent {
     ? this.loggedInUser.userName
     : 'User Name';
 
-  constructor(private authService: AuthService) {}
+  constructor(
+    private authService: AuthService,
+    private blogService: BlogService
+  ) {}
 
   toggleBlogFrom() {
     this.blogService.hideShowBlogForm();
