@@ -7,6 +7,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { BLOG_TAGS } from '../constants';
 
 @Component({
   selector: 'app-select',
@@ -20,14 +21,16 @@ export class SelectComponent {
   @Input() className?: string;
   @Input() control = new FormControl();
   @Input() availableTags: string[] = [];
+  @Input() selectedTags: string[] = [];
 
-  @Output() SelectedTags: EventEmitter<string> = new EventEmitter<string>();
-  @Output() UnSelectTag: EventEmitter<number> = new EventEmitter<number>();
+  @Output() OnSelectedTags: EventEmitter<string> = new EventEmitter<string>();
+  @Output() OnUnSelectTag: EventEmitter<number> = new EventEmitter<number>();
 
   @ViewChild('dropdownArrow') dropDownElem?: ElementRef;
 
   isDropdownVisible: boolean = false;
-  selectedTags: string[] = [];
+
+  blogTags: string[] = BLOG_TAGS;
 
   dropDownClicked() {
     if (this.isDropdownVisible || this.selectedTags.length === 0) {
@@ -66,10 +69,10 @@ export class SelectComponent {
   }
 
   onSelectedTags(tag: string) {
-    this.SelectedTags.emit(tag);
+    this.OnSelectedTags.emit(tag);
   }
 
   onUnSelectTag(index: number) {
-    this.UnSelectTag.emit(index);
+    this.OnUnSelectTag.emit(index);
   }
 }
