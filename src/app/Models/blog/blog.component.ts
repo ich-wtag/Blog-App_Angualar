@@ -18,8 +18,6 @@ export class BlogComponent implements OnInit {
   creatorImage!: string;
 
   ngOnInit(): void {
-    this.creatorImage = this.blog.bloggerImage
-      ? this.blog.bloggerImage
-      : this.dummyUSerImage;
+    this.creatorImage = this.userImage;
   }
 }
