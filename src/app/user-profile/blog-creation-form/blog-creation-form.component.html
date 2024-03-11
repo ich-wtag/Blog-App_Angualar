@@ -16,8 +16,9 @@
       className="select-items"
       label="Tags"
       [availableTags]="getControlName(blogForm, 'tags').value"
-      (SelectedTags)="getSelectedTag($event)"
-      (UnSelectTag)="removeUnselectedTags($event)"
+      [selectedTags]="selectedTags"
+      (OnSelectedTags)="getSelectedTag($event)"
+      (OnUnSelectTag)="removeUnselectedTags($event)"
       [tagsFromEditedBlog]="unSelectedBlogTags"
     ></app-select>
   </div>

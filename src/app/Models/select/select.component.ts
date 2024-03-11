@@ -3,33 +3,35 @@ import {
   ElementRef,
   EventEmitter,
   Input,
-  OnInit,
   Output,
   ViewChild,
 } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { BLOG_TAGS } from '../constants';
 
 @Component({
   selector: 'app-select',
   templateUrl: './select.component.html',
   styleUrls: ['./select.component.scss'],
 })
-export class SelectComponent implements OnInit {
+export class SelectComponent {
   @Input() label?: string;
   @Input() placeholder?: string;
   @Input() wrapperClassName?: string;
   @Input() className?: string;
   @Input() control = new FormControl();
   @Input() availableTags: string[] = [];
+  @Input() selectedTags: string[] = [];
   @Input() tagsFromEditedBlog: string[] = [];
 
-  @Output() SelectedTags: EventEmitter<string> = new EventEmitter<string>();
-  @Output() UnSelectTag: EventEmitter<number> = new EventEmitter<number>();
+  @Output() OnSelectedTags: EventEmitter<string> = new EventEmitter<string>();
+  @Output() OnUnSelectTag: EventEmitter<number> = new EventEmitter<number>();
 
   @ViewChild('dropdownArrow') dropDownElem?: ElementRef;
 
   isDropdownVisible: boolean = false;
   selectedTags: string[] = [];
+  blogTags: string[] = BLOG_TAGS;
 
   dropDownClicked() {
     if (this.isDropdownVisible || this.selectedTags.length === 0) {
