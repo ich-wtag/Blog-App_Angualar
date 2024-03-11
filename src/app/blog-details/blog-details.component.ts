@@ -20,11 +20,11 @@ export class BlogDetailsComponent implements OnInit, AfterViewInit {
   selectedBlog?: Blog;
   creatorImage!: string;
 
+  @ViewChild('descriptionRef') descriptionElement!: ElementRef;
   constructor(
     private activatedRoute: ActivatedRoute,
     private blogService: BlogService
   ) {}
-  @ViewChild('descriptionRef') descriptionElement!: ElementRef;
 
   ngOnInit(): void {
     const selectedBlogId: number = Number(
