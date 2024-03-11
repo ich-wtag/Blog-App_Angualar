@@ -5,15 +5,8 @@
   max-width: 66rem;
   margin: 3rem auto;
 
-  .image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: inherit;
-  }
-
   &__tags {
-    .tag {
+    &__item {
       font-size: 0.875rem;
       font-weight: 500;
       line-height: 1.25rem;
@@ -52,6 +45,13 @@
       height: 1.75rem;
       width: 1.75rem;
       border-radius: 50%;
+
+      .creator-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: inherit;
+      }
     }
 
     &__author {
@@ -74,6 +74,13 @@
     margin-top: 2rem;
     height: 30rem;
     border-radius: 0.75rem;
+
+    .blog-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: inherit;
+    }
   }
 
   &__description {

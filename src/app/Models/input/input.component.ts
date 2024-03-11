@@ -13,9 +13,11 @@ export class InputComponent implements OnInit {
   @Input() className?: string;
   @Input() type?: 'text' | 'password' | 'email' | 'number' | 'file';
   @Input() control = new FormControl();
-
   @Input() inputFileWrapperClass?: string;
   @Input() selectableLabelClass?: string;
+
+  @Output() OnChangeEvent: EventEmitter<FileList | null> =
+    new EventEmitter<FileList | null>();
 
   placeHolderMessage: string = '';
 
@@ -23,9 +25,8 @@ export class InputComponent implements OnInit {
     this.placeHolderMessage = this.placeholder?.length ? this.placeholder : '';
   }
 
-  @Output() OnChangeEvent: EventEmitter<Event> = new EventEmitter<Event>();
-
   onChangeImage(event: Event) {
-    this.OnChangeEvent.emit(event);
+    const file = (<HTMLInputElement>event.target)?.files;
+    this.OnChangeEvent.emit(file);
   }
 }

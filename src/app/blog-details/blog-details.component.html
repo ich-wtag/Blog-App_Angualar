@@ -1,6 +1,11 @@
 <article class="blog-details">
   <div class="blog-details__tags">
-    <span *ngFor="let tag of selectedBlog?.tags" class="tag"> {{ tag }} </span>
+    <span
+      *ngFor="let tag of selectedBlog?.tags"
+      class="blog-details__tags__item"
+    >
+      {{ tag }}
+    </span>
   </div>
 
   <h2 class="blog-details__title">{{ selectedBlog?.blogTitle }}</h2>
@@ -9,7 +14,11 @@
     <div class="flex-start blog-details__creator">
       <div class="flex-start blog-details__creator__info">
         <div class="blog-details__creator__image">
-          <img class="image" [src]="creatorImage" alt="blogger" />
+          <img
+            class="creator-image"
+            [src]="creatorImage"
+            [alt]="selectedBlog?.bloggerName"
+          />
         </div>
 
         <strong class="blog-details__creator__author">
@@ -31,7 +40,11 @@
   </div>
 
   <div class="blog-details__image">
-    <img class="image" [src]="selectedBlog?.blogImage" alt="blog title" />
+    <img
+      class="blog-image"
+      [src]="selectedBlog?.blogImage"
+      [alt]="selectedBlog?.blogTitle"
+    />
   </div>
 
   <div #descriptionRef class="blog-details__description"></div>

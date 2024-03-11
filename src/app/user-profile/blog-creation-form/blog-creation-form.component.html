@@ -1,5 +1,5 @@
 <form
-  class="form blog-form"
+  class="form blog--form"
   [formGroup]="blogForm"
   (ngSubmit)="onBlogCreation()"
 >
@@ -32,27 +32,22 @@
     (OnChangeEvent)="onImageSelection($event)"
   >
   </app-input>
-  <span class="flex-center banner-image__uploaded-file">
+  <span class="flex-center banner-image__file">
     Uploaded file:
     {{ imageFileName?.length ? imageFileName : "No file uploaded" }}
   </span>
 
-  <span *ngIf="isFormatError" class="form__error-message">
-    Please select the correct image format
-  </span>
-
   <app-textarea
-    placeholder=""
+    label="Body"
     wrapperClassName="form__group--blogs"
     label="Body"
     [isEditable]="true"
     [control]="getControlName(blogForm, 'description')"
   ></app-textarea>
 
-  <div class="flex-center form__button-wrapper">
-    <app-button className="primary-button" [disabled]="!blogForm.valid"
-      >Submit</app-button
-    >
+  <div class="flex-center form__button--wrapper">
+    <app-button className="primary-button">Submit</app-button>
+
     <app-button
       className="secondary-button"
       buttonType="button"

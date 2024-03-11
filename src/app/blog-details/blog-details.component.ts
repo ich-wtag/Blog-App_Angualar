@@ -8,7 +8,7 @@ import {
 import { ActivatedRoute } from '@angular/router';
 import { BlogService } from '../Services/blog.service';
 import { Blog } from '../Models/blog';
-import { DUMMYUSERIMAGE } from '../Models/constants';
+import { DUMMY_USER_IMAGE } from '../Models/constants';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -17,15 +17,15 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./blog-details.component.scss'],
 })
 export class BlogDetailsComponent implements OnInit, AfterViewInit {
-  dummyUserImage: string = DUMMYUSERIMAGE;
+  dummyUserImage: string = DUMMY_USER_IMAGE;
   selectedBlog?: Blog;
   creatorImage!: string;
 
+  @ViewChild('descriptionRef') descriptionElement!: ElementRef;
   constructor(
     private activatedRoute: ActivatedRoute,
     private blogService: BlogService
   ) {}
-  @ViewChild('descriptionRef') descriptionElement!: ElementRef;
 
   ngOnInit(): void {
     const selectedBlogId: number = Number(
