@@ -8,8 +8,8 @@
   </div>
 
   <div class="blog__details">
-    <div class="blog__tag">
-      <span *ngFor="let tag of blog.tags" class="blog__tag--item">
+    <div class="flex-start blog__tag">
+      <span *ngFor="let tag of blog.tags" class="blog__tag__item">
         {{ tag }}
       </span>
     </div>
@@ -22,8 +22,8 @@
       <div class="flex-start blog__creator__info">
         <div class="blog__creator__image">
           <img
-            class="blog__creator__image--individual"
-            [src]="blog.bloggerImage ? blog.bloggerImage : dummyUSerImage"
+            class="creator-image"
+            [src]="userImage"
             [alt]="blog.bloggerName"
           />
         </div>

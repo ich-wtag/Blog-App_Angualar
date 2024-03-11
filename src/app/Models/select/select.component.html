@@ -3,7 +3,7 @@
   <div class="flex-start form__selected__field">
     <span
       class="form__selected__item"
-      *ngFor="let tag of availableTags; let i = index"
+      *ngFor="let tag of availableTags; index as i"
     >
       {{ tag }}
       <span class="close-icon" (click)="cancelButtonClicked(tag, i)"> </span>
@@ -23,7 +23,7 @@
     #dropdownOptionWrapper
     class="select-options--wrapper"
   >
-    <ng-container *ngFor="let option of selectedTags; let i = index">
+    <ng-container *ngFor="let option of selectedTags; index as i">
       <div class="select-options" (click)="optionClicked(option, i)">
         <label class="select-options__text"
           ><input type="checkbox" /> {{ option }}</label
