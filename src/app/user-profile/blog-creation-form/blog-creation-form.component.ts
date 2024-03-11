@@ -19,6 +19,7 @@ import { BlogService } from 'src/app/Services/blog.service';
 export class BlogCreationFormComponent implements OnInit {
   imageFileName?: string;
   blogTags: string[] = BLOG_TAGS;
+  selectedTags: string[] = [];
 
   getControlName = GetControlName;
 
@@ -49,6 +50,7 @@ export class BlogCreationFormComponent implements OnInit {
   resetForm() {
     this.blogForm.reset();
     this.imageFileName = '';
+    this.selectedTags = [];
     this.updateFormTagsArray();
   }
 
