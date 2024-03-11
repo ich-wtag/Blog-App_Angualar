@@ -40,7 +40,8 @@
 
       <div class="flex form-info__image-preview">
         <div class="form-info__image-preview__filename">
-          Uploaded file: profile_image_1.jpeg
+          Uploaded file:
+          {{ profileImageFileName || "no file selected" }}
         </div>
         <div class="form-info__image-preview__image">
           <img class="user-image" [src]="userImageSource" alt="user name" />

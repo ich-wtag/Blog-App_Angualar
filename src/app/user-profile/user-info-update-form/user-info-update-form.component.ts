@@ -1,31 +1,43 @@
-import { Component } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { GetControlName, imageTypeCheck } from 'src/app/Models/commonFunctions';
-import { DUMMYUSERIMAGE } from 'src/app/Models/constants';
+import { DUMMY_USER_IMAGE } from 'src/app/Models/constants';
+import { AuthService } from 'src/app/Services/auth.service';
+import { UserService } from 'src/app/Services/user.service';
 
 @Component({
   selector: 'app-user-info-update-form',
   templateUrl: './user-info-update-form.component.html',
   styleUrls: ['./user-info-update-form.component.scss'],
 })
-export class UserInfoUpdateFormComponent {
-  userImageSource: any = DUMMYUSERIMAGE;
+export class UserInfoUpdateFormComponent implements OnInit {
+  userImageSource: any = DUMMY_USER_IMAGE;
   profileImageFileName?: string;
+  loggedInUser = this.authService.loggedInUser;
 
   getControlName = GetControlName;
 
-  constructor(private formBuilder: FormBuilder) {}
-
   userInfoForm: FormGroup = this.formBuilder.group({
-    name: new FormControl(''),
-    subTitle: new FormControl(''),
-    about: new FormControl(''),
+    name: new FormControl('', [Validators.required]),
+    subTitle: new FormControl('', [Validators.required]),
+    about: new FormControl('', [Validators.required]),
     profileImage: new FormControl(''),
   });
 
-  handleImageChange(event: any) {
-    if (event.target?.files.length) {
-      const file: File = event.target?.files[0];
+  constructor(
+    private formBuilder: FormBuilder,
+    private authService: AuthService,
+    private userService: UserService
+  ) {}
+
+  handleImageChange(files: FileList | null) {
+    if (files?.length) {
+      const file: File = files[0];
       if (imageTypeCheck(file.name)) {
         this.profileImageFileName = file.name;
         const fileReader: FileReader = new FileReader();
@@ -42,7 +54,23 @@ export class UserInfoUpdateFormComponent {
     }
   }
 
+  ngOnInit(): void {
+    this.userInfoForm.patchValue({
+      name: this.loggedInUser?.firstName + ' ' + this.loggedInUser?.lastName,
+      subTitle: this.loggedInUser?.subTitle,
+      about: this.loggedInUser?.about,
+    });
+  }
+
   onSubmnitUserInfo() {
-    console.log(this.userInfoForm.value);
+    this.userService.updateUserInfo(
+      this.loggedInUser?.id as number,
+      this.userInfoForm,
+      this.profileImageFileName as string
+    );
+
+    this.authService.getLoginUser();
+
+    console.log(this.userService.getAllUsers());
   }
 }

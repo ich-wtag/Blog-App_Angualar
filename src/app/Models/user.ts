@@ -7,4 +7,7 @@ export interface User {
   joiningDate: string;
   password: string;
   image?: string;
+  imageFileName?: string;
+  subTitle?: string;
+  about?: string;
 }

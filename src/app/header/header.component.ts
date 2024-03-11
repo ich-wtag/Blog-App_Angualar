@@ -16,7 +16,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private activatedRoute: ActivatedRoute
   ) {}
 
-  loggedInUser = this.authService.loggedInUser;
+  loggedInUser = this.authService.getLoginUser();
   isLoggedIn: boolean = false;
   loggerObserver!: Subscription;
   navigatorObserver!: Subscription;

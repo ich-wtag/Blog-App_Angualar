@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { UserService } from './user.service';
 import { User } from '../Models/user';
 
@@ -7,9 +7,18 @@ import { User } from '../Models/user';
   providedIn: 'root',
 })
 export class AuthService {
-  loggedInUser?: User;
+  loggedInUser?: User = {
+    id: 1,
+    firstName: 'john',
+    lastName: 'doe',
+    userName: 'jd',
+    email: 'jd@gmail.com',
+    joiningDate: '2024-02-20T08:45:10.940Z',
+    password: '123456',
+  };
 
-  loggerObserver: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  loggedInUserObserver: Subject<User> = new Subject();
+  loggerObserver: BehaviorSubject<boolean> = new BehaviorSubject(true);
 
   constructor(private userService: UserService) {}
 
@@ -20,11 +29,16 @@ export class AuthService {
         (user) => user.userName === userName && user.password === password
       );
 
+    this.loggedInUserObserver.next(this.loggedInUser as User);
     this.loggerObserver.next(true);
   }
 
   onLogOut() {
     this.loggedInUser = <User>{};
     this.loggerObserver.next(false);
+  }
+
+  getLoginUser() {
+    return this.loggedInUser;
   }
 }
