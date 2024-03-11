@@ -1,6 +1,10 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { ToastrModule } from 'ngx-toastr';
+import { EditorModule } from '@tinymce/tinymce-angular';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -17,7 +21,6 @@ import { SelectComponent } from './Models/select/select.component';
 import { PersonalBlogsComponent } from './user-profile/personal-blogs/personal-blogs.component';
 import { BlogComponent } from './Models/blog/blog.component';
 import { BlogDetailsComponent } from './blog-details/blog-details.component';
-import { EditorModule } from '@tinymce/tinymce-angular';
 import { UserInfoUpdateFormComponent } from './user-profile/user-info-update-form/user-info-update-form.component';
 
 @NgModule({
@@ -39,7 +42,18 @@ import { UserInfoUpdateFormComponent } from './user-profile/user-info-update-for
     BlogDetailsComponent,
     UserInfoUpdateFormComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, ReactiveFormsModule, EditorModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    MatTooltipModule,
+    ToastrModule.forRoot({
+      timeOut: 2000,
+      positionClass: 'toast-top-center',
+    }),
+    EditorModule,
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })

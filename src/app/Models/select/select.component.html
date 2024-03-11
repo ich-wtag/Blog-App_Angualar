@@ -1,9 +1,9 @@
 <div class="form__select" [class]="wrapperClassName">
   <label *ngIf="label" class="form__label"> {{ label }} </label>
-  <div class="flex-start form__selected-field">
+  <div class="flex-start form__selected__field">
     <span
-      class="form__selected-item"
-      *ngFor="let tag of availableTags; let i = index"
+      class="form__selected__item"
+      *ngFor="let tag of availableTags; index as i"
     >
       {{ tag }}
       <span class="close-icon" (click)="cancelButtonClicked(tag, i)"> </span>
@@ -12,18 +12,19 @@
     <span
       *ngIf="selectedTags.length"
       #dropdownArrow
-      class="form__dropdown-icon"
+      class="form__dropdown"
       (click)="dropDownClicked()"
     >
     </span>
   </div>
+
   <div
     *ngIf="isDropdownVisible && selectedTags.length > 0"
     #dropdownOptionWrapper
-    class="form__select-options--wrapper"
+    class="select-options--wrapper"
   >
-    <ng-container *ngFor="let option of selectedTags; let i = index">
-      <div class="form__select-options" (click)="optionClicked(option, i)">
+    <ng-container *ngFor="let option of selectedTags; index as i">
+      <div class="select-options" (click)="optionClicked(option, i)">
         <label class="select-options__text"
           ><input type="checkbox" /> {{ option }}</label
         >
