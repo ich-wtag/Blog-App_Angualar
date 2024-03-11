@@ -1,4 +1,6 @@
 import { FormControl, FormGroup } from '@angular/forms';
+import { IMAGE_FILE_FORMAT } from './rexgs';
+import { ToastrService } from 'ngx-toastr';
 
 export const GetControlName = (
   formControlGroup: FormGroup,
@@ -7,9 +9,10 @@ export const GetControlName = (
   return formControlGroup.get(formControl) as FormControl;
 };
 
-export const imageTypeCheck = (imageName: string) =>
-  /\.(jpe?g|png|gif)$/i.test(imageName);
+export const imageTypeCheck = (imageName: string) => {
+  if (IMAGE_FILE_FORMAT.test(imageName)) {
+    return true;
+  }
 
-export const getId = (id: number) => {
-  return `/blog/${id}`;
+  return false;
 };

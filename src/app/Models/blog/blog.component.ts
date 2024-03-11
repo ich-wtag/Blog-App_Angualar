@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Blog } from '../blog';
-import { DUMMYUSERIMAGE } from '../constants';
+import { DUMMY_USER_IMAGE } from '../constants';
 import { getId } from '../commonFunctions';
 
 @Component({
@@ -11,7 +11,9 @@ import { getId } from '../commonFunctions';
 export class BlogComponent implements OnInit {
   @Input() blog!: Blog;
 
-  dummyUSerImage: string = DUMMYUSERIMAGE;
+  userImage: string = this.blog?.bloggerImage
+    ? this.blog.bloggerImage
+    : DUMMY_USER_IMAGE;
   getBlogId = getId;
   creatorImage!: string;
 

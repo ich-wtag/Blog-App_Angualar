@@ -8,17 +8,12 @@ import {
 } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
-import { BLOGTAGS } from '../constants';
-
 @Component({
   selector: 'app-select',
   templateUrl: './select.component.html',
   styleUrls: ['./select.component.scss'],
 })
 export class SelectComponent {
-  isDropdownVisible: boolean = false;
-  selectedTags: string[] = [];
-
   @Input() label?: string;
   @Input() placeholder?: string;
   @Input() wrapperClassName?: string;
@@ -26,10 +21,13 @@ export class SelectComponent {
   @Input() control = new FormControl();
   @Input() availableTags: string[] = [];
 
-  @ViewChild('dropdownArrow') dropDownElem?: ElementRef;
-
   @Output() SelectedTags: EventEmitter<string> = new EventEmitter<string>();
   @Output() UnSelectTag: EventEmitter<number> = new EventEmitter<number>();
+
+  @ViewChild('dropdownArrow') dropDownElem?: ElementRef;
+
+  isDropdownVisible: boolean = false;
+  selectedTags: string[] = [];
 
   dropDownClicked() {
     if (this.isDropdownVisible || this.selectedTags.length === 0) {

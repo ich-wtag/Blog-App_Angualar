@@ -1,6 +1,9 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { ToastrModule } from 'ngx-toastr';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -37,7 +40,18 @@ import { EditorModule } from '@tinymce/tinymce-angular';
     BlogComponent,
     BlogDetailsComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, ReactiveFormsModule, EditorModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    ReactiveFormsModule,
+    EditorModule,
+    BrowserAnimationsModule,
+    MatTooltipModule,
+    ToastrModule.forRoot({
+      timeOut: 2000,
+      positionClass: 'toast-top-center',
+    }),
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })
