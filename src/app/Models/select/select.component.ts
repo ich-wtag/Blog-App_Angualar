@@ -30,7 +30,6 @@ export class SelectComponent {
   @ViewChild('dropdownArrow') dropDownElem?: ElementRef;
 
   isDropdownVisible: boolean = false;
-  selectedTags: string[] = [];
   blogTags: string[] = BLOG_TAGS;
 
   dropDownClicked() {
@@ -70,11 +69,11 @@ export class SelectComponent {
   }
 
   onSelectedTags(tag: string) {
-    this.SelectedTags.emit(tag);
+    this.OnSelectedTags.emit(tag);
   }
 
   onUnSelectTag(index: number) {
-    this.UnSelectTag.emit(index);
+    this.OnUnSelectTag.emit(index);
   }
 
   ngOnInit(): void {

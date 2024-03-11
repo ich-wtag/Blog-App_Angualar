@@ -17,9 +17,9 @@
       label="Tags"
       [availableTags]="getControlName(blogForm, 'tags').value"
       [selectedTags]="selectedTags"
+      [tagsFromEditedBlog]="unSelectedBlogTags"
       (OnSelectedTags)="getSelectedTag($event)"
       (OnUnSelectTag)="removeUnselectedTags($event)"
-      [tagsFromEditedBlog]="unSelectedBlogTags"
     ></app-select>
   </div>
 

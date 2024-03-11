@@ -32,13 +32,6 @@ export class BlogCreationFormComponent implements OnInit {
   editedBlogId!: number;
   isBlogEdited: boolean = false;
 
-  constructor(
-    private formBuilder: FormBuilder,
-    private blogService: BlogService,
-    private activatedRoute: ActivatedRoute,
-    private router: Router
-  ) {}
-
   getControlName = GetControlName;
 
   blogForm: FormGroup = this.formBuilder.group({
@@ -57,7 +50,9 @@ export class BlogCreationFormComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private blogService: BlogService,
-    private toastrService: ToastrService
+    private toastrService: ToastrService,
+    private activatedRoute: ActivatedRoute,
+    private router: Router
   ) {}
 
   getSelectedTag(tag: string) {
@@ -69,7 +64,7 @@ export class BlogCreationFormComponent implements OnInit {
     this.blogForm.reset();
     this.imageFileName = '';
     this.selectedTags = [];
-    this.updateFormTagsArray();
+    this.updateFormTagsArray(BLOG_TAGS);
   }
 
   onBlogCreation() {
@@ -122,10 +117,6 @@ export class BlogCreationFormComponent implements OnInit {
     tagArray.removeAt(indexNumber);
   }
 
-  onCancelClicked() {
-    this.resetForm();
-  }
-
   ngOnInit(): void {
     this.isBlogEdited = this.activatedRoute.snapshot.queryParams['edit'];
     this.editedBlogId = Number(this.activatedRoute.snapshot.queryParams['id']);
@@ -140,16 +131,15 @@ export class BlogCreationFormComponent implements OnInit {
       this.updateFormTagsArray(this.editedBlog?.tags as string[]);
       this.imageFileName = this.editedBlog?.blogImageFileName;
 
-      this.unSelectedBlogTags = BLOGTAGS.filter(
+      this.unSelectedBlogTags = BLOG_TAGS.filter(
         (tag) => !this.editedBlog?.tags.includes(tag)
       );
     } else {
-      this.updateFormTagsArray(BLOGTAGS);
+      this.updateFormTagsArray(BLOG_TAGS);
     }
   }
 
-  private updateFormTagsArray(tags: string[]) {
-  updateFormTagsArray() {
+  updateFormTagsArray(tags: string[]) {
     const tagArray = <FormArray>this.blogForm.get('tags');
     tagArray.clear();
     tags.forEach((tag) => {
@@ -174,19 +164,18 @@ export class BlogCreationFormComponent implements OnInit {
     }
   }
 
-  ngOnInit(): void {
-    this.updateFormTagsArray(BLOGTAGS);
-  }
-
   toggleBlogForm() {
     this.blogService.hideShowBlogForm();
   }
 
   onCancelClicked() {
+    if (this.editedBlogId && this.isBlogEdited) {
+      this.router.navigateByUrl(getId(this.editedBlogId));
+    }
     this.resetForm();
   }
 
-  private setEditedBlogValue() {
+  setEditedBlogValue() {
     this.blogForm.patchValue({
       title: this.editedBlog?.blogTitle,
       blogImage: this.editedBlog?.blogImage,
