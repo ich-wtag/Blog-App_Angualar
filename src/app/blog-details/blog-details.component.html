@@ -35,7 +35,12 @@
       (click)="handleEditClicked()"
       [queryParams]="{ edit: true, id: selectedBlog?.blogId }"
     >
-      <span class="icon-button__edit--blog" title></span>
+      <span
+        class="icon-button__edit--blog"
+        matTooltipClass="tooltip-custom"
+        matTooltip="Edit User Info"
+        matTooltipPosition="below"
+      ></span>
     </app-button>
   </div>
 
