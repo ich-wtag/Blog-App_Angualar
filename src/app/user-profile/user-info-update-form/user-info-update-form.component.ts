@@ -5,6 +5,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 import { GetControlName, imageTypeCheck } from 'src/app/Models/commonFunctions';
 import { DUMMY_USER_IMAGE } from 'src/app/Models/constants';
 import { User } from 'src/app/Models/user';
@@ -35,7 +36,8 @@ export class UserInfoUpdateFormComponent implements OnInit {
     private formBuilder: FormBuilder,
     private authService: AuthService,
     private userService: UserService,
-    private blogService: BlogService
+    private blogService: BlogService,
+    private toasterService: ToastrService
   ) {}
 
   handleImageChange(files: FileList | null) {
@@ -68,7 +70,16 @@ export class UserInfoUpdateFormComponent implements OnInit {
     this.profileImageFileName = this.loggedInUser?.imageFileName;
   }
 
+  resetForm() {
+    this.userInfoForm.reset();
+  }
+
   onSubmnitUserInfo() {
+    if (this.userInfoForm.invalid) {
+      this.showToast();
+      return;
+    }
+
     this.userService.updateUserInfo(
       this.loggedInUser?.id as number,
       this.userInfoForm,
@@ -83,5 +94,18 @@ export class UserInfoUpdateFormComponent implements OnInit {
 
     this.blogService.updateBlogWithUser();
     this.blogService.toggleUserEditForm();
+    this.resetForm();
+  }
+
+  showToast() {
+    if (this.userInfoForm.get('name')?.errors?.['required']) {
+      this.toasterService.error('name is required', 'Name');
+    } else if (this.userInfoForm.get('subTitle')?.errors?.['required']) {
+      this.toasterService.error('Sub Title is required', 'Sub Title');
+    } else if (this.userInfoForm.get('profileImage')?.errors?.['required']) {
+      this.toasterService.error('Please select a profileImage', 'ProfileImage');
+    } else if (this.userInfoForm.get('about')?.errors?.['required']) {
+      this.toasterService.error('About is required', 'About');
+    }
   }
 }
