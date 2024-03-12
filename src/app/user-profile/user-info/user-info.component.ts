@@ -35,10 +35,6 @@ export class UserInfoComponent implements OnInit, OnDestroy {
     private blogService: BlogService
   ) {}
 
-  toggleBlogFrom() {
-    this.blogService.hideShowBlogForm();
-  }
-
   ngOnInit(): void {
     this.userObserver = this.authService.loggedInUserObserver.subscribe(
       (data) => (this.loggedInUser = data)
@@ -47,5 +43,9 @@ export class UserInfoComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.userObserver.unsubscribe();
+  }
+
+  toggleBlogFrom() {
+    this.blogService.hideShowBlogForm();
   }
 }
