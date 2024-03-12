@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { UserInfoUpdateFormComponent } from './user-info-update-form.component';
 
 describe('UserInfoUpdateFormComponent', () => {
@@ -8,7 +7,7 @@ describe('UserInfoUpdateFormComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [UserInfoUpdateFormComponent]
+      declarations: [UserInfoUpdateFormComponent],
     });
     fixture = TestBed.createComponent(UserInfoUpdateFormComponent);
     component = fixture.componentInstance;

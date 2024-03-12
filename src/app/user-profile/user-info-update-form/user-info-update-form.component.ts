@@ -7,7 +7,9 @@ import {
 } from '@angular/forms';
 import { GetControlName, imageTypeCheck } from 'src/app/Models/commonFunctions';
 import { DUMMY_USER_IMAGE } from 'src/app/Models/constants';
+import { User } from 'src/app/Models/user';
 import { AuthService } from 'src/app/Services/auth.service';
+import { BlogService } from 'src/app/Services/blog.service';
 import { UserService } from 'src/app/Services/user.service';
 
 @Component({
@@ -32,7 +34,8 @@ export class UserInfoUpdateFormComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
-    private userService: UserService
+    private userService: UserService,
+    private blogService: BlogService
   ) {}
 
   handleImageChange(files: FileList | null) {
@@ -69,8 +72,12 @@ export class UserInfoUpdateFormComponent implements OnInit {
       this.profileImageFileName as string
     );
 
-    this.authService.getLoginUser();
+    this.authService.updateLoginUser(
+      this.loggedInUser as User,
+      this.userInfoForm,
+      this.profileImageFileName as string
+    );
 
-    console.log(this.userService.getAllUsers());
+    this.blogService.updateBlogWithUser();
   }
 }

@@ -26,8 +26,8 @@
           alt="user name"
           matTooltipClass="tooltip-custom"
           matTooltipPosition="left"
-          [src]="userImage"
-          [matTooltip]="userNameTooltip"
+          [src]="loggedInUser?.image || userImage"
+          [matTooltip]="loggedInUser?.userName || userNameTooltip"
         />
       </div>
 
@@ -35,12 +35,14 @@
         <h2 class="user-name">
           {{ loggedInUser?.firstName + " " + loggedInUser?.lastName }}
         </h2>
-        <div class="user-occupation">Collaborator & Editor</div>
+        <div class="user-occupation">
+          {{ loggedInUser?.subTitle || "Collaborator & Editor" }}
+        </div>
       </div>
     </div>
 
     <div class="user__description">
-      {{ userDescription }}
+      {{ this.loggedInUser?.about || userDescription }}
     </div>
 
     <div class="flex user__contact">
