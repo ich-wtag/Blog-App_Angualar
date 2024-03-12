@@ -1,6 +1,7 @@
 <div class="flex-end button-wrapper">
   <app-button
     className="icon-button"
+    buttonType="button"
     matTooltipClass="tooltip-custom"
     matTooltip="Add blog"
     matTooltipPosition="left"
@@ -9,11 +10,12 @@
   </app-button>
   <app-button
     className="icon-button"
+    buttonType="button"
     matTooltipClass="tooltip-custom"
     matTooltip="Edit User Info"
     matTooltipPosition="below"
   >
-    <span class="icon-button__edit"></span>
+    <span class="icon-button__edit" (click)="toggleUserEditForm()"></span>
   </app-button>
 </div>
 

@@ -18,7 +18,7 @@ import { UserService } from 'src/app/Services/user.service';
   styleUrls: ['./user-info-update-form.component.scss'],
 })
 export class UserInfoUpdateFormComponent implements OnInit {
-  userImageSource: any = DUMMY_USER_IMAGE;
+  userImageSource: any;
   profileImageFileName?: string;
   loggedInUser = this.authService.loggedInUser;
 
@@ -62,7 +62,10 @@ export class UserInfoUpdateFormComponent implements OnInit {
       name: this.loggedInUser?.firstName + ' ' + this.loggedInUser?.lastName,
       subTitle: this.loggedInUser?.subTitle,
       about: this.loggedInUser?.about,
+      profileImage: this.loggedInUser?.image,
     });
+    this.userImageSource = this.loggedInUser?.image || DUMMY_USER_IMAGE;
+    this.profileImageFileName = this.loggedInUser?.imageFileName;
   }
 
   onSubmnitUserInfo() {
@@ -79,5 +82,6 @@ export class UserInfoUpdateFormComponent implements OnInit {
     );
 
     this.blogService.updateBlogWithUser();
+    this.blogService.toggleUserEditForm();
   }
 }

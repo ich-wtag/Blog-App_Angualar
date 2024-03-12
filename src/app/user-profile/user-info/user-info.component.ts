@@ -48,4 +48,8 @@ export class UserInfoComponent implements OnInit, OnDestroy {
   toggleBlogFrom() {
     this.blogService.hideShowBlogForm();
   }
+
+  toggleUserEditForm() {
+    this.blogService.toggleUserEditForm();
+  }
 }

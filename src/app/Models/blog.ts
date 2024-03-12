@@ -7,7 +7,6 @@ export interface Blog {
   bloggrUserName?: string;
   bloggerUserId?: number;
   bloggerImage?: string;
-  bloggerImageFileName?: string;
   bloggerName?: string;
   createdAt: string;
   description: string;
