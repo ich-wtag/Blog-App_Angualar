@@ -23,7 +23,7 @@
         <div class="blog__creator__image">
           <img
             class="creator-image"
-            [src]="userImage"
+            [src]="blog.bloggerImage || userImage"
             [alt]="blog.bloggerName"
           />
         </div>

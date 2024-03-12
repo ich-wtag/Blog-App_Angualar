@@ -10,7 +10,5 @@ import { DUMMY_USER_IMAGE } from '../constants';
 export class BlogComponent {
   @Input() blog!: Blog;
 
-  userImage: string = this.blog?.bloggerImage
-    ? this.blog.bloggerImage
-    : DUMMY_USER_IMAGE;
+  userImage: string = DUMMY_USER_IMAGE;
 }
