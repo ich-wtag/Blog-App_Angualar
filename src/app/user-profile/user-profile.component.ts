@@ -10,9 +10,9 @@ import { Subscription } from 'rxjs';
 export class UserProfileComponent implements OnInit, OnDestroy {
   isBlogFormVisible: boolean = false;
   blogFormObserver!: Subscription;
+  blogFormVisibilityObserver!: Subscription;
 
   constructor(private blogService: BlogService) {}
-  blogFormVisibilityObserver!: Subscription;
 
   ngOnInit(): void {
     this.blogFormVisibilityObserver = this.blogFormObserver =
