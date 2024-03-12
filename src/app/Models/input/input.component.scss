@@ -2,12 +2,12 @@
 
 .form {
   &__input {
-    display: block;
-    width: 100%;
-    padding: 0.6rem 1rem;
     border-radius: 0.3rem;
     background-color: $white-color;
     border: 0.125rem solid $black-color-100;
+    display: block;
+    padding: 0.6rem 1rem;
+    width: 100%;
 
     &.ng-touched.ng-invalid {
       border-color: $red-color-500;
