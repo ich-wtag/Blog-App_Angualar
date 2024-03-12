@@ -29,6 +29,7 @@ export class AuthService {
 
   onLogOut() {
     this.loggedInUser = <User>{};
+    this.loggedInUserObserver.next(this.loggedInUser);
     this.loggerObserver.next(false);
   }
 }
