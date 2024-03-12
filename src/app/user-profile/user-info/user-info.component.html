@@ -27,7 +27,9 @@
           matTooltipClass="tooltip-custom"
           matTooltipPosition="left"
           [src]="loggedInUser?.image || userImage"
-          [matTooltip]="loggedInUser?.userName || userNameTooltip"
+          [matTooltip]="
+            loggedInUser?.userName || loggedInUser?.userName || userNameTooltip
+          "
         />
       </div>
 

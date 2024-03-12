@@ -21,6 +21,7 @@ export class AuthService {
   loggedInUserObserver: BehaviorSubject<User> = new BehaviorSubject(
     this.loggedInUser as User
   );
+
   loggerObserver: BehaviorSubject<boolean> = new BehaviorSubject(true);
 
   constructor(private userService: UserService) {}
