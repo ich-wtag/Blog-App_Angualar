@@ -9,6 +9,9 @@ import { User } from '../Models/user';
 export class AuthService {
   loggedInUser?: User;
 
+  loggedInUserObserver: BehaviorSubject<User> = new BehaviorSubject(
+    this.loggedInUser as User
+  );
   loggerObserver: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
   constructor(private userService: UserService) {}
@@ -20,6 +23,7 @@ export class AuthService {
         (user) => user.userName === userName && user.password === password
       );
 
+    this.loggedInUserObserver.next(this.loggedInUser as User);
     this.loggerObserver.next(true);
   }
 
