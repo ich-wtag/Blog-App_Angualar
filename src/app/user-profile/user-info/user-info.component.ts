@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import {
   FACEBOOKICON,
   INSTRAGRAMICON,
@@ -14,19 +15,29 @@ import { AuthService } from 'src/app/Services/auth.service';
   templateUrl: './user-info.component.html',
   styleUrls: ['./user-info.component.scss'],
 })
-export class UserInfoComponent {
+export class UserInfoComponent implements OnInit, OnDestroy {
   userImage: string = USERIMAGE;
   facebookIcon: string = FACEBOOKICON;
   twitterIcon: string = TWITTERICON;
   instragamIcon: string = INSTRAGRAMICON;
   youtubeIcon: string = YOUTUBEICON;
-  loggedInUser = this.authService.loggedInUser;
+  loggedInUser?: User;
   userDescription: string =
     'Meet Jonathan Doe, a passionate writer and blogger with a love for technology and travel. Jonathan holds a degree in Computer Science and has spent years working in the tech industry, gaining a deep understanding of the impact technology has on our lives.';
 
-  userNameTooltip = this.loggedInUser?.userName
-    ? this.loggedInUser.userName
-    : 'User Name';
+  userNameTooltip = 'User Name';
+
+  userObserver!: Subscription;
 
   constructor(private authService: AuthService) {}
+
+  ngOnInit(): void {
+    this.userObserver = this.authService.loggedInUserObserver.subscribe(
+      (data) => (this.loggedInUser = data)
+    );
+  }
+
+  ngOnDestroy(): void {
+    this.userObserver.unsubscribe();
+  }
 }
