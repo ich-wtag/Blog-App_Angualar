@@ -1,7 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { BlogService } from '../Services/blog.service';
 import { Subscription } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-user-profile',
@@ -9,16 +8,10 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./user-profile.component.scss'],
 })
 export class UserProfileComponent implements OnInit, OnDestroy {
-  constructor(
-    private blogService: BlogService,
-    private activatedRoute: ActivatedRoute
-  ) {}
-
-  editBlogId?: number;
-  isBlogEdited: boolean = false;
-
   isBlogFormVisible: boolean = false;
   blogFormObserver!: Subscription;
+
+  constructor(private blogService: BlogService) {}
   blogFormVisibilityObserver!: Subscription;
 
   ngOnInit(): void {
@@ -26,9 +19,6 @@ export class UserProfileComponent implements OnInit, OnDestroy {
       this.blogService.showBlogFormSubject.subscribe(
         (value) => (this.isBlogFormVisible = value)
       );
-
-    const isBlogEdited = this.activatedRoute.snapshot.queryParams['edit'];
-    const editedBlogId = Number(this.activatedRoute.snapshot.queryParams['id']);
   }
   ngOnDestroy(): void {
     this.blogFormVisibilityObserver.unsubscribe();
