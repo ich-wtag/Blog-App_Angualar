@@ -106,18 +106,6 @@
           content: url($edit-blog-icon-blue);
         }
       }
-
-      &[title]:hover::after {
-        content: "Edit Blog";
-        position: absolute;
-        top: 140%;
-        right: 0;
-        border-radius: 0.35rem;
-        color: $white-color;
-        text-wrap: nowrap;
-        padding: 0.35rem 0.65rem;
-        background-color: $sky-color-300;
-      }
     }
   }
 }
