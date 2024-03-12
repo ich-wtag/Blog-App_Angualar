@@ -29,7 +29,7 @@ export class UserInfoUpdateFormComponent implements OnInit {
     name: new FormControl('', [Validators.required]),
     subTitle: new FormControl('', [Validators.required]),
     about: new FormControl('', [Validators.required]),
-    profileImage: new FormControl(''),
+    profileImage: new FormControl('', [Validators.required]),
   });
 
   constructor(
@@ -95,6 +95,7 @@ export class UserInfoUpdateFormComponent implements OnInit {
     this.blogService.updateBlogWithUser();
     this.blogService.toggleUserEditForm();
     this.resetForm();
+    this.toasterService.success('Successfully updated user information');
   }
 
   showToast() {
