@@ -11,9 +11,7 @@ import { getId } from '../commonFunctions';
 export class BlogComponent implements OnInit {
   @Input() blog!: Blog;
 
-  userImage: string = this.blog?.bloggerImage
-    ? this.blog.bloggerImage
-    : DUMMY_USER_IMAGE;
+  userImage: string = DUMMY_USER_IMAGE;
   getBlogId = getId;
   creatorImage!: string;
 
