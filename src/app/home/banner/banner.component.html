@@ -1,21 +1,21 @@
-<section class="banner">
+<section class="banner" [ngClass]="isLoggedIn ? '' : 'banner--logout'">
   <div class="banner__background">
     <img
       class="banner__background__image"
-      src="../../../assets/images/banner-image.jpg"
-      alt="Blog title"
+      [src]="lastBlogs.blogImage"
+      [alt]="lastBlogs.blogTitle"
     />
   </div>
 
   <div class="banner__description">
     <div class="flex-start banner__description__tags">
-      <span class="tag-item">Technology</span>
-      <span class="tag-item">Poems</span>
-      <span class="tag-item">Politics</span>
+      <span *ngFor="let tag of lastBlogs.tags" class="tag-item">
+        {{ tag }}
+      </span>
     </div>
 
     <h2 class="banner__description__title">
-      The Impact of Technology on the Workplace: How Technology is Changing
+      {{ lastBlogs.blogTitle }}
     </h2>
 
     <div class="flex-start banner__description__creator">
@@ -23,14 +23,16 @@
         <div class="creator-info__image">
           <img
             class="creator-info__image__item"
-            src="../../../assets/images/user-image.png"
-            alt="bloger"
+            [src]="dummyUserImage"
+            [alt]="lastBlogs.bloggrUserName"
           />
         </div>
 
-        <h5 class="creator-info__name">Jason Francisco</h5>
+        <h5 class="creator-info__name">{{ lastBlogs.bloggerName }}</h5>
       </div>
-      <div class="created-time">August 20, 2022</div>
+      <div class="created-time">
+        {{ lastBlogs.createdAt | date : "longDate" }}
+      </div>
     </div>
   </div>
 </section>

@@ -1,15 +1,26 @@
 @import "../../../assets/style/variable.scss";
 
 .banner {
-  position: relative;
+  height: 28.5rem;
   margin-top: 6.87rem;
-  height: 37.5rem;
+  position: relative;
 
   &__background {
     border-radius: 0.75rem;
     height: 100%;
     position: absolute;
     width: 100%;
+
+    &::before {
+      background: $black-color-500-A40;
+      border-radius: inherit;
+      content: "";
+      height: 100%;
+      left: 0;
+      position: absolute;
+      top: 0;
+      width: 100%;
+    }
 
     &__image {
       border-radius: inherit;
@@ -20,15 +31,10 @@
   }
 
   &__description {
-    background: $white-color;
-    border-radius: 0.75rem;
-    border: 0.063rem solid $black-color-60;
-    box-shadow: 0px 12px 24px -6px $black-color-400-A20;
-    left: 4rem;
-    max-width: 37.5rem;
-    padding: 2.5rem;
+    left: 3.7rem;
+    max-width: 45rem;
     position: absolute;
-    top: 22.5rem;
+    top: 12.5rem;
 
     &__tags {
       gap: 1rem;
@@ -44,7 +50,7 @@
     }
 
     &__title {
-      color: $black-color-400;
+      color: $white-color;
       font-size: 2.25rem;
       font-weight: 600;
       line-height: 2.25rem;
@@ -53,7 +59,7 @@
     }
 
     &__creator {
-      color: $black-color-100;
+      color: $white-color;
       gap: 1.25rem;
       margin-top: 1.5rem;
 
@@ -77,6 +83,7 @@
           font-size: 1rem;
           font-weight: 500;
           line-height: 1.5rem;
+          text-transform: capitalize;
         }
       }
 
@@ -90,30 +97,26 @@
 
   // banner styles on logout condition
   &--logout {
-    height: 28.5rem;
+    height: 36.5rem;
 
     .banner {
       &__description {
-        background: none;
-        border-radius: none;
-        border: none;
-        box-shadow: none;
-        max-width: 45rem;
-        padding: 0;
+        background: $white-color;
+        border-radius: 0.75rem;
+        border: 0.063rem solid $black-color-60;
+        box-shadow: 0px 12px 24px -6px $black-color-400-A20;
+        left: 4rem;
+        max-width: 37.5rem;
+        padding: 2.5rem;
         position: absolute;
-        top: 12.5rem;
+        top: 22.5rem;
 
         &__title {
-          color: $white-color;
-          font-size: 2.25rem;
-          font-weight: 600;
-          line-height: 2.25rem;
-          margin-top: 1rem;
-          text-transform: capitalize;
+          color: $black-color-400;
         }
 
         &__creator {
-          color: $white-color;
+          color: $black-color-100;
         }
       }
     }
