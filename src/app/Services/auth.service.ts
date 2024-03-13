@@ -8,15 +8,7 @@ import { User } from '../Models/user';
   providedIn: 'root',
 })
 export class AuthService {
-  loggedInUser?: User = {
-    id: 1,
-    firstName: 'john',
-    lastName: 'doe',
-    userName: 'jd',
-    email: 'jd@gmail.com',
-    joiningDate: '2024-02-20T08:45:10.940Z',
-    password: '123456',
-  };
+  loggedInUser?: User;
 
   loggedInUserObserver: BehaviorSubject<User> = new BehaviorSubject(
     this.loggedInUser as User
