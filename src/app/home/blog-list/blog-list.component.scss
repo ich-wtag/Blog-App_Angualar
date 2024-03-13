@@ -1,5 +1,19 @@
+@import "../../../assets/style/variable.scss";
+
 .blog-list {
-  margin-top: 9rem;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  padding: 5rem 0 2rem;
+
+  &__title {
+    color: $black-color-400;
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1.75rem;
+  }
+
+  &__container {
+    display: grid;
+    gap: 1.25rem;
+    grid-template-columns: repeat(3, 1fr);
+    margin-top: 2rem;
+  }
 }

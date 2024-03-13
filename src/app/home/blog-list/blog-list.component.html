@@ -1,1 +1,9 @@
-<section class="blog-list">this is blog blog-list</section>
+<section class="blog-list">
+  <h2 class="blog-list__title">Latest Post</h2>
+
+  <div class="blog-list__container">
+    <ng-container *ngFor="let blog of blogs">
+      <app-blog [blog]="blog"></app-blog>
+    </ng-container>
+  </div>
+</section>
