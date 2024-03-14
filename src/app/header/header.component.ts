@@ -35,7 +35,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       }
     });
 
-    this.loggerObserver = this.authService.loggedInUserObserver.subscribe(
+    this.logginUserObserver = this.authService.loggedInUserObserver.subscribe(
       (data) => (this.loggedInUser = data)
     );
 
