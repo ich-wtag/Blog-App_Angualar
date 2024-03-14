@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Blog } from 'src/app/Models/blog';
+import { getId } from 'src/app/Models/commonFunctions';
 import {
   DUMMY_USER_IMAGE,
   DUMMY_USER_IMAGE_LIGHT,
@@ -19,6 +20,8 @@ export class BannerComponent implements OnInit, OnDestroy {
   dummyUserImage!: string;
   blogObserver!: Subscription;
   loginObserver!: Subscription;
+
+  getRoutingId = getId;
 
   constructor(
     private blogService: BlogService,
