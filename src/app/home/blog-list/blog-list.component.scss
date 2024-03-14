@@ -16,4 +16,11 @@
     grid-template-columns: repeat(3, 1fr);
     margin-top: 2rem;
   }
+
+  &__blank-message {
+    color: $red-color-500;
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.75rem;
+  }
 }

@@ -1,4 +1,8 @@
-<section class="banner" [ngClass]="isLoggedIn ? '' : 'banner--logout'">
+<section
+  *ngIf="lastBlogs?.blogId"
+  class="banner"
+  [ngClass]="isLoggedIn ? '' : 'banner--logout'"
+>
   <div class="banner__background" [routerLink]="getRoutingId(lastBlogs.blogId)">
     <img
       class="banner__background__image"
