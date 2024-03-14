@@ -13,6 +13,9 @@ import { HomeComponent } from './home/home.component';
 import { HeaderComponent } from './header/header.component';
 import { UserInfoComponent } from './user-profile/user-info/user-info.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
+import { BlogCreationFormComponent } from './user-profile/blog-creation-form/blog-creation-form.component';
+import { TextareaComponent } from './Models/textarea/textarea.component';
+import { SelectComponent } from './Models/select/select.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +28,9 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
     HeaderComponent,
     UserInfoComponent,
     UserProfileComponent,
+    BlogCreationFormComponent,
+    TextareaComponent,
+    SelectComponent,
   ],
   imports: [
     BrowserModule,

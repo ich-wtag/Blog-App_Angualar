@@ -1,0 +1,38 @@
+<form class="form blog--form">
+  <div class="flex tags-wrapper">
+    <app-input
+      type="text"
+      wrapperClassName="form__group--blogs"
+      label="Title"
+    ></app-input>
+    <app-select
+      wrapperClassName="form__group--blogs"
+      className="select-items"
+      label="Tags"
+    ></app-select>
+  </div>
+
+  <app-input
+    type="file"
+    wrapperClassName="form__group--blogs banner-image"
+    label="Banner Image"
+    className="banner-image__input"
+    inputFileWrapperClass="banner-image__field"
+    selectableLabelClass="banner-image__label"
+  >
+    <span class="flex-center banner-image__file">
+      Uploaded file: No file uploaded.
+    </span>
+  </app-input>
+
+  <app-textarea
+    type="password"
+    label="Body"
+    wrapperClassName="form__group--blogs"
+  ></app-textarea>
+
+  <div class="flex-center form__button--wrapper">
+    <app-button className="primary-button">Submit</app-button>
+    <app-button className="secondary-button">Cancel</app-button>
+  </div>
+</form>

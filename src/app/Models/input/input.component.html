@@ -1,12 +1,35 @@
 <div [class]="wrapperClassName">
-  <label *ngIf="label" class="form__label">{{ label }}</label>
-  <input
-    class="form__input"
-    [class]="className"
-    [type]="type"
-    [placeholder]="placeholder"
-    [formControl]="control"
-  />
+  <ng-container *ngIf="type !== 'file'; else inputFileRef">
+    <label *ngIf="label" class="form__label">{{ label }}</label>
+    <input
+      class="form__input"
+      [class]="className"
+      [type]="type"
+      [placeholder]="placeHolderMessage"
+      [formControl]="control"
+    />
 
-  <ng-content></ng-content>
+    <ng-content> </ng-content>
+  </ng-container>
 </div>
+
+<ng-template #inputFileRef>
+  <span *ngIf="label" class="form__label">{{ label }}</span>
+
+  <div class="flex-center" [class]="inputFileWrapperClass">
+    <span class="form__label">
+      Drop your image here, or
+      <label [class]="selectableLabelClass">
+        browse
+        <input
+          class="form__input"
+          [class]="className"
+          [type]="type"
+          [placeholder]="placeHolderMessage"
+          [formControl]="control"
+        />
+      </label>
+    </span>
+    <small class="form__suported-files">Supports: JPG, Jpeg and Png</small>
+  </div>
+</ng-template>

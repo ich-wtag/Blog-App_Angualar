@@ -11,7 +11,10 @@ const routes: Routes = [
   { path: HOME, component: HomeComponent, data: { showSearchBox: true } },
   { path: LOGIN, component: LoginComponent },
   { path: REGISTER, component: RegisterComponent },
-  { path: USER, component: UserProfileComponent },
+  {
+    path: USER,
+    component: UserProfileComponent,
+  },
 ];
 
 @NgModule({
