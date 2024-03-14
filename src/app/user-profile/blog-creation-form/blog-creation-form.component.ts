@@ -55,7 +55,7 @@ export class BlogCreationFormComponent implements OnInit {
   }
 
   onBlogCreation() {
-    if (!this.blogForm.valid) {
+    if (this.blogForm.invalid) {
       this.showToast();
       return;
     }
@@ -103,18 +103,37 @@ export class BlogCreationFormComponent implements OnInit {
   }
 
   showToast() {
-    if (this.blogForm.get('title')?.errors?.['required']) {
+    if (
+      this.blogForm.get('title')?.errors?.['required'] &&
+      this.blogForm.get('title')?.touched
+    ) {
       this.toastrService.error('Title is required', 'Title');
-    } else if (this.blogForm.get('title')?.errors?.['minlength']) {
+    } else if (
+      this.blogForm.get('title')?.errors?.['minlength'] &&
+      this.blogForm.get('title')?.touched
+    ) {
       this.toastrService.error('Please enter a valid Title', 'Title');
-    } else if (this.blogForm.get('blogImage')?.errors?.['required']) {
+    } else if (
+      this.blogForm.get('blogImage')?.errors?.['required'] &&
+      this.blogForm.get('blogImage')?.touched
+    ) {
       this.toastrService.error('Please select a image', 'Image');
-    } else if (this.blogForm.get('description')?.errors?.['required']) {
+    } else if (
+      this.blogForm.get('description')?.errors?.['required'] &&
+      this.blogForm.get('description')?.touched
+    ) {
       this.toastrService.error('Description is required', 'Description');
-    } else if (this.blogForm.get('description')?.errors?.['minlength']) {
+    } else if (
+      this.blogForm.get('description')?.errors?.['minlength'] &&
+      this.blogForm.get('description')?.touched
+    ) {
       this.toastrService.error(
         'Please enter a valid description',
         'Description'
+      );
+    } else {
+      this.toastrService.error(
+        'Title, Image and body are required field for blog creation'
       );
     }
   }
