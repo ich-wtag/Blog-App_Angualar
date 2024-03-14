@@ -29,6 +29,7 @@ export class UserInfoComponent implements OnInit, OnDestroy {
   userNameTooltip = 'User Name';
 
   userObserver!: Subscription;
+  fullName?: string;
 
   constructor(
     private authService: AuthService,
@@ -37,7 +38,11 @@ export class UserInfoComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.userObserver = this.authService.loggedInUserObserver.subscribe(
-      (data) => (this.loggedInUser = data)
+      (data) => {
+        this.loggedInUser = data;
+        this.fullName =
+          this.loggedInUser?.firstName + ' ' + this.loggedInUser?.lastName;
+      }
     );
   }
 
