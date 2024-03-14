@@ -2,8 +2,14 @@
   <h2 class="blog-list__title">Latest Post</h2>
 
   <div class="blog-list__container">
-    <ng-container *ngFor="let blog of blogs">
-      <app-blog [blog]="blog"></app-blog>
+    <ng-container *ngIf="seacrhedBlogs.length; else emptyBlogsMessage">
+      <ng-container *ngFor="let blog of seacrhedBlogs">
+        <app-blog [blog]="blog"></app-blog>
+      </ng-container>
     </ng-container>
   </div>
+
+  <ng-template #emptyBlogsMessage>
+    <strong class="blog-list__blank-message">Sorry, No Blogs Found</strong>
+  </ng-template>
 </section>

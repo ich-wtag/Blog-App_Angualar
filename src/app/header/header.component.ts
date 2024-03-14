@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { AuthService } from '../Services/auth.service';
 import { USER } from '../Models/constants';
 import { User } from '../Models/user';
+import { BlogService } from '../Services/blog.service';
 
 @Component({
   selector: 'app-header',
@@ -21,7 +22,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private blogService: BlogService
   ) {}
 
   ngOnInit(): void {
@@ -53,5 +55,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
   onLogOut() {
     this.authService.onLogOut();
     this.router.navigate(['/home', { showSearchBox: true }]);
+  }
+
+  handleSearch(seacrhedValue: string) {
+    this.blogService.searchedValueSubject.next(seacrhedValue);
   }
 }

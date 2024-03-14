@@ -14,6 +14,8 @@
       wrapperClassName="header__search-wrapper"
       placeholder="Search"
       className="search-box"
+      [isSearchInput]="true"
+      (OnSearchValue)="handleSearch($event)"
     >
       <span
         class="icon-button search-icon"

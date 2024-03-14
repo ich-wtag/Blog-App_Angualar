@@ -15,11 +15,15 @@ export class InputComponent implements OnInit {
   @Input() control = new FormControl();
   @Input() inputFileWrapperClass?: string;
   @Input() selectableLabelClass?: string;
+  @Input() isSearchInput: boolean = false;
 
   @Output() OnChangeEvent: EventEmitter<FileList | null> =
     new EventEmitter<FileList | null>();
 
+  @Output() OnSearchValue: EventEmitter<string> = new EventEmitter<string>();
+
   placeHolderMessage: string = '';
+  searchInputValue: string = '';
 
   ngOnInit(): void {
     this.placeHolderMessage = this.placeholder?.length ? this.placeholder : '';
@@ -28,5 +32,10 @@ export class InputComponent implements OnInit {
   onChangeImage(event: Event) {
     const file = (<HTMLInputElement>event.target)?.files;
     this.OnChangeEvent.emit(file);
+  }
+
+  onSearchHandler(event: Event) {
+    const inputValue = (<HTMLInputElement>event.target).value;
+    this.OnSearchValue.emit(inputValue);
   }
 }
