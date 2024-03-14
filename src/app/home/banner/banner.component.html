@@ -1,5 +1,5 @@
 <section
-  *ngIf="lastBlogs"
+  *ngIf="lastBlogs?.blogId"
   class="banner"
   [ngClass]="isLoggedIn ? '' : 'banner--logout'"
 >
