@@ -26,9 +26,12 @@ export class UserInfoUpdateFormComponent implements OnInit {
   getControlName = GetControlName;
 
   userInfoForm: FormGroup = this.formBuilder.group({
-    name: new FormControl('', [Validators.required]),
-    subTitle: new FormControl('', [Validators.required]),
-    about: new FormControl('', [Validators.required]),
+    name: new FormControl('', [Validators.required, Validators.minLength(7)]),
+    subTitle: new FormControl('', [
+      Validators.required,
+      Validators.minLength(5),
+    ]),
+    about: new FormControl('', [Validators.required, Validators.minLength(12)]),
     profileImage: new FormControl('', [Validators.required]),
   });
 
@@ -99,14 +102,51 @@ export class UserInfoUpdateFormComponent implements OnInit {
   }
 
   showToast() {
-    if (this.userInfoForm.get('name')?.errors?.['required']) {
+    if (
+      this.userInfoForm.get('name')?.errors?.['required'] &&
+      this.userInfoForm.get('name')?.touched
+    ) {
       this.toasterService.error('name is required', 'Name');
-    } else if (this.userInfoForm.get('subTitle')?.errors?.['required']) {
-      this.toasterService.error('Sub Title is required', 'Sub Title');
-    } else if (this.userInfoForm.get('profileImage')?.errors?.['required']) {
-      this.toasterService.error('Please select a profileImage', 'ProfileImage');
-    } else if (this.userInfoForm.get('about')?.errors?.['required']) {
-      this.toasterService.error('About is required', 'About');
+    } else if (
+      this.userInfoForm.get('name')?.errors?.['minlength'] &&
+      this.userInfoForm.get('name')?.touched
+    ) {
+      this.toasterService.error('Please enter a valid name', 'Name');
+    } else if (
+      this.userInfoForm.get('subTitle')?.errors?.['required'] &&
+      this.userInfoForm.get('subTitle')?.touched
+    ) {
+      this.toasterService.error('Sub Title is required field', 'Sub Title');
+    } else if (
+      this.userInfoForm.get('subTitle')?.errors?.['minlength'] &&
+      this.userInfoForm.get('subTitle')?.touched
+    ) {
+      this.toasterService.error('Please add a valid sub title', 'Sub Title');
+    } else if (
+      this.userInfoForm.get('profileImage')?.errors?.['required'] &&
+      this.userInfoForm.get('profileImage')?.touched
+    ) {
+      this.toasterService.error(
+        'Please select a profileImage',
+        'Profile Image'
+      );
+    } else if (
+      this.userInfoForm.get('about')?.errors?.['required'] &&
+      this.userInfoForm.get('about')?.touched
+    ) {
+      this.toasterService.error('About is required field', 'About');
+    } else if (
+      this.userInfoForm.get('about')?.errors?.['minlength'] &&
+      this.userInfoForm.get('about')?.touched
+    ) {
+      this.toasterService.error(
+        'Please add a valid description of yourself',
+        'About'
+      );
+    } else {
+      this.toasterService.error(
+        'Name, Sub title, Profile image and about are the required field'
+      );
     }
   }
 }
