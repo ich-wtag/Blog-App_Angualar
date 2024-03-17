@@ -12,11 +12,22 @@
   </div>
 
   <div class="blog-list__container">
-    <ng-container *ngIf="filteredBlogs.length; else emptyBlogsMessage">
-      <ng-container *ngFor="let blog of filteredBlogs">
+    <ng-container *ngIf="paginatedBlogs.length; else emptyBlogsMessage">
+      <ng-container *ngFor="let blog of paginatedBlogs">
         <app-blog [blog]="blog"></app-blog>
       </ng-container>
     </ng-container>
+  </div>
+
+  <div class="flex-center blog-list__button">
+    <app-button
+      *ngIf="isLoadMoreButtonVisible"
+      className="secondary-button--light__larger"
+      buttonType="button"
+      (OnButtonClicked)="handleLoadMoreBlogs($event)"
+    >
+      Load More
+    </app-button>
   </div>
 
   <ng-template #emptyBlogsMessage>

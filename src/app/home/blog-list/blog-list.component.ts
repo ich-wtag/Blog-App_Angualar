@@ -1,4 +1,11 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { Subscription, debounceTime } from 'rxjs';
 import { Blog } from 'src/app/Models/blog';
 import { BLOG_TAGS } from 'src/app/Models/constants';
@@ -13,11 +20,15 @@ export class BlogListComponent implements OnInit, OnDestroy {
   blogs: Blog[] = [];
   seacrhedBlogs: Blog[] = [];
   filteredBlogs: Blog[] = [];
+  paginatedBlogs: Blog[] = [];
   filteredTags: string[] = [];
   blogObserverVer!: Subscription;
   searchedBlogObserver!: Subscription;
   blogTags = JSON.parse(JSON.stringify(BLOG_TAGS));
+  isLoadMoreButtonVisible: boolean = false;
+  endIndex: number = 9;
 
+  @ViewChild('loadMoreButtonText') loadMoreButton!: ElementRef;
   constructor(private blogService: BlogService) {}
 
   ngOnInit(): void {
@@ -59,5 +70,32 @@ export class BlogListComponent implements OnInit, OnDestroy {
       }
       return true;
     });
+
+    this.loadMoreBlogs();
+  }
+
+  handleLoadMoreBlogs($event: EventTarget) {
+    const loadBlogsNumber = 6;
+    const buttonElement = <HTMLElement>$event;
+
+    if (this.endIndex < this.filteredBlogs.length) {
+      this.endIndex += loadBlogsNumber;
+    } else {
+      this.endIndex = 9;
+    }
+
+    buttonElement.innerText =
+      this.endIndex >= this.filteredBlogs.length ? 'Show Less' : 'Load More';
+
+    this.loadMoreBlogs();
+  }
+
+  loadMoreBlogs() {
+    if (this.filteredBlogs.length > 9) {
+      this.isLoadMoreButtonVisible = true;
+    } else {
+      this.isLoadMoreButtonVisible = false;
+    }
+    this.paginatedBlogs = this.filteredBlogs.slice(0, this.endIndex);
   }
 }
