@@ -54,6 +54,8 @@ export class BlogService {
 
     this.createdBlogs.unshift(newBlog);
 
+    localStorage.setItem('createdBlog', JSON.stringify(this.createdBlogs));
+
     const allBlog = this.getAllBlog();
     this.blogSubject.next(allBlog);
   }
@@ -76,6 +78,8 @@ export class BlogService {
       return blog;
     });
 
+    localStorage.setItem('createdBlog', JSON.stringify(this.createdBlogs));
+
     const allBlog = this.getAllBlog();
     this.blogSubject.next(allBlog);
   }
@@ -86,6 +90,17 @@ export class BlogService {
   }
 
   updateBlogWithUser() {
+    const allBlog = this.getAllBlog();
+    this.blogSubject.next(allBlog);
+  }
+
+  getBlogsFromLocalStorage() {
+    const blogs = localStorage.getItem('createdBlog');
+
+    if (blogs) {
+      this.createdBlogs = JSON.parse(blogs);
+    }
+
     const allBlog = this.getAllBlog();
     this.blogSubject.next(allBlog);
   }

@@ -24,6 +24,7 @@ export class AuthService {
         (user) => user.userName === userName && user.password === password
       );
 
+    localStorage.setItem('loggedInUser', JSON.stringify(this.loggedInUser));
     this.loggedInUserObserver.next(this.loggedInUser as User);
     this.loggerObserver.next(true);
   }
@@ -32,6 +33,7 @@ export class AuthService {
     this.loggedInUser = <User>{};
     this.loggedInUserObserver.next(this.loggedInUser);
     this.loggerObserver.next(false);
+    localStorage.removeItem('loggedInUser');
   }
 
   updateLoginUser(
@@ -58,6 +60,17 @@ export class AuthService {
       };
 
       this.loggedInUserObserver.next(this.loggedInUser);
+      localStorage.setItem('loggedInUser', JSON.stringify(this.loggedInUser));
+    }
+  }
+
+  getLoggedInUser() {
+    const user = localStorage.getItem('loggedInUser');
+
+    if (user) {
+      this.loggedInUser = JSON.parse(user);
+      this.loggedInUserObserver.next(<User>this.loggedInUser);
+      this.loggerObserver.next(true);
     }
   }
 }

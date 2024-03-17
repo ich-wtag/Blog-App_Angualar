@@ -34,6 +34,8 @@ export class UserService {
     };
 
     this.users.push(user);
+
+    localStorage.setItem('registeredUsers', JSON.stringify(this.users));
   }
 
   getAllUsers() {
@@ -55,5 +57,15 @@ export class UserService {
       }
       return user;
     });
+
+    localStorage.setItem('registeredUsers', JSON.stringify(this.users));
+  }
+
+  getAllTheUsersFromLocalStorage() {
+    const allUsers = localStorage.getItem('registeredUsers');
+
+    if (allUsers) {
+      this.users = JSON.parse(allUsers);
+    }
   }
 }
