@@ -16,7 +16,7 @@ export class BlogListComponent implements OnInit, OnDestroy {
   filteredTags: string[] = [];
   blogObserverVer!: Subscription;
   searchedBlogObserver!: Subscription;
-  blogTags = BLOG_TAGS;
+  blogTags = JSON.parse(JSON.stringify(BLOG_TAGS));
 
   constructor(private blogService: BlogService) {}
 
