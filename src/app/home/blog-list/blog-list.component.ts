@@ -45,6 +45,8 @@ export class BlogListComponent implements OnInit, OnDestroy {
 
         this.filterByTags();
       });
+
+    this.getFilterTagsFromLocalStorage();
   }
 
   ngOnDestroy(): void {
@@ -52,14 +54,30 @@ export class BlogListComponent implements OnInit, OnDestroy {
     this.searchedBlogObserver.unsubscribe();
   }
 
+  getFilterTagsFromLocalStorage() {
+    const filteredTags = localStorage.getItem('filter');
+
+    if (filteredTags) {
+      this.filteredTags = JSON.parse(filteredTags);
+
+      this.blogTags = this.blogTags.filter(
+        (tag: string) => !filteredTags.includes(tag)
+      );
+    }
+  }
+
   getFilteredTags($event: string) {
     this.filteredTags.push($event);
+
+    localStorage.setItem('filter', JSON.stringify(this.filteredTags));
     this.filterByTags();
   }
 
   removeFilteredTag($event: string) {
     const indexOfTag = this.filteredTags.indexOf($event);
     this.filteredTags.splice(indexOfTag, 1);
+
+    localStorage.setItem('filter', JSON.stringify(this.filteredTags));
     this.filterByTags();
   }
 
