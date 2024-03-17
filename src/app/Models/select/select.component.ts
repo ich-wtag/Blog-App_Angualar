@@ -23,9 +23,12 @@ export class SelectComponent {
   @Input() availableTags: string[] = [];
   @Input() selectedTags: string[] = [];
   @Input() tagsFromEditedBlog: string[] = [];
+  @Input() isFilterCase: boolean = false;
 
   @Output() OnSelectedTags: EventEmitter<string> = new EventEmitter<string>();
   @Output() OnUnSelectTag: EventEmitter<number> = new EventEmitter<number>();
+  @Output() OnUnSelectFilterTags: EventEmitter<string> =
+    new EventEmitter<string>();
 
   @ViewChild('dropdownArrow') dropDownElem?: ElementRef;
 
@@ -59,10 +62,17 @@ export class SelectComponent {
   }
 
   cancelButtonClicked(value: string, index: number) {
-    if (!this.selectedTags.includes(value) && this.availableTags.length > 1) {
+    const adjustLenght: number = this.isFilterCase ? 0 : 1;
+    if (
+      !this.selectedTags.includes(value) &&
+      this.availableTags.length > adjustLenght
+    ) {
       this.selectedTags.push(value);
       this.availableTags.splice(index, 1);
-      this.onUnSelectTag(index);
+
+      this.isFilterCase
+        ? this.onUnSelectFilteredTag(value)
+        : this.onUnSelectTag(index);
     } else if (this.selectedTags.length === 0) {
       this.hideDropdown();
     }
@@ -74,6 +84,10 @@ export class SelectComponent {
 
   onUnSelectTag(index: number) {
     this.OnUnSelectTag.emit(index);
+  }
+
+  onUnSelectFilteredTag(tag: string) {
+    this.OnUnSelectFilterTags.emit(tag);
   }
 
   ngOnInit(): void {

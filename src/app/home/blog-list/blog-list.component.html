@@ -1,9 +1,19 @@
 <section class="blog-list">
-  <h2 class="blog-list__title">Latest Post</h2>
+  <div class="flex-between">
+    <h2 class="blog-list__title">Latest Post</h2>
+    <app-select
+      wrapperClassName="blog-list__filter"
+      label="Filter by Tags"
+      [selectedTags]="blogTags"
+      [isFilterCase]="true"
+      (OnSelectedTags)="getFilteredTags($event)"
+      (OnUnSelectFilterTags)="removeFilteredTag($event)"
+    ></app-select>
+  </div>
 
   <div class="blog-list__container">
-    <ng-container *ngIf="seacrhedBlogs.length; else emptyBlogsMessage">
-      <ng-container *ngFor="let blog of seacrhedBlogs">
+    <ng-container *ngIf="filteredBlogs.length; else emptyBlogsMessage">
+      <ng-container *ngFor="let blog of filteredBlogs">
         <app-blog [blog]="blog"></app-blog>
       </ng-container>
     </ng-container>
