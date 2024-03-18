@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ToastrModule } from 'ngx-toastr';
@@ -57,6 +57,7 @@ import { BlogListComponent } from './home/blog-list/blog-list.component';
       positionClass: 'toast-top-center',
     }),
     EditorModule,
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
