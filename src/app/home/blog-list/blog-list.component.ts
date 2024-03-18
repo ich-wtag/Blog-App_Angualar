@@ -26,10 +26,12 @@ export class BlogListComponent implements OnInit, OnDestroy {
   constructor(private blogService: BlogService) {}
 
   getFilteredTags($event: string) {
+    localStorage.setItem('filter', JSON.stringify(this.filteredTags));
     this.filterByTags();
   }
 
   removeFilteredTag($event: string) {
+    localStorage.setItem('filter', JSON.stringify(this.filteredTags));
     this.filterByTags();
   }
 
@@ -68,16 +70,6 @@ export class BlogListComponent implements OnInit, OnDestroy {
         (tag: string) => !availableTags.includes(tag)
       );
     }
-  }
-
-  getFilteredTags($event: string) {
-    localStorage.setItem('filter', JSON.stringify(this.filteredTags));
-    this.filterByTags();
-  }
-
-  removeFilteredTag($event: string) {
-    localStorage.setItem('filter', JSON.stringify(this.filteredTags));
-    this.filterByTags();
   }
 
   filterByTags() {
