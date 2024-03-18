@@ -1,11 +1,4 @@
-import {
-  AfterViewInit,
-  Component,
-  ElementRef,
-  OnDestroy,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription, debounceTime } from 'rxjs';
 import { Blog } from 'src/app/Models/blog';
 import { BLOG_TAGS } from 'src/app/Models/constants';
@@ -27,8 +20,8 @@ export class BlogListComponent implements OnInit, OnDestroy {
   blogTags = JSON.parse(JSON.stringify(BLOG_TAGS));
   isLoadMoreButtonVisible: boolean = false;
   endIndex: number = 9;
+  loadMoreButtonText: string = 'Load More';
 
-  @ViewChild('loadMoreButtonText') loadMoreButton!: ElementRef;
   constructor(private blogService: BlogService) {}
 
   getFilteredTags($event: string) {
@@ -74,9 +67,8 @@ export class BlogListComponent implements OnInit, OnDestroy {
     this.loadMoreBlogs();
   }
 
-  handleLoadMoreBlogs($event: EventTarget) {
+  handleLoadMoreBlogs() {
     const loadBlogsNumber = 6;
-    const buttonElement = <HTMLElement>$event;
 
     if (this.endIndex < this.filteredBlogs.length) {
       this.endIndex += loadBlogsNumber;
@@ -84,7 +76,7 @@ export class BlogListComponent implements OnInit, OnDestroy {
       this.endIndex = 9;
     }
 
-    buttonElement.innerText =
+    this.loadMoreButtonText =
       this.endIndex >= this.filteredBlogs.length ? 'Show Less' : 'Load More';
 
     this.loadMoreBlogs();
