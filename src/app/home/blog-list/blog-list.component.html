@@ -26,9 +26,9 @@
       *ngIf="isLoadMoreButtonVisible"
       className="secondary-button--light__larger"
       buttonType="button"
-      (OnButtonClicked)="handleLoadMoreBlogs($event)"
+      (click)="handleLoadMoreBlogs()"
     >
-      Load More
+      {{ loadMoreButtonText }}
     </app-button>
   </div>
 
