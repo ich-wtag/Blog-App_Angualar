@@ -18,6 +18,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   logginUserObserver!: Subscription;
   navigatorObserver!: Subscription;
   showSearchBox: boolean = false;
+  searchedText: string = '';
 
   constructor(
     private authService: AuthService,
@@ -25,6 +26,15 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private activatedRoute: ActivatedRoute,
     private blogService: BlogService
   ) {}
+
+  getSearchedText() {
+    const searchedValue = localStorage.getItem('searchedText');
+
+    if (searchedValue) {
+      this.blogService.searchedValueSubject.next(searchedValue);
+      this.searchedText = searchedValue;
+    }
+  }
 
   ngOnInit(): void {
     this.navigatorObserver = this.router.events.subscribe(() => {
@@ -44,6 +54,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.loggerObserver = this.authService.loggerObserver.subscribe((data) => {
       this.isLoggedIn = data;
     });
+
+    this.getSearchedText();
   }
 
   ngOnDestroy(): void {
@@ -59,5 +71,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   handleSearch(seacrhedValue: string) {
     this.blogService.searchedValueSubject.next(seacrhedValue);
+    localStorage.setItem('searchedText', seacrhedValue);
   }
 }

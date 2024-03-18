@@ -27,6 +27,7 @@ export class BlogListComponent implements OnInit, OnDestroy {
   blogTags = JSON.parse(JSON.stringify(BLOG_TAGS));
   isLoadMoreButtonVisible: boolean = false;
   endIndex: number = 9;
+  searchedText: string = '';
 
   @ViewChild('loadMoreButtonText') loadMoreButton!: ElementRef;
   constructor(private blogService: BlogService) {}
@@ -39,10 +40,12 @@ export class BlogListComponent implements OnInit, OnDestroy {
     this.searchedBlogObserver = this.blogService.searchedValueSubject
       .pipe(debounceTime(600))
       .subscribe((searchValue) => {
+        this.searchedText = searchValue;
         this.seacrhedBlogs = this.blogs.filter((blog) =>
-          blog?.blogTitle.toLowerCase().includes(searchValue.toLowerCase())
+          blog?.blogTitle
+            .toLowerCase()
+            .includes(this.searchedText.toLowerCase())
         );
-
         this.filterByTags();
       });
 
@@ -55,28 +58,23 @@ export class BlogListComponent implements OnInit, OnDestroy {
   }
 
   getFilterTagsFromLocalStorage() {
-    const filteredTags = localStorage.getItem('filter');
+    const availableTags = localStorage.getItem('filter');
 
-    if (filteredTags) {
-      this.filteredTags = JSON.parse(filteredTags);
+    if (availableTags) {
+      this.filteredTags = JSON.parse(availableTags);
 
       this.blogTags = this.blogTags.filter(
-        (tag: string) => !filteredTags.includes(tag)
+        (tag: string) => !availableTags.includes(tag)
       );
     }
   }
 
   getFilteredTags($event: string) {
-    this.filteredTags.push($event);
-
     localStorage.setItem('filter', JSON.stringify(this.filteredTags));
     this.filterByTags();
   }
 
   removeFilteredTag($event: string) {
-    const indexOfTag = this.filteredTags.indexOf($event);
-    this.filteredTags.splice(indexOfTag, 1);
-
     localStorage.setItem('filter', JSON.stringify(this.filteredTags));
     this.filterByTags();
   }

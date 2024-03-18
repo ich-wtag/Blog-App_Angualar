@@ -15,6 +15,7 @@
       placeholder="Search"
       className="search-box"
       [isSearchInput]="true"
+      [searchedText]="searchedText"
       (OnSearchValue)="handleSearch($event)"
     >
       <span

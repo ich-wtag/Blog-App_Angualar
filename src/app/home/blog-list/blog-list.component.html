@@ -2,9 +2,11 @@
   <div class="flex-between">
     <h2 class="blog-list__title">Latest Post</h2>
     <app-select
+      *ngIf="paginatedBlogs.length"
       wrapperClassName="blog-list__filter"
       label="Filter by Tags"
       [selectedTags]="blogTags"
+      [availableTags]="filteredTags"
       [isFilterCase]="true"
       (OnSelectedTags)="getFilteredTags($event)"
       (OnUnSelectFilterTags)="removeFilteredTag($event)"
