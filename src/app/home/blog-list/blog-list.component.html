@@ -5,6 +5,7 @@
       wrapperClassName="blog-list__filter"
       label="Filter by Tags"
       [selectedTags]="blogTags"
+      [availableTags]="filteredTags"
       [isFilterCase]="true"
       (OnSelectedTags)="getFilteredTags($event)"
       (OnUnSelectFilterTags)="removeFilteredTag($event)"

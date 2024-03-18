@@ -21,13 +21,10 @@ export class BlogListComponent implements OnInit, OnDestroy {
   constructor(private blogService: BlogService) {}
 
   getFilteredTags($event: string) {
-    this.filteredTags.push($event);
     this.filterByTags();
   }
 
   removeFilteredTag($event: string) {
-    const indexOfTag = this.filteredTags.indexOf($event);
-    this.filteredTags.splice(indexOfTag, 1);
     this.filterByTags();
   }
 
