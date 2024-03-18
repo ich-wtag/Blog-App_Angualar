@@ -20,6 +20,17 @@ export class BlogListComponent implements OnInit, OnDestroy {
 
   constructor(private blogService: BlogService) {}
 
+  getFilteredTags($event: string) {
+    this.filteredTags.push($event);
+    this.filterByTags();
+  }
+
+  removeFilteredTag($event: string) {
+    const indexOfTag = this.filteredTags.indexOf($event);
+    this.filteredTags.splice(indexOfTag, 1);
+    this.filterByTags();
+  }
+
   ngOnInit(): void {
     this.blogObserverVer = this.blogService.blogSubject.subscribe(
       (data) => (this.blogs = data)
@@ -39,17 +50,6 @@ export class BlogListComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.blogObserverVer.unsubscribe();
     this.searchedBlogObserver.unsubscribe();
-  }
-
-  getFilteredTags($event: string) {
-    this.filteredTags.push($event);
-    this.filterByTags();
-  }
-
-  removeFilteredTag($event: string) {
-    const indexOfTag = this.filteredTags.indexOf($event);
-    this.filteredTags.splice(indexOfTag, 1);
-    this.filterByTags();
   }
 
   filterByTags() {
