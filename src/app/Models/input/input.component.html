@@ -44,7 +44,8 @@
     [class]="className"
     [type]="type"
     [placeholder]="placeHolderMessage"
-    (input)="onSearchHandler($event)"
+    [(ngModel)]="searchedText"
+    (input)="onSearchHandler()"
   />
   <ng-content> </ng-content>
 </ng-template>

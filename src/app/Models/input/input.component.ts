@@ -16,6 +16,7 @@ export class InputComponent implements OnInit {
   @Input() inputFileWrapperClass?: string;
   @Input() selectableLabelClass?: string;
   @Input() isSearchInput: boolean = false;
+  @Input() searchedText: string = '';
 
   @Output() OnChangeEvent: EventEmitter<FileList | null> =
     new EventEmitter<FileList | null>();
@@ -34,8 +35,7 @@ export class InputComponent implements OnInit {
     this.OnChangeEvent.emit(file);
   }
 
-  onSearchHandler(event: Event) {
-    const inputValue = (<HTMLInputElement>event.target).value;
-    this.OnSearchValue.emit(inputValue);
+  onSearchHandler() {
+    this.OnSearchValue.emit(this.searchedText);
   }
 }
