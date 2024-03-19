@@ -62,10 +62,10 @@ export class SelectComponent {
   }
 
   cancelButtonClicked(value: string, index: number) {
-    const adjustLenght: number = this.isFilterCase ? 0 : 1;
+    const adjustLength: number = this.isFilterCase ? 0 : 1;
     if (
       !this.selectedTags.includes(value) &&
-      this.availableTags.length > adjustLenght
+      this.availableTags.length > adjustLength
     ) {
       this.selectedTags.push(value);
       this.availableTags.splice(index, 1);
