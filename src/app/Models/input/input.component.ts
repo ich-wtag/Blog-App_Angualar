@@ -24,7 +24,6 @@ export class InputComponent implements OnInit {
   @Output() OnSearchValue: EventEmitter<string> = new EventEmitter<string>();
 
   placeHolderMessage: string = '';
-  searchInputValue: string = '';
 
   ngOnInit(): void {
     this.placeHolderMessage = this.placeholder?.length ? this.placeholder : '';
