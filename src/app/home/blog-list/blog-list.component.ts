@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription, debounceTime } from 'rxjs';
 import { Blog } from 'src/app/Models/blog';
 import { BLOG_TAGS } from 'src/app/Models/constants';
@@ -23,15 +24,25 @@ export class BlogListComponent implements OnInit, OnDestroy {
   loadMoreButtonText: string = 'Load More';
   searchedText: string = '';
 
-  constructor(private blogService: BlogService) {}
+  constructor(
+    private blogService: BlogService,
+    private activatedRoute: ActivatedRoute,
+    private router: Router
+  ) {}
 
   getFilteredTags($event: string) {
-    localStorage.setItem('filter', JSON.stringify(this.filteredTags));
+    this.router.navigate(['home'], {
+      queryParams: { filterTags: this.filteredTags },
+      queryParamsHandling: 'merge',
+    });
     this.filterByTags();
   }
 
   removeFilteredTag($event: string) {
-    localStorage.setItem('filter', JSON.stringify(this.filteredTags));
+    this.router.navigate(['home'], {
+      queryParams: { filterTags: this.filteredTags },
+      queryParamsHandling: 'merge',
+    });
     this.filterByTags();
   }
 
@@ -40,36 +51,32 @@ export class BlogListComponent implements OnInit, OnDestroy {
       (data) => (this.blogs = data)
     );
 
-    this.searchedBlogObserver = this.blogService.searchedValueSubject
-      .pipe(debounceTime(600))
-      .subscribe((searchValue) => {
-        this.searchedText = searchValue;
-        this.seacrhedBlogs = this.blogs.filter((blog) =>
-          blog?.blogTitle
-            .toLowerCase()
-            .includes(this.searchedText.toLowerCase())
+    this.activatedRoute.queryParams
+      .pipe(debounceTime(500))
+      .subscribe((data) => {
+        const searchedString = data['searchedText'] || '';
+        const tag = data['filterTags'] || [];
+
+        if (typeof tag === 'string') {
+          this.filteredTags.push(tag);
+        } else {
+          this.filteredTags = [...tag];
+        }
+
+        this.blogTags = this.blogTags.filter(
+          (tag: string) => !this.filteredTags.includes(tag)
         );
+
+        this.seacrhedBlogs = this.blogs.filter((blog) =>
+          blog?.blogTitle.toLowerCase().includes(searchedString?.toLowerCase())
+        );
+
         this.filterByTags();
       });
-
-    this.getFilterTagsFromLocalStorage();
   }
 
   ngOnDestroy(): void {
     this.blogObserverVer.unsubscribe();
-    this.searchedBlogObserver.unsubscribe();
-  }
-
-  getFilterTagsFromLocalStorage() {
-    const availableTags = localStorage.getItem('filter');
-
-    if (availableTags) {
-      this.filteredTags = JSON.parse(availableTags);
-
-      this.blogTags = this.blogTags.filter(
-        (tag: string) => !availableTags.includes(tag)
-      );
-    }
   }
 
   filterByTags() {

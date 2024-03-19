@@ -8,6 +8,7 @@ import {
 } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { BLOG_TAGS } from '../constants';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-select',
@@ -34,6 +35,8 @@ export class SelectComponent {
 
   isDropdownVisible: boolean = false;
   blogTags: string[] = BLOG_TAGS;
+
+  constructor(private router: Router) {}
 
   dropDownClicked() {
     if (this.isDropdownVisible || this.selectedTags.length === 0) {
@@ -73,6 +76,12 @@ export class SelectComponent {
       this.isFilterCase
         ? this.onUnSelectFilteredTag(value)
         : this.onUnSelectTag(index);
+
+      // if (this.isFilterCase) {
+      //   this.router.navigate(['home'], {
+      //     queryParams: { filterTags: this.availableTags },
+      //   });
+      // }
     } else if (this.selectedTags.length === 0) {
       this.hideDropdown();
     }
