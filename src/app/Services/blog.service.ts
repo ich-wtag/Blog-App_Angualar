@@ -27,7 +27,7 @@ export class BlogService {
   );
 
   searchedValueSubject: BehaviorSubject<string> = new BehaviorSubject<string>(
-    ' '
+    ''
   );
 
   private blogs: Blog[] = this.getAllBlog();
