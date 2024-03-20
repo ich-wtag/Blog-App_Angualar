@@ -1,0 +1,60 @@
+<section class="form-wrapper">
+  <h1 class="form-title">Login Form</h1>
+
+  <form [formGroup]="loginForm" (ngSubmit)="onLogIn()">
+    <app-input
+      type="text"
+      placeholder="user name"
+      wrapperClassName="form__group"
+      label="User Name"
+      [control]="getControlName(loginForm, 'userName')"
+    >
+      <span class="form__steric">*</span>
+      <small
+        *ngIf="loginForm.get('userName')?.touched && loginForm.get('userName')?.errors?.['required']"
+        class="form__error-message"
+      >
+        User is required
+      </small>
+
+      <small
+        *ngIf="loginForm.get('userName')?.touched && !loginForm.get('userName')?.errors?.['required']  && loginForm.get('userName')?.errors?.['registeredUser']"
+        class="form__error-message"
+      >
+        You need to registered first
+      </small>
+    </app-input>
+
+    <app-input
+      type="password"
+      placeholder="enter your password"
+      wrapperClassName="form__group"
+      label="Password"
+      [control]="getControlName(loginForm, 'password')"
+    >
+      <span class="form__steric">*</span>
+      <small
+        *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.errors?.['required']"
+        class="form__error-message"
+      >
+        Password is required
+      </small>
+
+      <small
+        *ngIf="loginForm.get('password')?.touched && !loginForm.get('password')?.errors?.['required'] && loginForm.get('password')?.errors?.['validPassword']"
+        class="form__error-message"
+      >
+        Please enter valid password.
+      </small>
+    </app-input>
+
+    <div class="form__button--wrapper">
+      <app-button
+        className="primary-button--center"
+        [disabled]="!loginForm.valid"
+        >Login</app-button
+      >
+    </div>
+  </form>
+  <p>Didn't registered? Please <a routerLink="/register">Sing Up</a></p>
+</section>

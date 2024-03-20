@@ -1,0 +1,149 @@
+<section class="form-wrapper">
+  <h1 class="form-title">Registration Form</h1>
+  <form
+    class="form"
+    [formGroup]="registrationForm"
+    (ngSubmit)="onRegistration()"
+  >
+    <app-input
+      type="text"
+      placeholder="Enter your first name"
+      wrapperClassName="form__group"
+      label="First Name"
+      [control]="getControlName(registrationForm, 'firstName')"
+    >
+      <span class="form__steric">*</span>
+      <small
+        *ngIf="registrationForm.get('firstName')?.touched && registrationForm.get('firstName')?.errors?.['required']"
+        class="form__error-message"
+      >
+        First name is required
+      </small>
+
+      <small
+        *ngIf="registrationForm.get('firstName')?.touched && registrationForm.get('firstName')?.errors?.['minlength']"
+        class="form__error-message"
+      >
+        Please enter at least 3 character
+      </small>
+    </app-input>
+
+    <app-input
+      type="text"
+      placeholder="Enter your first name"
+      wrapperClassName="form__group"
+      label="Last Name"
+      [control]="getControlName(registrationForm, 'lastName')"
+    >
+      <span class="form__steric">*</span>
+      <small
+        *ngIf="registrationForm.get('lastName')?.touched && registrationForm.get('lastName')?.errors?.['required']"
+        class="form__error-message"
+      >
+        Last name is required
+      </small>
+
+      <small
+        *ngIf="registrationForm.get('lastName')?.touched && registrationForm.get('lastName')?.errors?.['minlength']"
+        class="form__error-message"
+      >
+        Please enter at least 3 character
+      </small>
+    </app-input>
+
+    <app-input
+      type="text"
+      placeholder="Enter your user name"
+      wrapperClassName="form__group"
+      label="User Name"
+      [control]="getControlName(registrationForm, 'userName')"
+    >
+      <span class="form__steric">*</span>
+      <small
+        *ngIf="registrationForm.get('userName')?.touched && registrationForm.get('userName')?.errors?.['required']"
+        class="form__error-message"
+      >
+        User name is required
+      </small>
+
+      <small
+        *ngIf="registrationForm.get('userName')?.touched && registrationForm.get('userName')?.errors?.['uniqueUserNameError']"
+        class="form__error-message"
+      >
+        This user is already registered
+      </small>
+      <small
+        *ngIf="registrationForm.get('userName')?.touched && registrationForm.get('userName')?.errors?.['noSpaceAllowed']"
+        class="form__error-message"
+      >
+        No space allowed.
+      </small>
+    </app-input>
+
+    <app-input
+      type="email"
+      placeholder="Enter your email"
+      wrapperClassName="form__group"
+      label="Email"
+      [control]="getControlName(registrationForm, 'email')"
+    >
+      <span class="form__steric">*</span>
+      <small
+        *ngIf="registrationForm.get('email')?.touched && registrationForm.get('email')?.errors?.['required']"
+        class="form__error-message"
+      >
+        Email is required
+      </small>
+
+      <small
+        *ngIf="registrationForm.get('email')?.touched && registrationForm.get('email')?.errors?.['email']"
+        class="form__error-message"
+      >
+        Enter a valid email
+      </small>
+
+      <small
+        *ngIf="registrationForm.get('email')?.touched && registrationForm.get('email')?.errors?.['uniqueEmailError']"
+        class="form__error-message"
+      >
+        This email id is already taken
+      </small>
+    </app-input>
+    <app-input
+      type="password"
+      placeholder="Enter your password"
+      wrapperClassName="form__group"
+      label="Password"
+      [control]="getControlName(registrationForm, 'password')"
+    >
+      <span class="form__steric">*</span>
+      <small
+        *ngIf="registrationForm.get('password')?.touched && registrationForm.get('password')?.errors?.['required']"
+        class="form__error-message"
+      >
+        Password is required
+      </small>
+
+      <small
+        *ngIf="registrationForm.get('password')?.touched && registrationForm.get('password')?.errors?.['minlength']"
+        class="form__error-message"
+      >
+        Please enter at least 6 character
+      </small>
+    </app-input>
+
+    <div class="form__button--wrapper">
+      <app-button
+        className="primary-button--center"
+        [disabled]="registrationForm.invalid"
+      >
+        Submit
+      </app-button>
+    </div>
+
+    <p class="form__navigation">
+      Already registered? Go to
+      <a class="form__navigation-link" routerLink="/login">Log in</a>
+    </p>
+  </form>
+</section>

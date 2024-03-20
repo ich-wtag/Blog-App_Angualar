@@ -1,1 +1,175 @@
-/* You can add global styles to this file, and also import other style files */
+@import url("https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap");
+
+@import "./assets/style/variable.scss";
+
+// global css
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  color: $black-color-400;
+  font-family: "Work Sans", sans-serif;
+  line-height: normal;
+}
+
+a {
+  text-decoration: none;
+}
+
+input,
+button {
+  font-family: inherit;
+  outline: none;
+}
+
+a,
+button {
+  cursor: pointer;
+}
+
+.container {
+  margin: 0 auto;
+  max-width: 88rem;
+  padding: 1rem 1rem;
+  width: 100%;
+}
+
+.form {
+  &-wrapper {
+    background-color: $white-color;
+    left: 50%;
+    max-width: 44rem;
+    padding: 1.4rem 2.2rem;
+    position: fixed;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+  }
+
+  &__group {
+    margin-top: 1.7rem;
+    position: relative;
+  }
+
+  &-title {
+    font-size: 2rem;
+    font-weight: 500;
+    text-align: center;
+  }
+
+  &__steric {
+    left: 0;
+    position: absolute;
+    top: 0;
+  }
+
+  &__error-message {
+    color: $red-color-500;
+    display: inline-block;
+    font-weight: 600;
+    margin-top: 0.5rem;
+  }
+
+  &__navigation {
+    color: $black-color-400;
+    font-size: 1rem;
+    margin-top: 1.2rem;
+    text-align: center;
+
+    &-link {
+      color: $blue-color-500;
+      font-weight: 500;
+    }
+  }
+
+  &__button--wrapper {
+    margin: 1.5rem 0;
+  }
+}
+
+.button {
+  border: none;
+  border-radius: 0.375rem;
+  font-weight: 500;
+  font-size: 1rem;
+  padding: 0.6rem 1.4rem;
+  transition: filter 0.3s ease-out;
+
+  &:hover {
+    filter: brightness(120%);
+  }
+}
+.primary-button {
+  @extend .button;
+  background: $sky-color-300;
+  color: white;
+
+  &--center {
+    @extend .primary-button;
+    display: block;
+    margin: auto;
+    width: fit-content;
+  }
+
+  &:active:not(:disabled) {
+    transform: translateY(0.125rem);
+  }
+}
+
+.secondary-button {
+  @extend .button;
+  color: $white-color;
+  background-color: $blue-color-500;
+}
+
+.icon-button {
+  align-items: center;
+  border: none;
+  background: none;
+  display: flex;
+  justify-content: center;
+  height: 1rem;
+  width: 1rem;
+}
+
+.flex {
+  align-items: center;
+  display: flex;
+
+  &-center {
+    @extend .flex;
+    justify-content: center;
+  }
+
+  &-between {
+    @extend .flex;
+    justify-content: space-between;
+  }
+
+  &-start {
+    @extend .flex;
+    justify-content: flex-start;
+  }
+
+  &-end {
+    @extend .flex;
+    justify-content: flex-end;
+  }
+}
+
+.header__search-wrapper {
+  height: 3rem;
+  width: 25rem;
+  position: relative;
+
+  .search-box {
+    background-color: $black-color-50;
+    border: none !important;
+    height: 100%;
+  }
+}

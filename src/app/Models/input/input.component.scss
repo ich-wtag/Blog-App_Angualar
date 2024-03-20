@@ -1,0 +1,23 @@
+@import "../../../assets/style/variable.scss";
+
+.form {
+  &__label {
+    display: block;
+    font-size: 1.2rem;
+    font-weight: 500;
+    padding-left: 0.65rem;
+    margin-bottom: 0.5rem;
+  }
+
+  &__input {
+    border-radius: 0.3rem;
+    border: 0.125rem solid $black-color-100;
+    display: block;
+    padding: 0.6rem 1rem;
+    width: 100%;
+
+    &.ng-touched.ng-invalid {
+      border-color: $red-color-500;
+    }
+  }
+}

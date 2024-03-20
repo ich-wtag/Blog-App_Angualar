@@ -1,0 +1,12 @@
+<div [class]="wrapperClassName">
+  <label *ngIf="label" class="form__label">{{ label }}</label>
+  <input
+    class="form__input"
+    [class]="className"
+    [type]="type"
+    [placeholder]="placeholder"
+    [formControl]="control"
+  />
+
+  <ng-content></ng-content>
+</div>
