@@ -54,7 +54,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   onLogOut() {
     this.authService.onLogOut();
-    this.router.navigate(['/home', { showSearchBox: true }]);
   }
 
   handleSearch(seacrhedValue: string) {
