@@ -40,6 +40,6 @@ export class LoginComponent {
     const { userName, password } = this.loginForm.value;
 
     this.authService.onLogggedIn(userName, password);
-    this.router.navigate(['/home']);
+    this.router.navigate(['/home', { showSearchBox: true }]);
   }
 }

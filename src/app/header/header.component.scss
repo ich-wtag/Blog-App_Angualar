@@ -32,12 +32,12 @@
 
   &::before {
     transition: all 0.3s ease-out;
-    content: url("../../assets/icons/search-icon.svg");
+    content: url($search-icon);
   }
 
   &:hover {
     &::before {
-      content: url("../../assets/icons/search-icon-blue.svg");
+      content: url($search-icon-blue);
     }
   }
 }
