@@ -16,6 +16,8 @@ import {
 } from 'src/app/Models/commonFunctions';
 import { BLOG_TAGS } from 'src/app/Models/constants';
 import { BlogService } from 'src/app/Services/blog.service';
+import { AuthService } from 'src/app/Services/auth.service';
+import { User } from 'src/app/Models/user';
 
 @Component({
   selector: 'app-blog-creation-form',
@@ -52,8 +54,14 @@ export class BlogCreationFormComponent implements OnInit {
     private blogService: BlogService,
     private toastrService: ToastrService,
     private activatedRoute: ActivatedRoute,
+    private authService: AuthService,
     private router: Router
   ) {}
+
+  getLoggedInUser() {
+    this.authService.getLoggedInUser();
+    return this.authService.loggedInUser;
+  }
 
   getSelectedTag(tag: string) {
     const tagArray = <FormArray>this.blogForm.get('tags');
@@ -68,6 +76,12 @@ export class BlogCreationFormComponent implements OnInit {
   }
 
   onBlogCreation() {
+    const loggedInUser = this.getLoggedInUser();
+    if (Object.keys(<User>loggedInUser).length === 0) {
+      this.toastrService.error('Please login befor add or edit a blog');
+      return;
+    }
+
     if (this.blogForm.invalid) {
       this.showToast();
       return;

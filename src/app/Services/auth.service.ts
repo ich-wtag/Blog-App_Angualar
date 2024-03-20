@@ -71,6 +71,8 @@ export class AuthService {
       this.loggedInUser = JSON.parse(user);
       this.loggedInUserObserver.next(<User>this.loggedInUser);
       this.loggerObserver.next(true);
+    } else {
+      this.onLogOut();
     }
   }
 }
