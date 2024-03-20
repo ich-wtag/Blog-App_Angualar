@@ -30,10 +30,9 @@
       </div>
     </div>
     <app-button
+      *ngIf="isEditable"
       className="icon-button"
-      [routerLink]="['/me']"
       (click)="handleEditClicked()"
-      [queryParams]="{ edit: true, id: selectedBlog?.blogId }"
     >
       <span
         class="icon-button__edit--blog"
