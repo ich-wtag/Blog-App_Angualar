@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { ToastrModule } from 'ngx-toastr';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -16,6 +17,8 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
 import { BlogCreationFormComponent } from './user-profile/blog-creation-form/blog-creation-form.component';
 import { TextareaComponent } from './Models/textarea/textarea.component';
 import { SelectComponent } from './Models/select/select.component';
+import { PersonalBlogsComponent } from './user-profile/personal-blogs/personal-blogs.component';
+import { BlogComponent } from './Models/blog/blog.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +34,8 @@ import { SelectComponent } from './Models/select/select.component';
     BlogCreationFormComponent,
     TextareaComponent,
     SelectComponent,
+    PersonalBlogsComponent,
+    BlogComponent,
   ],
   imports: [
     BrowserModule,
@@ -38,6 +43,10 @@ import { SelectComponent } from './Models/select/select.component';
     ReactiveFormsModule,
     BrowserAnimationsModule,
     MatTooltipModule,
+    ToastrModule.forRoot({
+      timeOut: 2000,
+      positionClass: 'toast-top-center',
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -9,6 +9,7 @@ import {
 } from 'src/app/Models/constants';
 import { User } from 'src/app/Models/user';
 import { AuthService } from 'src/app/Services/auth.service';
+import { BlogService } from 'src/app/Services/blog.service';
 
 @Component({
   selector: 'app-user-info',
@@ -29,7 +30,10 @@ export class UserInfoComponent implements OnInit, OnDestroy {
 
   userObserver!: Subscription;
 
-  constructor(private authService: AuthService) {}
+  constructor(
+    private authService: AuthService,
+    private blogService: BlogService
+  ) {}
 
   ngOnInit(): void {
     this.userObserver = this.authService.loggedInUserObserver.subscribe(
@@ -39,5 +43,9 @@ export class UserInfoComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.userObserver.unsubscribe();
+  }
+
+  toggleBlogFrom() {
+    this.blogService.hideShowBlogForm();
   }
 }

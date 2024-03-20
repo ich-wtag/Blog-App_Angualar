@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
 @Component({
@@ -13,13 +13,20 @@ export class InputComponent implements OnInit {
   @Input() className?: string;
   @Input() type?: 'text' | 'password' | 'email' | 'number' | 'file';
   @Input() control = new FormControl();
-
   @Input() inputFileWrapperClass?: string;
   @Input() selectableLabelClass?: string;
+
+  @Output() OnChangeEvent: EventEmitter<FileList | null> =
+    new EventEmitter<FileList | null>();
 
   placeHolderMessage: string = '';
 
   ngOnInit(): void {
     this.placeHolderMessage = this.placeholder?.length ? this.placeholder : '';
+  }
+
+  onChangeImage(event: Event) {
+    const file = (<HTMLInputElement>event.target)?.files;
+    this.OnChangeEvent.emit(file);
   }
 }
