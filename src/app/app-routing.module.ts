@@ -6,6 +6,7 @@ import { HomeComponent } from './home/home.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { BLOGID, HOME, LOGIN, REGISTER, USER } from './Models/constants';
 import { BlogDetailsComponent } from './blog-details/blog-details.component';
+import { authGuardGuard } from './Models/routeGuards/auth-guard.guard';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, data: { showSearchBox: true } },
@@ -15,8 +16,13 @@ const routes: Routes = [
   {
     path: USER,
     component: UserProfileComponent,
+    canActivate: [authGuardGuard],
   },
-  { path: BLOGID, component: BlogDetailsComponent },
+  {
+    path: BLOGID,
+    component: BlogDetailsComponent,
+    canActivate: [authGuardGuard],
+  },
 ];
 
 @NgModule({
