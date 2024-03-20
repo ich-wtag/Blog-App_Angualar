@@ -137,9 +137,9 @@ export class BlogCreationFormComponent implements OnInit {
 
     if (this.editedBlogId !== undefined && this.isBlogEdited) {
       this.blogService.blogSubject.subscribe((blogs) => {
-        this.editedBlog = blogs.find(
-          (blog) => blog.blogId === this.editedBlogId
-        );
+        // this.editedBlog = blogs.find(
+        //   (blog) => blog.blogId === this.editedBlogId
+        // );
       });
       this.setEditedBlogValue();
       this.updateFormTagsArray(this.editedBlog?.tags as string[]);

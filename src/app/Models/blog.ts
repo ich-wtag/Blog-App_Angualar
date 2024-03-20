@@ -1,5 +1,5 @@
 export interface Blog {
-  blogId: number;
+  blogId?: string;
   blogTitle: string;
   tags: string[];
   blogImage: string;

@@ -37,7 +37,7 @@ export class BlogDetailsComponent implements OnInit, AfterViewInit {
     );
 
     this.blogService.blogSubject.subscribe((blogs) => {
-      this.selectedBlog = blogs.find((blog) => blog.blogId === selectedBlogId);
+      // this.selectedBlog = blogs.find((blog) => blog.blogId === selectedBlogId);
     });
 
     this.creatorImage = this.selectedBlog?.bloggerImage

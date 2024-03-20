@@ -21,7 +21,7 @@ export class BannerComponent implements OnInit, OnDestroy {
   blogObserver!: Subscription;
   loginObserver!: Subscription;
 
-  getRoutingId = getId;
+  // getRoutingId = getId;
 
   constructor(
     private blogService: BlogService,

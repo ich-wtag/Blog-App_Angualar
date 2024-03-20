@@ -3,7 +3,8 @@
   class="banner"
   [ngClass]="isLoggedIn ? '' : 'banner--logout'"
 >
-  <div class="banner__background" [routerLink]="getRoutingId(lastBlogs.blogId)">
+  <!-- [routerLink]="getRoutingId(lastBlogs.blogId)" -->
+  <div class="banner__background">
     <img
       class="banner__background__image"
       [src]="lastBlogs.blogImage"
@@ -18,10 +19,8 @@
       </span>
     </div>
 
-    <h2
-      class="banner__description__title"
-      [routerLink]="getRoutingId(lastBlogs.blogId)"
-    >
+    <h2 class="banner__description__title">
+      <!-- [routerLink]="getRoutingId(lastBlogs.blogId)" -->
       {{ lastBlogs.blogTitle }}
     </h2>
 
