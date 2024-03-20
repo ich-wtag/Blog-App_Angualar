@@ -33,6 +33,6 @@ export class AuthService {
     this.loggedInUserObserver.next(this.loggedInUser);
     this.loggerObserver.next(false);
 
-    this.router.navigate(['/home']);
+    this.router.navigate(['/home', { showSearchBox: true }]);
   }
 }
