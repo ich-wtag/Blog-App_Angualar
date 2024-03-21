@@ -57,7 +57,7 @@ export class BlogService {
         newBlog
       )
       .subscribe((data) => {
-        this.getAllBlogsFromDb(), this.getAllBlog();
+        this.getAllBlog();
       });
   }
 
@@ -93,7 +93,6 @@ export class BlogService {
 
   getBlogsFromLocalStorage() {
     this.getAllBlogsFromDb();
-    this.getAllBlog();
   }
 
   getAllBlogsFromDb() {
@@ -113,50 +112,60 @@ export class BlogService {
 
           return blogs.reverse();
         })
-      );
+      )
+      .subscribe((blogs) => {
+        this.createdBlogs = blogs;
+        this.getAllBlog();
+      });
+  }
+
+  getSingleBlog(id: string) {
+    console.log(id);
+
+    this.httpClient
+      .get(
+        'https://blog-angular-a0e04-default-rtdb.asia-southeast1.firebasedatabase.app/blog/' +
+          id +
+          '.json'
+      )
+      .subscribe((data) => console.log(data));
   }
 
   private getAllBlog() {
-    this.getAllBlogsFromDb().subscribe((createdBlogs) => {
-      const allBlogs = createdBlogs.map((blog) => {
-        const desiredUser = this.userService.users?.find((user) => {
-          return (
-            blog.bloggerUserId === user.id &&
-            blog.bloggrUserName === user.userName
-          );
-        });
-
-        const {
-          blogId,
-          blogImage,
-          blogTitle,
-          bloggerUserId,
-          description,
-          bloggrUserName,
-          tags,
-          createdAt,
-          blogImageFileName,
-        } = blog;
-
-        const completeBlogInfo: Blog = {
-          blogId,
-          blogImage,
-          blogImageFileName,
-          blogTitle,
-          description,
-          tags,
-          bloggerName: desiredUser?.firstName + ' ' + desiredUser?.lastName,
-          bloggerUserId,
-          bloggrUserName,
-          bloggerImage: desiredUser?.image,
-          createdAt,
-        };
-
-        return completeBlogInfo;
+    const allBlogs = this.createdBlogs.map((blog) => {
+      const desiredUser = this.userService.users?.find((user) => {
+        return (
+          blog.bloggerUserId === user.id &&
+          blog.bloggrUserName === user.userName
+        );
       });
-      console.log(allBlogs);
-
-      this.blogSubject.next(allBlogs);
+      const {
+        blogId,
+        blogImage,
+        blogTitle,
+        bloggerUserId,
+        description,
+        bloggrUserName,
+        tags,
+        createdAt,
+        blogImageFileName,
+      } = blog;
+      const completeBlogInfo: Blog = {
+        blogId,
+        blogImage,
+        blogImageFileName,
+        blogTitle,
+        description,
+        tags,
+        bloggerName: desiredUser?.firstName + ' ' + desiredUser?.lastName,
+        bloggerUserId,
+        bloggrUserName,
+        bloggerImage: desiredUser?.image,
+        createdAt,
+      };
+      return completeBlogInfo;
     });
+
+    this.blogSubject.next(allBlogs);
   }
 }

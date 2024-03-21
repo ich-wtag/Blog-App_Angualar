@@ -16,6 +16,6 @@ export const imageTypeCheck = (imageName: string) => {
   return false;
 };
 
-export const getId = (id: number) => {
+export const getId = (id?: string) => {
   return `/blog/${id}`;
 };

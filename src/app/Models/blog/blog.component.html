@@ -4,8 +4,8 @@
       class="blog__image--item"
       [src]="blog.blogImage"
       [alt]="blog.blogTitle"
+      [routerLink]="getBlogId(blog.blogId)"
     />
-    <!-- [routerLink]="getBlogId(blog.blogId)" -->
   </div>
 
   <div class="blog__details">
@@ -14,8 +14,8 @@
         {{ tag }}
       </span>
     </div>
-    <!-- [routerLink]="getBlogId(blog.blogId)" -->
-    <h3 class="blog__title">
+
+    <h3 class="blog__title" [routerLink]="getBlogId(blog.blogId)">
       {{ blog.blogTitle }}
     </h3>
 

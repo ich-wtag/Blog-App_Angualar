@@ -46,11 +46,7 @@ export class BlogListComponent implements OnInit, OnDestroy {
     this.filterByTags();
   }
 
-  ngOnInit(): void {
-    this.blogObserverVer = this.blogService.blogSubject.subscribe(
-      (data) => (this.blogs = data)
-    );
-
+  getFinalBlogsToShow() {
     this.activatedRoute.queryParams
       .pipe(debounceTime(500))
       .subscribe((data) => {
@@ -73,6 +69,15 @@ export class BlogListComponent implements OnInit, OnDestroy {
 
         this.filterByTags();
       });
+  }
+
+  ngOnInit(): void {
+    this.blogObserverVer = this.blogService.blogSubject.subscribe((data) => {
+      this.blogs = data;
+      this.getFinalBlogsToShow();
+    });
+
+    this.getFinalBlogsToShow();
   }
 
   ngOnDestroy(): void {

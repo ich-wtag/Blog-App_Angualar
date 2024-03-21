@@ -12,7 +12,7 @@ export class BlogComponent implements OnInit {
   @Input() blog!: Blog;
 
   userImage: string = DUMMY_USER_IMAGE;
-  // getBlogId = getId;
+  getBlogId = getId;
   creatorImage!: string;
 
   ngOnInit(): void {

@@ -1,10 +1,4 @@
-import {
-  AfterViewInit,
-  Component,
-  ElementRef,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BlogService } from '../Services/blog.service';
 import { Blog } from '../Models/blog';
@@ -17,7 +11,7 @@ import { AuthService } from '../Services/auth.service';
   templateUrl: './blog-details.component.html',
   styleUrls: ['./blog-details.component.scss'],
 })
-export class BlogDetailsComponent implements OnInit, AfterViewInit {
+export class BlogDetailsComponent implements OnInit {
   dummyUserImage: string = DUMMY_USER_IMAGE;
   selectedBlog?: Blog;
   creatorImage!: string;
@@ -32,12 +26,20 @@ export class BlogDetailsComponent implements OnInit, AfterViewInit {
   ) {}
 
   ngOnInit(): void {
-    const selectedBlogId: number = Number(
-      this.activatedRoute.snapshot.params['id']
-    );
-
+    const selectedBlogId: string = this.activatedRoute.snapshot.params['id'];
     this.blogService.blogSubject.subscribe((blogs) => {
-      // this.selectedBlog = blogs.find((blog) => blog.blogId === selectedBlogId);
+      this.selectedBlog = blogs.find((blog) => blog.blogId === selectedBlogId);
+
+      if (this.descriptionElement !== undefined) {
+        this.descriptionElement.nativeElement.innerHTML =
+          this.selectedBlog?.description;
+      }
+
+      this.isEditable =
+        this.authService.loggedInUser?.id ===
+          this.selectedBlog?.bloggerUserId &&
+        this.authService.loggedInUser?.userName ===
+          this.selectedBlog?.bloggrUserName;
     });
 
     this.creatorImage = this.selectedBlog?.bloggerImage
@@ -45,16 +47,6 @@ export class BlogDetailsComponent implements OnInit, AfterViewInit {
       : this.dummyUserImage;
 
     this.blogService.hideShowBlogForm();
-
-    this.isEditable =
-      this.authService.loggedInUser?.id === this.selectedBlog?.bloggerUserId &&
-      this.authService.loggedInUser?.userName ===
-        this.selectedBlog?.bloggrUserName;
-  }
-
-  ngAfterViewInit(): void {
-    this.descriptionElement.nativeElement.innerHTML =
-      this.selectedBlog?.description;
   }
 
   handleEditClicked() {
