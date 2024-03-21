@@ -4,6 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ToastrModule } from 'ngx-toastr';
+import { EditorModule } from '@tinymce/tinymce-angular';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -19,6 +20,7 @@ import { TextareaComponent } from './Models/textarea/textarea.component';
 import { SelectComponent } from './Models/select/select.component';
 import { PersonalBlogsComponent } from './user-profile/personal-blogs/personal-blogs.component';
 import { BlogComponent } from './Models/blog/blog.component';
+import { BlogDetailsComponent } from './blog-details/blog-details.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +38,7 @@ import { BlogComponent } from './Models/blog/blog.component';
     SelectComponent,
     PersonalBlogsComponent,
     BlogComponent,
+    BlogDetailsComponent,
   ],
   imports: [
     BrowserModule,
@@ -47,6 +50,7 @@ import { BlogComponent } from './Models/blog/blog.component';
       timeOut: 2000,
       positionClass: 'toast-top-center',
     }),
+    EditorModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

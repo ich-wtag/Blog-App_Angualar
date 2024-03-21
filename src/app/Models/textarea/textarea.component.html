@@ -1,9 +1,24 @@
 <div [class]="wrapperClassName">
   <label *ngIf="label" class="form__label"> {{ label }} </label>
-  <textarea
-    class="form__textarea"
-    [class]="className"
-    [placeholder]="placeHolderMessage"
-    [formControl]="control"
-  ></textarea>
+  <ng-container *ngIf="!isEditable; else editableTextArea">
+    <textarea
+      class="form__textarea"
+      [class]="className"
+      [placeholder]="placeHolderMessage"
+      [formControl]="control"
+    ></textarea>
+  </ng-container>
+
+  <ng-template #editableTextArea>
+    <editor
+      apiKey="uzokdey1iuy00ddjur6su25ztmmqe75ragtvpjef9j9o0isd"
+      cloudChannel="6"
+      [init]="{}"
+      initialValue=""
+      [inline]="false"
+      tagName="input"
+      [formControl]="control"
+    >
+    </editor>
+  </ng-template>
 </div>

@@ -12,6 +12,7 @@ export class TextareaComponent implements OnInit {
   @Input() wrapperClassName?: string;
   @Input() className?: string;
   @Input() control = new FormControl();
+  @Input() isEditable: boolean = false;
 
   placeHolderMessage: string = '';
 

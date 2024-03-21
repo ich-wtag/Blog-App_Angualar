@@ -15,3 +15,7 @@ export const imageTypeCheck = (imageName: string) => {
 
   return false;
 };
+
+export const getId = (id: number) => {
+  return `/blog/${id}`;
+};
