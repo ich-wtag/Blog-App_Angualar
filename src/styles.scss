@@ -59,6 +59,8 @@ button {
   &__group {
     margin-top: 1.7rem;
     position: relative;
+
+    &--info,
     &--blogs {
       @extend .form__group;
       flex: 1;
@@ -66,6 +68,12 @@ button {
 
       .form__label {
         padding: 0;
+      }
+    }
+
+    &--info {
+      .form__label {
+        font-weight: 600;
       }
     }
   }
@@ -125,7 +133,7 @@ button {
   transition: filter 0.3s ease-out;
 
   &:hover {
-    filter: brightness(120%);
+    filter: brightness(115%);
   }
 }
 .primary-button {
@@ -143,12 +151,27 @@ button {
   &:active:not(:disabled) {
     transform: translateY(0.125rem);
   }
+
+  &--purple {
+    @extend .primary-button;
+    background-color: $purple-color-600;
+  }
 }
 
 .secondary-button {
   @extend .button;
   color: $black-color-400;
   background-color: $black-color-75;
+
+  &--light {
+    @extend .secondary-button;
+    background-color: $white-color;
+    border: 0.063rem solid $black-color-60;
+
+    &:hover {
+      filter: brightness(95%);
+    }
+  }
 }
 
 .icon-button {

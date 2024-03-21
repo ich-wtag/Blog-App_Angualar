@@ -21,6 +21,7 @@ import { SelectComponent } from './Models/select/select.component';
 import { PersonalBlogsComponent } from './user-profile/personal-blogs/personal-blogs.component';
 import { BlogComponent } from './Models/blog/blog.component';
 import { BlogDetailsComponent } from './blog-details/blog-details.component';
+import { UserInfoUpdateFormComponent } from './user-profile/user-info-update-form/user-info-update-form.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { BlogDetailsComponent } from './blog-details/blog-details.component';
     PersonalBlogsComponent,
     BlogComponent,
     BlogDetailsComponent,
+    UserInfoUpdateFormComponent,
   ],
   imports: [
     BrowserModule,

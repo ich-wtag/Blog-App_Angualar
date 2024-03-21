@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../Services/auth.service';
 import { USER } from '../Models/constants';
+import { User } from '../Models/user';
 
 @Component({
   selector: 'app-header',
@@ -10,17 +11,18 @@ import { USER } from '../Models/constants';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit, OnDestroy {
+  loggedInUser?: User;
+  isLoggedIn: boolean = false;
+  loggerObserver!: Subscription;
+  logginUserObserver!: Subscription;
+  navigatorObserver!: Subscription;
+  showSearchBox: boolean = false;
+
   constructor(
     private authService: AuthService,
     private router: Router,
     private activatedRoute: ActivatedRoute
   ) {}
-
-  loggedInUser = this.authService.loggedInUser;
-  isLoggedIn: boolean = false;
-  loggerObserver!: Subscription;
-  navigatorObserver!: Subscription;
-  showSearchBox: boolean = false;
 
   ngOnInit(): void {
     this.navigatorObserver = this.router.events.subscribe(() => {
@@ -33,16 +35,22 @@ export class HeaderComponent implements OnInit, OnDestroy {
       }
     });
 
+    this.logginUserObserver = this.authService.loggedInUserObserver.subscribe(
+      (data) => (this.loggedInUser = data)
+    );
+
     this.loggerObserver = this.authService.loggerObserver.subscribe((data) => {
       this.isLoggedIn = data;
     });
   }
 
-  onLogOut() {
-    this.authService.onLogOut();
-  }
   ngOnDestroy(): void {
     this.loggerObserver.unsubscribe();
+    this.logginUserObserver.unsubscribe();
     this.navigatorObserver.unsubscribe();
+  }
+
+  onLogOut() {
+    this.authService.onLogOut();
   }
 }

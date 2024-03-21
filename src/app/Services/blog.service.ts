@@ -16,9 +16,14 @@ export class BlogService {
   private createdBlogs: Blog[] = [];
 
   private isBlogFormVisible: boolean = false;
+  private isUserEditFormVisible: boolean = false;
 
   showBlogFormSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
     this.isBlogFormVisible
+  );
+
+  showUserEditForm: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
+    false
   );
 
   private blogs: Blog[] = this.getAllBlog();
@@ -67,6 +72,16 @@ export class BlogService {
       return blog;
     });
 
+    const allBlog = this.getAllBlog();
+    this.blogSubject.next(allBlog);
+  }
+
+  toggleUserEditForm() {
+    this.isUserEditFormVisible = !this.isUserEditFormVisible;
+    this.showUserEditForm.next(this.isUserEditFormVisible);
+  }
+
+  updateBlogWithUser() {
     const allBlog = this.getAllBlog();
     this.blogSubject.next(allBlog);
   }

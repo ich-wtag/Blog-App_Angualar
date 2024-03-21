@@ -19,12 +19,15 @@
     font-weight: 500;
   }
 
-  &__group--blogs {
-    .form__input {
-      border-color: $black-color-60;
-      font-size: 1rem;
-      font-weight: 500;
-      padding: 1rem 0.7rem;
+  &__group {
+    &--info,
+    &--blogs {
+      .form__input {
+        padding: 1rem 0.7rem;
+        font-size: 1rem;
+        font-weight: 500;
+        border-color: $black-color-60;
+      }
     }
   }
 }
@@ -41,6 +44,7 @@
   }
 }
 
+.user-image,
 .banner-image {
   &__field {
     background-color: $white-color;
@@ -61,6 +65,11 @@
 
   &__label {
     color: $blue-color-500;
-    cursor: pointer;
+  }
+}
+
+.user-image {
+  &__field {
+    height: 14.1rem;
   }
 }

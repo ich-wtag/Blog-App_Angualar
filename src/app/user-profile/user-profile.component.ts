@@ -10,6 +10,8 @@ import { Subscription } from 'rxjs';
 export class UserProfileComponent implements OnInit, OnDestroy {
   isBlogFormVisible: boolean = false;
   blogFormVisibilityObserver!: Subscription;
+  isUserEditFormVisible: boolean = false;
+  userEditFormVisibilityObserver!: Subscription;
 
   constructor(private blogService: BlogService) {}
 
@@ -18,8 +20,14 @@ export class UserProfileComponent implements OnInit, OnDestroy {
       this.blogService.showBlogFormSubject.subscribe(
         (value) => (this.isBlogFormVisible = value)
       );
+
+    this.userEditFormVisibilityObserver =
+      this.blogService.showUserEditForm.subscribe(
+        (value) => (this.isUserEditFormVisible = value)
+      );
   }
   ngOnDestroy(): void {
     this.blogFormVisibilityObserver.unsubscribe();
+    this.userEditFormVisibilityObserver.unsubscribe();
   }
 }
