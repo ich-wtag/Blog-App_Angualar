@@ -7,7 +7,13 @@ import {
   Validators,
 } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import { GetControlName, imageTypeCheck } from 'src/app/Models/commonFunctions';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Blog } from 'src/app/Models/blog';
+import {
+  GetControlName,
+  getId,
+  imageTypeCheck,
+} from 'src/app/Models/commonFunctions';
 import { BLOG_TAGS } from 'src/app/Models/constants';
 import { BlogService } from 'src/app/Services/blog.service';
 
@@ -20,6 +26,11 @@ export class BlogCreationFormComponent implements OnInit {
   imageFileName?: string;
   blogTags: string[] = BLOG_TAGS;
   selectedTags: string[] = [];
+  isFormatError: boolean = false;
+  editedBlog?: Blog;
+  unSelectedBlogTags: string[] = [];
+  editedBlogId!: number;
+  isBlogEdited: boolean = false;
 
   getControlName = GetControlName;
 
@@ -39,7 +50,9 @@ export class BlogCreationFormComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private blogService: BlogService,
-    private toastrService: ToastrService
+    private toastrService: ToastrService,
+    private activatedRoute: ActivatedRoute,
+    private router: Router
   ) {}
 
   getSelectedTag(tag: string) {
@@ -51,7 +64,7 @@ export class BlogCreationFormComponent implements OnInit {
     this.blogForm.reset();
     this.imageFileName = '';
     this.selectedTags = [];
-    this.updateFormTagsArray();
+    this.updateFormTagsArray(BLOG_TAGS);
   }
 
   onBlogCreation() {
@@ -59,7 +72,17 @@ export class BlogCreationFormComponent implements OnInit {
       this.showToast();
       return;
     }
-    this.blogService.addBlog(this.blogForm);
+    if (this.isBlogEdited && this.editedBlogId) {
+      this.blogService.updateBlog(
+        this.editedBlogId,
+        this.blogForm,
+        this.imageFileName as string
+      );
+
+      this.router.navigateByUrl(getId(this.editedBlogId));
+    } else {
+      this.blogService.addBlog(this.blogForm, this.imageFileName as string);
+    }
     this.resetForm();
     this.toggleBlogForm();
     this.toastrService.success('New blog created successfully');
@@ -94,10 +117,32 @@ export class BlogCreationFormComponent implements OnInit {
     tagArray.removeAt(indexNumber);
   }
 
-  updateFormTagsArray() {
+  ngOnInit(): void {
+    this.isBlogEdited = this.activatedRoute.snapshot.queryParams['edit'];
+    this.editedBlogId = Number(this.activatedRoute.snapshot.queryParams['id']);
+
+    if (this.editedBlogId !== undefined && this.isBlogEdited) {
+      this.blogService.blogSubject.subscribe((blogs) => {
+        this.editedBlog = blogs.find(
+          (blog) => blog.blogId === this.editedBlogId
+        );
+      });
+      this.setEditedBlogValue();
+      this.updateFormTagsArray(this.editedBlog?.tags as string[]);
+      this.imageFileName = this.editedBlog?.blogImageFileName;
+
+      this.unSelectedBlogTags = BLOG_TAGS.filter(
+        (tag) => !this.editedBlog?.tags.includes(tag)
+      );
+    } else {
+      this.updateFormTagsArray(BLOG_TAGS);
+    }
+  }
+
+  updateFormTagsArray(tags: string[]) {
     const tagArray = <FormArray>this.blogForm.get('tags');
     tagArray.clear();
-    this.blogTags.forEach((tag) => {
+    tags.forEach((tag) => {
       tagArray.push(new FormControl(tag));
     });
   }
@@ -138,15 +183,22 @@ export class BlogCreationFormComponent implements OnInit {
     }
   }
 
-  ngOnInit(): void {
-    this.updateFormTagsArray();
-  }
-
   toggleBlogForm() {
     this.blogService.hideShowBlogForm();
   }
 
   onCancelClicked() {
+    if (this.editedBlogId && this.isBlogEdited) {
+      this.router.navigateByUrl(getId(this.editedBlogId));
+    }
     this.resetForm();
+  }
+
+  setEditedBlogValue() {
+    this.blogForm.patchValue({
+      title: this.editedBlog?.blogTitle,
+      blogImage: this.editedBlog?.blogImage,
+      description: this.editedBlog?.description,
+    });
   }
 }

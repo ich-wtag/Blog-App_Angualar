@@ -22,6 +22,7 @@ export class SelectComponent {
   @Input() control = new FormControl();
   @Input() availableTags: string[] = [];
   @Input() selectedTags: string[] = [];
+  @Input() tagsFromEditedBlog: string[] = [];
 
   @Output() OnSelectedTags: EventEmitter<string> = new EventEmitter<string>();
   @Output() OnUnSelectTag: EventEmitter<number> = new EventEmitter<number>();
@@ -29,7 +30,6 @@ export class SelectComponent {
   @ViewChild('dropdownArrow') dropDownElem?: ElementRef;
 
   isDropdownVisible: boolean = false;
-
   blogTags: string[] = BLOG_TAGS;
 
   dropDownClicked() {
@@ -74,5 +74,11 @@ export class SelectComponent {
 
   onUnSelectTag(index: number) {
     this.OnUnSelectTag.emit(index);
+  }
+
+  ngOnInit(): void {
+    if (this.tagsFromEditedBlog.length) {
+      this.selectedTags = this.tagsFromEditedBlog;
+    }
   }
 }

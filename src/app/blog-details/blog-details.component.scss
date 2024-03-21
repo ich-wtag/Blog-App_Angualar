@@ -34,6 +34,10 @@
     column-gap: 1.5rem;
     margin-top: 1.25rem;
 
+    &--wrapper {
+      margin-top: 1rem;
+    }
+
     &__info {
       column-gap: 0.5rem;
     }
@@ -86,5 +90,23 @@
     font-weight: 400;
     line-height: 1.8rem;
     margin-top: 2rem;
+  }
+
+  .icon-button {
+    &__edit--blog {
+      width: 100%;
+      height: 100%;
+
+      &::before {
+        content: url($edit-blog-icon);
+      }
+
+      &:hover {
+        transform: scale(1.15);
+        &::before {
+          content: url($edit-blog-icon-blue);
+        }
+      }
+    }
   }
 }

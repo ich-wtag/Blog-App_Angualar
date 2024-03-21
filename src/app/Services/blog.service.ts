@@ -27,13 +27,14 @@ export class BlogService {
     this.blogs
   );
 
-  addBlog(formGroup: FormGroup) {
+  addBlog(formGroup: FormGroup, blogImageFileName: string) {
     const { title, tags, blogImage, description } = formGroup.value;
     const blogCreator = this.authService.loggedInUser;
 
     const newBlog: Blog = {
       blogId: this.getBlogId(),
       blogTitle: title,
+      blogImageFileName,
       tags,
       blogImage,
       description,
@@ -51,6 +52,23 @@ export class BlogService {
   hideShowBlogForm() {
     this.isBlogFormVisible = !this.isBlogFormVisible;
     this.showBlogFormSubject.next(this.isBlogFormVisible);
+  }
+
+  updateBlog(blogId: number, formGroup: FormGroup, blogImageFileName: string) {
+    const { title, tags, blogImage, description } = formGroup.value;
+    this.createdBlogs = this.createdBlogs.map((blog) => {
+      if (blog.blogId === blogId) {
+        blog.blogTitle = title;
+        blog.blogImage = blogImage;
+        blog.blogImageFileName = blogImageFileName;
+        blog.description = description;
+        blog.tags = tags;
+      }
+      return blog;
+    });
+
+    const allBlog = this.getAllBlog();
+    this.blogSubject.next(allBlog);
   }
 
   private getBlogId() {
@@ -79,11 +97,13 @@ export class BlogService {
         bloggrUserName,
         tags,
         createdAt,
+        blogImageFileName,
       } = currentBlog;
 
       const blog: Blog = {
         blogId,
         blogImage,
+        blogImageFileName,
         blogTitle,
         description,
         tags,

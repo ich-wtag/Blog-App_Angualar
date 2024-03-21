@@ -17,6 +17,7 @@
       label="Tags"
       [availableTags]="getControlName(blogForm, 'tags').value"
       [selectedTags]="selectedTags"
+      [tagsFromEditedBlog]="unSelectedBlogTags"
       (OnSelectedTags)="getSelectedTag($event)"
       (OnUnSelectTag)="removeUnselectedTags($event)"
     ></app-select>
@@ -38,7 +39,6 @@
   </span>
 
   <app-textarea
-    type="password"
     label="Body"
     wrapperClassName="form__group--blogs"
     label="Body"

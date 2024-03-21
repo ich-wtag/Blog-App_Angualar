@@ -10,23 +10,37 @@
 
   <h2 class="blog-details__title">{{ selectedBlog?.blogTitle }}</h2>
 
-  <div class="flex-start blog-details__creator">
-    <div class="flex-start blog-details__creator__info">
-      <div class="blog-details__creator__image">
-        <img
-          class="creator-image"
-          [src]="creatorImage"
-          [alt]="selectedBlog?.bloggerName"
-        />
-      </div>
+  <div class="flex-between blog-details__creator--wrapper">
+    <div class="flex-start blog-details__creator">
+      <div class="flex-start blog-details__creator__info">
+        <div class="blog-details__creator__image">
+          <img
+            class="creator-image"
+            [src]="creatorImage"
+            [alt]="selectedBlog?.bloggerName"
+          />
+        </div>
 
-      <strong class="blog-details__creator__author">
-        {{ selectedBlog?.bloggerName }}
-      </strong>
+        <strong class="blog-details__creator__author">
+          {{ selectedBlog?.bloggerName }}
+        </strong>
+      </div>
+      <div class="blog-details__creator__created">
+        {{ selectedBlog?.createdAt | date : "longDate" }}
+      </div>
     </div>
-    <div class="blog-details__creator__created">
-      {{ selectedBlog?.createdAt | date : "longDate" }}
-    </div>
+    <app-button
+      *ngIf="isEditable"
+      className="icon-button"
+      (click)="handleEditClicked()"
+    >
+      <span
+        class="icon-button__edit--blog"
+        matTooltipClass="tooltip-custom"
+        matTooltip="Edit User Info"
+        matTooltipPosition="below"
+      ></span>
+    </app-button>
   </div>
 
   <div class="blog-details__image">
