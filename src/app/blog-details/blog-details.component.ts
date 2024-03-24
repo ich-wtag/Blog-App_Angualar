@@ -3,7 +3,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { BlogService } from '../Services/blog.service';
 import { Blog } from '../Models/blog';
 import { DUMMY_USER_IMAGE } from '../Models/constants';
-import { Subscription } from 'rxjs';
 import { AuthService } from '../Services/auth.service';
 
 @Component({
@@ -16,6 +15,7 @@ export class BlogDetailsComponent implements OnInit {
   selectedBlog?: Blog;
   creatorImage!: string;
   isEditable: boolean = false;
+  selectedBlogId!: string;
 
   @ViewChild('descriptionRef') descriptionElement!: ElementRef;
   constructor(
@@ -26,10 +26,10 @@ export class BlogDetailsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const selectedBlogId: string = this.activatedRoute.snapshot.params['id'];
+    this.selectedBlogId = this.activatedRoute.snapshot.params['id'];
 
-    if (selectedBlogId !== undefined) {
-      this.blogService.getSingleBlog(selectedBlogId).subscribe((data) => {
+    if (this.selectedBlogId !== undefined) {
+      this.blogService.getSingleBlog(this.selectedBlogId).subscribe((data) => {
         this.selectedBlog = <Blog>data;
 
         if (this.descriptionElement !== undefined) {
@@ -55,7 +55,7 @@ export class BlogDetailsComponent implements OnInit {
   handleEditClicked() {
     this.blogService.showBlogFormSubject.next(true);
     this.router.navigate(['/me'], {
-      queryParams: { edit: true, id: this.selectedBlog?.blogId },
+      queryParams: { edit: true, id: this.selectedBlogId },
     });
   }
 }

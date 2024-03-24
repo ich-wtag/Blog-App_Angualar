@@ -94,10 +94,9 @@ export class BlogCreationFormComponent implements OnInit {
           this.imageFileName as string,
           this.editedBlog as Blog
         )
-        .subscribe((data) => {
-          console.log('edit', data);
+        .subscribe(() => {
+          this.router.navigateByUrl(getId(this.editedBlogId));
         });
-      this.router.navigateByUrl(getId(this.editedBlogId));
     } else {
       this.blogService.addBlog(this.blogForm, this.imageFileName as string);
     }
