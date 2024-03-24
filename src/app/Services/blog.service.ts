@@ -34,67 +34,6 @@ export class BlogService {
 
   blogSubject: BehaviorSubject<Blog[]> = new BehaviorSubject<Blog[]>([]);
 
-  addBlog(formGroup: FormGroup, blogImageFileName: string) {
-    const { title, tags, blogImage, description } = formGroup.value;
-    const blogCreator = this.authService.loggedInUser;
-
-    const newBlog: Blog = {
-      blogTitle: title,
-      blogImageFileName,
-      tags,
-      blogImage,
-      description,
-      bloggrUserName: blogCreator?.userName,
-      bloggerUserId: blogCreator?.id,
-      createdAt: new Date().toISOString(),
-    };
-
-    this.createdBlogs.unshift(newBlog);
-
-    this.httpClient
-      .post<{ name: string }>(
-        'https://blog-angular-a0e04-default-rtdb.asia-southeast1.firebasedatabase.app/blog.json',
-        newBlog
-      )
-      .subscribe((data) => {
-        this.getAllBlog();
-      });
-  }
-
-  hideShowBlogForm() {
-    this.isBlogFormVisible = !this.isBlogFormVisible;
-    this.showBlogFormSubject.next(this.isBlogFormVisible);
-  }
-
-  updateBlog(blogId: number, formGroup: FormGroup, blogImageFileName: string) {
-    const { title, tags, blogImage, description } = formGroup.value;
-    this.createdBlogs = this.createdBlogs.map((blog) => {
-      // if (blog.blogId === blogId) {
-      //   blog.blogTitle = title;
-      //   blog.blogImage = blogImage;
-      //   blog.blogImageFileName = blogImageFileName;
-      //   blog.description = description;
-      //   blog.tags = tags;
-      // }
-      return blog;
-    });
-
-    this.getAllBlog();
-  }
-
-  toggleUserEditForm() {
-    this.isUserEditFormVisible = !this.isUserEditFormVisible;
-    this.showUserEditForm.next(this.isUserEditFormVisible);
-  }
-
-  updateBlogWithUser() {
-    this.getAllBlog();
-  }
-
-  getBlogsFromLocalStorage() {
-    this.getAllBlogsFromDb();
-  }
-
   getAllBlogsFromDb() {
     return this.httpClient
       .get<{ [key: string]: Blog }>(
@@ -120,15 +59,89 @@ export class BlogService {
   }
 
   getSingleBlog(id: string) {
-    console.log(id);
+    return this.httpClient.get(
+      'https://blog-angular-a0e04-default-rtdb.asia-southeast1.firebasedatabase.app/blog/' +
+        id +
+        '.json'
+    );
+  }
+
+  addBlog(formGroup: FormGroup, blogImageFileName: string) {
+    const { title, tags, blogImage, description } = formGroup.value;
+    const blogCreator = this.authService.loggedInUser;
+
+    const newBlog: Blog = {
+      blogTitle: title,
+      blogImageFileName,
+      tags,
+      blogImage,
+      description,
+      bloggrUserName: blogCreator?.userName,
+      bloggerUserId: blogCreator?.id,
+      createdAt: new Date().toISOString(),
+    };
 
     this.httpClient
-      .get(
-        'https://blog-angular-a0e04-default-rtdb.asia-southeast1.firebasedatabase.app/blog/' +
-          id +
-          '.json'
+      .post<{ name: string }>(
+        'https://blog-angular-a0e04-default-rtdb.asia-southeast1.firebasedatabase.app/blog.json',
+        newBlog
       )
-      .subscribe((data) => console.log(data));
+      .subscribe((data) => {
+        newBlog.blogId = data.name;
+
+        this.createdBlogs.unshift(newBlog);
+        this.getAllBlog();
+      });
+  }
+
+  hideShowBlogForm() {
+    this.isBlogFormVisible = !this.isBlogFormVisible;
+    this.showBlogFormSubject.next(this.isBlogFormVisible);
+  }
+
+  updateBlog(
+    blogId: string,
+    formGroup: FormGroup,
+    blogImageFileName: string,
+    editedBlog: Blog
+  ) {
+    const { title, tags, blogImage, description } = formGroup.value;
+    this.createdBlogs = this.createdBlogs.map((blog) => {
+      if (blog.blogId === blogId) {
+        blog.blogTitle = title;
+        blog.blogImage = blogImage;
+        blog.blogImageFileName = blogImageFileName;
+        blog.description = description;
+        blog.tags = tags;
+      }
+      return blog;
+    });
+
+    const data: Blog = {
+      ...editedBlog,
+      blogTitle: title,
+      blogImage,
+      blogImageFileName,
+      tags,
+      description,
+    };
+    this.getAllBlog();
+
+    return this.httpClient.put(
+      'https://blog-angular-a0e04-default-rtdb.asia-southeast1.firebasedatabase.app/blog/' +
+        blogId +
+        '.json',
+      data
+    );
+  }
+
+  toggleUserEditForm() {
+    this.isUserEditFormVisible = !this.isUserEditFormVisible;
+    this.showUserEditForm.next(this.isUserEditFormVisible);
+  }
+
+  updateBlogWithUser() {
+    this.getAllBlog();
   }
 
   private getAllBlog() {

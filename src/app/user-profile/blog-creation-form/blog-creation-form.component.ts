@@ -87,12 +87,17 @@ export class BlogCreationFormComponent implements OnInit {
       return;
     }
     if (this.isBlogEdited && this.editedBlogId) {
-      // this.blogService.updateBlog(
-      //   this.editedBlogId,
-      //   this.blogForm,
-      //   this.imageFileName as string
-      // );
-      // this.router.navigateByUrl(getId(this.editedBlogId));
+      this.blogService
+        .updateBlog(
+          this.editedBlogId,
+          this.blogForm,
+          this.imageFileName as string,
+          this.editedBlog as Blog
+        )
+        .subscribe((data) => {
+          console.log('edit', data);
+        });
+      this.router.navigateByUrl(getId(this.editedBlogId));
     } else {
       this.blogService.addBlog(this.blogForm, this.imageFileName as string);
     }
@@ -135,22 +140,17 @@ export class BlogCreationFormComponent implements OnInit {
     this.editedBlogId = this.activatedRoute.snapshot.queryParams['id'];
 
     if (this.editedBlogId !== undefined && this.isBlogEdited) {
-      this.blogService.getSingleBlog(this.editedBlogId);
+      this.blogService.getSingleBlog(this.editedBlogId).subscribe((data) => {
+        this.editedBlog = <Blog>data;
 
-      this.blogService.blogSubject.subscribe((blogs) => {
-        if (blogs.length) {
-          this.editedBlog = blogs.find((blog) => {
-            return blog.blogId === this.editedBlogId;
-          });
-          if (this.editedBlog?.blogId) {
-            this.setEditedBlogValue();
-            this.updateFormTagsArray(this.editedBlog?.tags as string[]);
-            this.imageFileName = this.editedBlog?.blogImageFileName;
+        if (this.editedBlog.blogTitle) {
+          this.setEditedBlogValue();
+          this.updateFormTagsArray(this.editedBlog?.tags as string[]);
+          this.imageFileName = this.editedBlog?.blogImageFileName;
 
-            this.unSelectedBlogTags = BLOG_TAGS.filter(
-              (tag) => !this.editedBlog?.tags.includes(tag)
-            );
-          }
+          this.unSelectedBlogTags = BLOG_TAGS.filter(
+            (tag) => !this.editedBlog?.tags.includes(tag)
+          );
         }
       });
     } else {

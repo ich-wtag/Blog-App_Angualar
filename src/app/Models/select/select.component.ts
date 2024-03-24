@@ -1,9 +1,12 @@
 import {
+  AfterViewInit,
   Component,
   ElementRef,
   EventEmitter,
   Input,
+  OnChanges,
   Output,
+  SimpleChanges,
   ViewChild,
 } from '@angular/core';
 import { FormControl } from '@angular/forms';
@@ -15,7 +18,7 @@ import { Router } from '@angular/router';
   templateUrl: './select.component.html',
   styleUrls: ['./select.component.scss'],
 })
-export class SelectComponent {
+export class SelectComponent implements OnChanges {
   @Input() label?: string;
   @Input() placeholder?: string;
   @Input() wrapperClassName?: string;
@@ -99,8 +102,8 @@ export class SelectComponent {
     this.OnUnSelectFilterTags.emit(tag);
   }
 
-  ngOnInit(): void {
-    if (this.tagsFromEditedBlog.length) {
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes?.['tagsFromEditedBlog']?.currentValue !== undefined) {
       this.selectedTags = this.tagsFromEditedBlog;
     }
   }

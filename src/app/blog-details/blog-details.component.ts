@@ -27,24 +27,27 @@ export class BlogDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     const selectedBlogId: string = this.activatedRoute.snapshot.params['id'];
-    this.blogService.blogSubject.subscribe((blogs) => {
-      this.selectedBlog = blogs.find((blog) => blog.blogId === selectedBlogId);
 
-      if (this.descriptionElement !== undefined) {
-        this.descriptionElement.nativeElement.innerHTML =
-          this.selectedBlog?.description;
-      }
+    if (selectedBlogId !== undefined) {
+      this.blogService.getSingleBlog(selectedBlogId).subscribe((data) => {
+        this.selectedBlog = <Blog>data;
 
-      this.isEditable =
-        this.authService.loggedInUser?.id ===
-          this.selectedBlog?.bloggerUserId &&
-        this.authService.loggedInUser?.userName ===
-          this.selectedBlog?.bloggrUserName;
-    });
+        if (this.descriptionElement !== undefined) {
+          this.descriptionElement.nativeElement.innerHTML =
+            this.selectedBlog?.description;
+        }
 
-    this.creatorImage = this.selectedBlog?.bloggerImage
-      ? this.selectedBlog?.bloggerImage
-      : this.dummyUserImage;
+        this.isEditable =
+          this.authService.loggedInUser?.id ===
+            this.selectedBlog?.bloggerUserId &&
+          this.authService.loggedInUser?.userName ===
+            this.selectedBlog?.bloggrUserName;
+
+        this.creatorImage = this.selectedBlog?.bloggerImage
+          ? this.selectedBlog?.bloggerImage
+          : this.dummyUserImage;
+      });
+    }
 
     this.blogService.hideShowBlogForm();
   }
