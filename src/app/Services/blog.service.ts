@@ -45,11 +45,11 @@ export class BlogService {
 
           for (let key in responseData) {
             if (responseData.hasOwnProperty(key)) {
-              blogs.push({ blogId: key, ...responseData[key] });
+              blogs.unshift({ blogId: key, ...responseData[key] });
             }
           }
 
-          return blogs.reverse();
+          return blogs;
         })
       )
       .subscribe((blogs) => {

@@ -2,47 +2,72 @@ import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { User } from '../Models/user';
 import { AuthService } from './auth.service';
+import { HttpClient } from '@angular/common/http';
+import { AuthResponse } from '../Models/authResponse';
+import { map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
-  users: User[] = [];
+  users!: User[];
 
-  getUserId() {
-    const maxId = this.users.reduce(
-      (maxId, user) => Math.max(user.id, maxId),
-      0
-    );
-    return maxId + 1;
-  }
+  constructor(private httpClient: HttpClient) {}
 
   registerUser(formGroupData: FormGroup) {
-    const id = this.getUserId();
     const { firstName, lastName, email, userName, password } =
       formGroupData.value;
 
     const joiningDate = new Date().toISOString();
-    const user: User = {
-      id,
-      firstName,
-      lastName,
+
+    const requiredData = {
       email,
-      userName,
       password,
-      joiningDate,
+      returnSecureToken: true,
     };
 
-    this.users.push(user);
+    this.httpClient
+      .post<AuthResponse>(
+        'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyDwM-ShZnxIb2edxgTLLOdK9DFaxyvFPRw',
+        requiredData
+      )
+      .subscribe((data) => {
+        const { localId } = data;
 
-    localStorage.setItem('registeredUsers', JSON.stringify(this.users));
+        const user: User = {
+          id: localId,
+          firstName,
+          lastName,
+          email,
+          userName,
+          password,
+          joiningDate,
+          image: '',
+          imageFileName: '',
+          subTitle: '',
+          about: '',
+        };
+
+        this.httpClient
+          .put(
+            'https://blog-angular-a0e04-default-rtdb.asia-southeast1.firebasedatabase.app/users/' +
+              localId +
+              '.json',
+            user
+          )
+          .subscribe((data) => {
+            this.users.push(user);
+
+            this.getAllUsers();
+          });
+      });
   }
 
   getAllUsers() {
     return this.users;
   }
 
-  updateUserInfo(id: number, formData: FormGroup, imageFileName: string) {
+  updateUserInfo(id: string, formData: FormGroup, imageFileName: string) {
     const { name, subTitle, profileImage, about } = formData.value;
     const [firstName, lastName] = name.split(' ');
 
@@ -57,15 +82,25 @@ export class UserService {
       }
       return user;
     });
-
-    localStorage.setItem('registeredUsers', JSON.stringify(this.users));
   }
 
   getAllTheUsersFromLocalStorage() {
-    const allUsers = localStorage.getItem('registeredUsers');
+    this.httpClient
+      .get<{ [key: string]: User }>(
+        'https://blog-angular-a0e04-default-rtdb.asia-southeast1.firebasedatabase.app/users.json'
+      )
+      .pipe(
+        map((response) => {
+          let registeredUsers = [];
 
-    if (allUsers) {
-      this.users = JSON.parse(allUsers);
-    }
+          for (let key in response) {
+            if (response.hasOwnProperty(key)) {
+              registeredUsers.push(response[key]);
+            }
+          }
+          return registeredUsers;
+        })
+      )
+      .subscribe((data) => (this.users = data));
   }
 }

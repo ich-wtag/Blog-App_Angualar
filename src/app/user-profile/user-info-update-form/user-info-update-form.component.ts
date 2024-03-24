@@ -84,7 +84,7 @@ export class UserInfoUpdateFormComponent implements OnInit {
     }
 
     this.userService.updateUserInfo(
-      this.loggedInUser?.id as number,
+      this.loggedInUser?.id as string,
       this.userInfoForm,
       this.profileImageFileName as string
     );

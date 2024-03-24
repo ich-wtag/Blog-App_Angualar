@@ -4,6 +4,9 @@ import { FormGroup } from '@angular/forms';
 import { UserService } from './user.service';
 import { User } from '../Models/user';
 import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import { AuthResponse } from '../Models/authResponse';
+import { USER } from '../Models/constants';
 
 @Injectable({
   providedIn: 'root',
@@ -16,18 +19,50 @@ export class AuthService {
   );
   loggerObserver: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
-  constructor(private userService: UserService, private router: Router) {}
+  constructor(
+    private userService: UserService,
+    private router: Router,
+    private httpClient: HttpClient
+  ) {}
 
   onLogggedIn(userName: string, password: string) {
-    this.loggedInUser = this.userService
+    const user = this.userService
       ?.getAllUsers()
       ?.find(
         (user) => user.userName === userName && user.password === password
       );
 
-    localStorage.setItem('loggedInUser', JSON.stringify(this.loggedInUser));
-    this.loggedInUserObserver.next(this.loggedInUser as User);
-    this.loggerObserver.next(true);
+    const requiredData = {
+      email: user?.email,
+      password,
+      returnSecureToken: true,
+    };
+
+    this.httpClient
+      .post<AuthResponse>(
+        'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyDwM-ShZnxIb2edxgTLLOdK9DFaxyvFPRw',
+        requiredData
+      )
+      .subscribe((data) => {
+        console.log(data);
+
+        const { expiresIn, idToken, localId } = data;
+        if (user) {
+          this.loggedInUser = {
+            ...user,
+            id: localId,
+            expiresIn,
+            idToken,
+          };
+          this.loggedInUserObserver.next(this.loggedInUser as User);
+          this.loggerObserver.next(true);
+
+          localStorage.setItem(
+            'loggedInUser',
+            JSON.stringify(this.loggedInUser)
+          );
+        }
+      });
   }
 
   onLogOut() {
