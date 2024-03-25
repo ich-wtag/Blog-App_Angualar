@@ -59,7 +59,6 @@ export class BlogCreationFormComponent implements OnInit {
   ) {}
 
   getLoggedInUser() {
-    this.authService.getLoggedInUser();
     return this.authService.loggedInUser;
   }
 
@@ -77,6 +76,8 @@ export class BlogCreationFormComponent implements OnInit {
 
   onBlogCreation() {
     const loggedInUser = this.getLoggedInUser();
+    console.log(loggedInUser);
+
     if (Object.keys(<User>loggedInUser).length === 0) {
       this.toastrService.error('Please login befor add or edit a blog');
       return;
