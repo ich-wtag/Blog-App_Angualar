@@ -2,17 +2,23 @@ import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { User } from '../Models/user';
 import { AuthService } from './auth.service';
-import { HttpClient } from '@angular/common/http';
+import { HttpBackend, HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthResponse } from '../Models/authResponse';
-import { map } from 'rxjs';
+import { BehaviorSubject, map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
   users!: User[];
+  registeredUserToken: BehaviorSubject<string> = new BehaviorSubject<string>(
+    ''
+  );
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(
+    private httpClient: HttpClient,
+    private httpBackend: HttpBackend
+  ) {}
 
   registerUser(formGroupData: FormGroup) {
     const { firstName, lastName, email, userName, password } =
@@ -32,7 +38,7 @@ export class UserService {
         requiredData
       )
       .subscribe((data) => {
-        const { localId } = data;
+        const { localId, idToken } = data;
 
         const user: User = {
           id: localId,
@@ -48,12 +54,15 @@ export class UserService {
           about: '',
         };
 
+        const userHeaders = new HttpHeaders({ userAuth: idToken });
+
         this.httpClient
           .put(
             'https://blog-angular-a0e04-default-rtdb.asia-southeast1.firebasedatabase.app/users/' +
               localId +
               '.json',
-            user
+            user,
+            { headers: userHeaders }
           )
           .subscribe((data) => {
             this.users.push(user);

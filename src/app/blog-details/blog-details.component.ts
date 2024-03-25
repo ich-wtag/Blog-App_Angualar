@@ -1,4 +1,10 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import {
+  AfterViewChecked,
+  Component,
+  ElementRef,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BlogService } from '../Services/blog.service';
 import { Blog } from '../Models/blog';
@@ -10,7 +16,7 @@ import { AuthService } from '../Services/auth.service';
   templateUrl: './blog-details.component.html',
   styleUrls: ['./blog-details.component.scss'],
 })
-export class BlogDetailsComponent implements OnInit {
+export class BlogDetailsComponent implements OnInit, AfterViewChecked {
   dummyUserImage: string = DUMMY_USER_IMAGE;
   selectedBlog?: Blog;
   creatorImage!: string;
@@ -29,13 +35,10 @@ export class BlogDetailsComponent implements OnInit {
     this.selectedBlogId = this.activatedRoute.snapshot.params['id'];
 
     if (this.selectedBlogId !== undefined) {
-      this.blogService.getSingleBlog(this.selectedBlogId).subscribe((data) => {
-        this.selectedBlog = <Blog>data;
-
-        if (this.descriptionElement !== undefined) {
-          this.descriptionElement.nativeElement.innerHTML =
-            this.selectedBlog?.description;
-        }
+      this.blogService.blogSubject.subscribe((blogs) => {
+        this.selectedBlog = blogs.find(
+          (blog) => blog.blogId === this.selectedBlogId
+        );
 
         this.isEditable =
           this.authService.loggedInUser?.id ===
@@ -50,6 +53,13 @@ export class BlogDetailsComponent implements OnInit {
     }
 
     this.blogService.hideShowBlogForm();
+  }
+
+  ngAfterViewChecked(): void {
+    if (this.descriptionElement !== undefined) {
+      this.descriptionElement.nativeElement.innerHTML =
+        this.selectedBlog?.description;
+    }
   }
 
   handleEditClicked() {

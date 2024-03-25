@@ -21,7 +21,7 @@ export class BannerComponent implements OnInit, OnDestroy {
   blogObserver!: Subscription;
   loginObserver!: Subscription;
 
-  // getRoutingId = getId;
+  getRoutingId = getId;
 
   constructor(
     private blogService: BlogService,
@@ -34,9 +34,12 @@ export class BannerComponent implements OnInit, OnDestroy {
       this.isLoggedIn = value;
     });
 
-    this.blogObserver = this.blogService.blogSubject.subscribe(
-      (blogs) => (this.lastBlogs = blogs[0])
-    );
+    this.blogObserver = this.blogService.blogSubject.subscribe((blogs) => {
+      this.lastBlogs = blogs[0];
+      if (this.lastBlogs?.bloggerImage) {
+        this.dummyUserImage = this.lastBlogs.bloggerImage;
+      }
+    });
   }
 
   ngOnDestroy(): void {

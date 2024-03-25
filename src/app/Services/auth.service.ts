@@ -44,8 +44,6 @@ export class AuthService {
         requiredData
       )
       .subscribe((data) => {
-        console.log(data);
-
         const { expiresIn, idToken, localId } = data;
         if (user) {
           this.loggedInUser = {
@@ -62,6 +60,8 @@ export class AuthService {
             JSON.stringify(this.loggedInUser)
           );
         }
+
+        this.autoLogout(expiresIn);
       });
   }
 
@@ -97,8 +97,21 @@ export class AuthService {
         imageFileName,
       };
 
-      this.loggedInUserObserver.next(this.loggedInUser);
-      localStorage.setItem('loggedInUser', JSON.stringify(this.loggedInUser));
+      this.httpClient
+        .put(
+          'https://blog-angular-a0e04-default-rtdb.asia-southeast1.firebasedatabase.app/users/' +
+            currentUser.id +
+            '.json',
+          this.loggedInUser
+        )
+        .subscribe(() => {
+          this.loggedInUserObserver.next(<User>this.loggedInUser);
+
+          localStorage.setItem(
+            'loggedInUser',
+            JSON.stringify(this.loggedInUser)
+          );
+        });
     }
   }
 
@@ -109,8 +122,18 @@ export class AuthService {
       this.loggedInUser = JSON.parse(user);
       this.loggedInUserObserver.next(<User>this.loggedInUser);
       this.loggerObserver.next(true);
+
+      this.autoLogout(this.loggedInUser?.expiresIn as string);
     } else {
       this.onLogOut();
     }
+  }
+
+  autoLogout(timeInterVal: string) {
+    const timeToLogOut = Number(timeInterVal) * 1000;
+
+    setTimeout(() => {
+      this.onLogOut();
+    }, timeToLogOut);
   }
 }
