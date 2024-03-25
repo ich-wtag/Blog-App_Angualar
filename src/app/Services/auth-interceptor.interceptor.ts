@@ -18,8 +18,6 @@ export class AuthInterceptorInterceptor implements HttpInterceptor {
     next: HttpHandler
   ): Observable<HttpEvent<unknown>> {
     if (request.headers.get('userAuth') !== null) {
-      console.log('use Auth called', request.headers.get('userAuth'));
-
       const registerUserReq = request.clone({
         params: new HttpParams().set(
           'auth',
@@ -38,8 +36,6 @@ export class AuthInterceptorInterceptor implements HttpInterceptor {
         const modifiedReq = request.clone({
           params: new HttpParams().set('auth', <string>user.idToken),
         });
-
-        console.log('login auth get called');
 
         return next.handle(modifiedReq);
       })
