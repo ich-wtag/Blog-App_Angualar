@@ -79,12 +79,6 @@ export class SelectComponent implements OnChanges {
       this.isFilterCase
         ? this.onUnSelectFilteredTag(value)
         : this.onUnSelectTag(index);
-
-      // if (this.isFilterCase) {
-      //   this.router.navigate(['home'], {
-      //     queryParams: { filterTags: this.availableTags },
-      //   });
-      // }
     } else if (this.selectedTags.length === 0) {
       this.hideDropdown();
     }
