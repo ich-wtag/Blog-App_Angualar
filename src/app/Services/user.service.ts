@@ -42,6 +42,14 @@ export class UserService {
     return this.users;
   }
 
+  getAllTheUsersFromLocalStorage() {
+    const allUsers = localStorage.getItem('registeredUsers');
+
+    if (allUsers) {
+      this.users = JSON.parse(allUsers);
+    }
+  }
+
   updateUserInfo(id: number, formData: FormGroup, imageFileName: string) {
     const { name, subTitle, profileImage, about } = formData.value;
     const [firstName, lastName] = name.split(' ');
@@ -59,13 +67,5 @@ export class UserService {
     });
 
     localStorage.setItem('registeredUsers', JSON.stringify(this.users));
-  }
-
-  getAllTheUsersFromLocalStorage() {
-    const allUsers = localStorage.getItem('registeredUsers');
-
-    if (allUsers) {
-      this.users = JSON.parse(allUsers);
-    }
   }
 }

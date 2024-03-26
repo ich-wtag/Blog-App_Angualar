@@ -18,6 +18,18 @@ export class AuthService {
 
   constructor(private userService: UserService, private router: Router) {}
 
+  getLoggedInUser() {
+    const user = localStorage.getItem('loggedInUser');
+
+    if (user) {
+      this.loggedInUser = JSON.parse(user);
+      this.loggedInUserObserver.next(<User>this.loggedInUser);
+      this.loggerObserver.next(true);
+    } else {
+      this.onLogOut();
+    }
+  }
+
   onLogggedIn(userName: string, password: string) {
     this.loggedInUser = this.userService
       ?.getAllUsers()
@@ -64,18 +76,6 @@ export class AuthService {
 
       this.loggedInUserObserver.next(this.loggedInUser);
       localStorage.setItem('loggedInUser', JSON.stringify(this.loggedInUser));
-    }
-  }
-
-  getLoggedInUser() {
-    const user = localStorage.getItem('loggedInUser');
-
-    if (user) {
-      this.loggedInUser = JSON.parse(user);
-      this.loggedInUserObserver.next(<User>this.loggedInUser);
-      this.loggerObserver.next(true);
-    } else {
-      this.onLogOut();
     }
   }
 }

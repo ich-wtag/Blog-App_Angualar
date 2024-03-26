@@ -9,10 +9,6 @@ import { Blog } from '../Models/blog';
   providedIn: 'root',
 })
 export class BlogService {
-  constructor(
-    private authService: AuthService,
-    private userService: UserService
-  ) {}
   private createdBlogs: Blog[] = [];
 
   private isBlogFormVisible: boolean = false;
@@ -35,6 +31,22 @@ export class BlogService {
   blogSubject: BehaviorSubject<Blog[]> = new BehaviorSubject<Blog[]>(
     this.blogs
   );
+
+  constructor(
+    private authService: AuthService,
+    private userService: UserService
+  ) {}
+
+  getBlogsFromLocalStorage() {
+    const blogs = localStorage.getItem('createdBlog');
+
+    if (blogs) {
+      this.createdBlogs = JSON.parse(blogs);
+    }
+
+    const allBlog = this.getAllBlog();
+    this.blogSubject.next(allBlog);
+  }
 
   addBlog(formGroup: FormGroup, blogImageFileName: string) {
     const { title, tags, blogImage, description } = formGroup.value;
@@ -90,17 +102,6 @@ export class BlogService {
   }
 
   updateBlogWithUser() {
-    const allBlog = this.getAllBlog();
-    this.blogSubject.next(allBlog);
-  }
-
-  getBlogsFromLocalStorage() {
-    const blogs = localStorage.getItem('createdBlog');
-
-    if (blogs) {
-      this.createdBlogs = JSON.parse(blogs);
-    }
-
     const allBlog = this.getAllBlog();
     this.blogSubject.next(allBlog);
   }

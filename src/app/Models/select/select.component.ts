@@ -6,9 +6,9 @@ import {
   Output,
   ViewChild,
 } from '@angular/core';
+import { Router } from '@angular/router';
 import { FormControl } from '@angular/forms';
 import { BLOG_TAGS } from '../constants';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-select',
