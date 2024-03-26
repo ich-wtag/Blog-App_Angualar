@@ -26,6 +26,10 @@ export class BlogService {
     false
   );
 
+  searchedValueSubject: BehaviorSubject<string> = new BehaviorSubject<string>(
+    ''
+  );
+
   private blogs: Blog[] = this.getAllBlog();
 
   blogSubject: BehaviorSubject<Blog[]> = new BehaviorSubject<Blog[]>(

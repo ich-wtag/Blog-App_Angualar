@@ -15,9 +15,13 @@ export class InputComponent implements OnInit {
   @Input() control = new FormControl();
   @Input() inputFileWrapperClass?: string;
   @Input() selectableLabelClass?: string;
+  @Input() isSearchInput: boolean = false;
+  @Input() searchedText: string = '';
 
   @Output() OnChangeEvent: EventEmitter<FileList | null> =
     new EventEmitter<FileList | null>();
+
+  @Output() OnSearchValue: EventEmitter<string> = new EventEmitter<string>();
 
   placeHolderMessage: string = '';
 
@@ -28,5 +32,9 @@ export class InputComponent implements OnInit {
   onChangeImage(event: Event) {
     const file = (<HTMLInputElement>event.target)?.files;
     this.OnChangeEvent.emit(file);
+  }
+
+  onSearchHandler() {
+    this.OnSearchValue.emit(this.searchedText);
   }
 }

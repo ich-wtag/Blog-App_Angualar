@@ -1,16 +1,17 @@
 <div [class]="wrapperClassName">
-  <ng-container *ngIf="type !== 'file'; else inputFileRef">
-    <label *ngIf="label" class="form__label">{{ label }}</label>
-    <input
-      class="form__input"
-      [class]="className"
-      [type]="type"
-      [placeholder]="placeHolderMessage"
-      [formControl]="control"
-    />
-
-    <ng-content> </ng-content>
+  <ng-container *ngIf="!isSearchInput; else searchInputField">
+    <ng-container *ngIf="type !== 'file'; else inputFileRef">
+      <label *ngIf="label" class="form__label">{{ label }}</label>
+      <input
+        class="form__input"
+        [class]="className"
+        [type]="type"
+        [placeholder]="placeHolderMessage"
+        [formControl]="control"
+      />
+    </ng-container>
   </ng-container>
+  <ng-content> </ng-content>
 </div>
 
 <ng-template #inputFileRef>
@@ -35,4 +36,15 @@
     </span>
     <small class="form__suported-files">Supports: JPG, Jpeg and Png</small>
   </div>
+</ng-template>
+
+<ng-template #searchInputField>
+  <input
+    class="form__input"
+    [class]="className"
+    [type]="type"
+    [placeholder]="placeHolderMessage"
+    [(ngModel)]="searchedText"
+    (input)="onSearchHandler()"
+  />
 </ng-template>
