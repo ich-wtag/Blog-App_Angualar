@@ -2,6 +2,7 @@
   <div class="flex-between">
     <h2 class="blog-list__title">Latest Post</h2>
     <app-select
+      *ngIf="seacrhedBlogs.length"
       wrapperClassName="blog-list__filter"
       label="Filter by Tags"
       [selectedTags]="blogTags"
@@ -13,11 +14,22 @@
   </div>
 
   <div class="blog-list__container">
-    <ng-container *ngIf="filteredBlogs.length; else emptyBlogsMessage">
-      <ng-container *ngFor="let blog of filteredBlogs">
+    <ng-container *ngIf="paginatedBlogs.length; else emptyBlogsMessage">
+      <ng-container *ngFor="let blog of paginatedBlogs">
         <app-blog [blog]="blog"></app-blog>
       </ng-container>
     </ng-container>
+  </div>
+
+  <div class="flex-center blog-list__button">
+    <app-button
+      *ngIf="isLoadMoreButtonVisible"
+      className="secondary-button--light__larger"
+      buttonType="button"
+      (click)="handleLoadMoreBlogs()"
+    >
+      {{ loadMoreButtonText }}
+    </app-button>
   </div>
 
   <ng-template #emptyBlogsMessage>
