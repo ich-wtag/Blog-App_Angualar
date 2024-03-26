@@ -25,6 +25,20 @@ export class AuthService {
     private httpClient: HttpClient
   ) {}
 
+  getLoggedInUser() {
+    const user = localStorage.getItem('loggedInUser');
+
+    if (user) {
+      this.loggedInUser = JSON.parse(user);
+      this.loggedInUserObserver.next(<User>this.loggedInUser);
+      this.loggerObserver.next(true);
+
+      this.autoLogout(this.loggedInUser?.expiresIn as string);
+    } else {
+      this.onLogOut();
+    }
+  }
+
   onLogggedIn(userName: string, password: string) {
     const user = this.userService
       ?.getAllUsers()
@@ -113,20 +127,6 @@ export class AuthService {
             JSON.stringify(this.loggedInUser)
           );
         });
-    }
-  }
-
-  getLoggedInUser() {
-    const user = localStorage.getItem('loggedInUser');
-
-    if (user) {
-      this.loggedInUser = JSON.parse(user);
-      this.loggedInUserObserver.next(<User>this.loggedInUser);
-      this.loggerObserver.next(true);
-
-      this.autoLogout(this.loggedInUser?.expiresIn as string);
-    } else {
-      this.onLogOut();
     }
   }
 

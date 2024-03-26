@@ -10,11 +10,6 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root',
 })
 export class BlogService {
-  constructor(
-    private authService: AuthService,
-    private userService: UserService,
-    private httpClient: HttpClient
-  ) {}
   private createdBlogs: Blog[] = [];
 
   private isBlogFormVisible: boolean = false;
@@ -65,6 +60,23 @@ export class BlogService {
         '.json'
     );
   }
+
+  constructor(
+    private authService: AuthService,
+    private userService: UserService,
+    private httpClient: HttpClient
+  ) {}
+
+  // getBlogsFromLocalStorage() {
+  //   const blogs = localStorage.getItem('createdBlog');
+
+  //   if (blogs) {
+  //     this.createdBlogs = JSON.parse(blogs);
+  //   }
+
+  //   const allBlog = this.getAllBlog();
+  //   this.blogSubject.next(allBlog);
+  // }
 
   addBlog(formGroup: FormGroup, blogImageFileName: string) {
     const { title, tags, blogImage, description } = formGroup.value;
