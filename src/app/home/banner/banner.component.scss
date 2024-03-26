@@ -1,0 +1,128 @@
+@import "../../../assets/style/variable.scss";
+
+.banner {
+  height: 28.5rem;
+  margin-top: 6.87rem;
+  position: relative;
+
+  &__background {
+    border-radius: 0.75rem;
+    cursor: pointer;
+    height: 100%;
+    position: absolute;
+    width: 100%;
+
+    &::before {
+      background: $black-color-500-A40;
+      border-radius: inherit;
+      content: "";
+      height: 100%;
+      left: 0;
+      position: absolute;
+      top: 0;
+      width: 100%;
+    }
+
+    &__image {
+      border-radius: inherit;
+      height: 100%;
+      object-fit: cover;
+      width: 100%;
+    }
+  }
+
+  &__description {
+    left: 3.7rem;
+    max-width: 45rem;
+    position: absolute;
+    top: 12.5rem;
+
+    &__tags {
+      gap: 1rem;
+
+      .tag-item {
+        background: $blue-color-500;
+        border-radius: 0.375rem;
+        color: $white-color;
+        font-size: 0.875rem;
+        line-height: 1.25rem;
+        padding: 0.25rem 0.625rem;
+      }
+    }
+
+    &__title {
+      color: $white-color;
+      cursor: pointer;
+      font-size: 2.25rem;
+      font-weight: 600;
+      line-height: 2.25rem;
+      margin-top: 1rem;
+      text-transform: capitalize;
+    }
+
+    &__creator {
+      color: $white-color;
+      gap: 1.25rem;
+      margin-top: 1.5rem;
+
+      .creator-info {
+        gap: 0.75rem;
+
+        &__image {
+          border-radius: 50%;
+          height: 2.25rem;
+          width: 2.25rem;
+
+          &__item {
+            border-radius: inherit;
+            height: 100%;
+            object-fit: cover;
+            width: 100%;
+          }
+        }
+
+        &__name {
+          font-size: 1rem;
+          font-weight: 500;
+          line-height: 1.5rem;
+          text-transform: capitalize;
+        }
+      }
+
+      .created-time {
+        font-size: 1rem;
+        font-weight: 400;
+        line-height: 1.5rem;
+      }
+    }
+  }
+
+  // banner styles on logout condition
+  &--logout {
+    height: 36.5rem;
+    margin-bottom: 3.5rem;
+
+    .banner {
+      &__description {
+        background: $white-color;
+        border-radius: 0.75rem;
+        border: 0.063rem solid $black-color-60;
+        box-shadow: 0rem 0.75rem 1.5rem -0.375rem $black-color-400-A20;
+        left: 4rem;
+        max-width: 36.5rem;
+        padding: 2.5rem;
+        position: absolute;
+        top: 22.5rem;
+
+        &__title {
+          color: $black-color-400;
+          min-height: 6.75rem;
+        }
+
+        &__creator {
+          color: $black-color-100;
+        }
+      }
+    }
+  }
+}

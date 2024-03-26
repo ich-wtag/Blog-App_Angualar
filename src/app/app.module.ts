@@ -22,6 +22,8 @@ import { PersonalBlogsComponent } from './user-profile/personal-blogs/personal-b
 import { BlogComponent } from './Models/blog/blog.component';
 import { BlogDetailsComponent } from './blog-details/blog-details.component';
 import { UserInfoUpdateFormComponent } from './user-profile/user-info-update-form/user-info-update-form.component';
+import { BannerComponent } from './home/banner/banner.component';
+import { BlogListComponent } from './home/blog-list/blog-list.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +43,8 @@ import { UserInfoUpdateFormComponent } from './user-profile/user-info-update-for
     BlogComponent,
     BlogDetailsComponent,
     UserInfoUpdateFormComponent,
+    BannerComponent,
+    BlogListComponent,
   ],
   imports: [
     BrowserModule,

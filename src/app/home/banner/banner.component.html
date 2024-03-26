@@ -1,0 +1,45 @@
+<section
+  *ngIf="lastBlogs?.blogId"
+  class="banner"
+  [ngClass]="isLoggedIn ? '' : 'banner--logout'"
+>
+  <div class="banner__background" [routerLink]="getRoutingId(lastBlogs.blogId)">
+    <img
+      class="banner__background__image"
+      [src]="lastBlogs.blogImage"
+      [alt]="lastBlogs.blogTitle"
+    />
+  </div>
+
+  <div class="banner__description">
+    <div class="flex-start banner__description__tags">
+      <span *ngFor="let tag of lastBlogs.tags" class="tag-item">
+        {{ tag }}
+      </span>
+    </div>
+
+    <h2
+      class="banner__description__title"
+      [routerLink]="getRoutingId(lastBlogs.blogId)"
+    >
+      {{ lastBlogs.blogTitle }}
+    </h2>
+
+    <div class="flex-start banner__description__creator">
+      <div class="flex-start creator-info">
+        <div class="creator-info__image">
+          <img
+            class="creator-info__image__item"
+            [src]="dummyUserImage"
+            [alt]="lastBlogs.bloggrUserName"
+          />
+        </div>
+
+        <h5 class="creator-info__name">{{ lastBlogs.bloggerName }}</h5>
+      </div>
+      <div class="created-time">
+        {{ lastBlogs.createdAt | date : "longDate" }}
+      </div>
+    </div>
+  </div>
+</section>
