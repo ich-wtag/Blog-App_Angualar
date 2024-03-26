@@ -1,5 +1,6 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Subscription, debounceTime } from 'rxjs';
 import { Blog } from 'src/app/Models/blog';
 import { BLOG_TAGS } from 'src/app/Models/constants';
@@ -10,7 +11,7 @@ import { BlogService } from 'src/app/Services/blog.service';
   templateUrl: './blog-list.component.html',
   styleUrls: ['./blog-list.component.scss'],
 })
-export class BlogListComponent implements OnInit, OnDestroy {
+export class BlogListComponent implements OnInit, AfterViewInit, OnDestroy {
   blogs: Blog[] = [];
   seacrhedBlogs: Blog[] = [];
   filteredBlogs: Blog[] = [];
@@ -23,11 +24,15 @@ export class BlogListComponent implements OnInit, OnDestroy {
   endIndex: number = 9;
   loadMoreButtonText: string = 'Load More';
   searchedText: string = '';
+  isLoading: boolean = false;
+  isError: boolean = false;
+  errorObserver!: Subscription;
 
   constructor(
     private blogService: BlogService,
     private activatedRoute: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private toasterService: ToastrService
   ) {}
 
   getFilteredTags($event: string) {
@@ -47,6 +52,7 @@ export class BlogListComponent implements OnInit, OnDestroy {
   }
 
   getFinalBlogsToShow() {
+    this.isLoading = true;
     this.activatedRoute.queryParams
       .pipe(debounceTime(500))
       .subscribe((data) => {
@@ -62,16 +68,27 @@ export class BlogListComponent implements OnInit, OnDestroy {
         this.blogTags = this.blogTags.filter(
           (tag: string) => !this.filteredTags.includes(tag)
         );
-
         this.seacrhedBlogs = this.blogs.filter((blog) =>
           blog?.blogTitle.toLowerCase().includes(searchedString?.toLowerCase())
         );
 
         this.filterByTags();
+
+        if (this.seacrhedBlogs.length > 0 && this.paginatedBlogs.length > 0) {
+          this.isLoading = false;
+        }
       });
   }
 
   ngOnInit(): void {
+    this.errorObserver = this.blogService.blogErrorSubject.subscribe(
+      (value) => {
+        this.isError = value;
+
+        this.isError && this.toasterService.error('Sorry unexpected errors.');
+      }
+    );
+
     this.blogObserverVer = this.blogService.blogSubject.subscribe((data) => {
       this.blogs = data;
       this.getFinalBlogsToShow();
@@ -80,8 +97,16 @@ export class BlogListComponent implements OnInit, OnDestroy {
     this.getFinalBlogsToShow();
   }
 
+  ngAfterViewInit(): void {
+    if (this.paginatedBlogs.length > 0) {
+      this.isLoading = false;
+      this.isError = false;
+    }
+  }
+
   ngOnDestroy(): void {
     this.blogObserverVer.unsubscribe();
+    this.errorObserver.unsubscribe();
   }
 
   filterByTags() {

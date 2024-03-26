@@ -14,6 +14,9 @@ export class PersonalBlogsComponent implements OnInit, OnDestroy {
   blogObserver!: Subscription;
   personalBlogs: Blog[] = [];
   loggedInUser?: User = this.authService.loggedInUser;
+  isLoading: boolean = false;
+  isError: boolean = false;
+  errorObserver!: Subscription;
 
   constructor(
     private blogService: BlogService,
@@ -21,6 +24,7 @@ export class PersonalBlogsComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    this.isLoading = true;
     this.blogObserver = this.blogService.blogSubject.subscribe((data) => {
       this.personalBlogs = data.filter((blog) => {
         return (
@@ -28,6 +32,9 @@ export class PersonalBlogsComponent implements OnInit, OnDestroy {
           blog.bloggerUserId === this.loggedInUser?.id
         );
       });
+      if (this.personalBlogs.length > 0) {
+        this.isLoading = false;
+      }
     });
   }
 

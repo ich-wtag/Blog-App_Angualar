@@ -28,6 +28,9 @@ export class BlogService {
   );
 
   blogSubject: BehaviorSubject<Blog[]> = new BehaviorSubject<Blog[]>([]);
+  blogErrorSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
+    false
+  );
 
   constructor(
     private authService: AuthService,
@@ -53,9 +56,15 @@ export class BlogService {
           return blogs;
         })
       )
-      .subscribe((blogs) => {
-        this.createdBlogs = blogs;
-        this.getAllBlog();
+      .subscribe({
+        next: (blogs) => {
+          this.createdBlogs = blogs;
+          this.getAllBlog();
+          this.blogErrorSubject.next(false);
+        },
+        error: (err) => {
+          this.blogErrorSubject.next(true);
+        },
       });
   }
 

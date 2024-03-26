@@ -26,6 +26,7 @@ import { UserInfoUpdateFormComponent } from './user-profile/user-info-update-for
 import { BannerComponent } from './home/banner/banner.component';
 import { BlogListComponent } from './home/blog-list/blog-list.component';
 import { AuthInterceptorInterceptor } from './Services/auth-interceptor.interceptor';
+import { LoaderComponent } from './utility/loader/loader.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { AuthInterceptorInterceptor } from './Services/auth-interceptor.intercep
     UserInfoUpdateFormComponent,
     BannerComponent,
     BlogListComponent,
+    LoaderComponent,
   ],
   imports: [
     BrowserModule,

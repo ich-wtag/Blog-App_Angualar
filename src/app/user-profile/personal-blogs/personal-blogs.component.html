@@ -1,16 +1,21 @@
 <section class="published-blogs">
   <h2 class="published-blogs__title">My published posts</h2>
-  <div class="blog-wrapper">
-    <ng-container
-      *ngIf="personalBlogs.length > 0; else noBlogsRef"
-    ></ng-container>
-    <app-blog
-      *ngFor="let blog of personalBlogs; trackBy: trackByBlogName"
-      [blog]="blog"
-    ></app-blog>
-  </div>
+  <ng-container *ngIf="!isLoading; else loader">
+    <div class="blog-wrapper">
+      <ng-container *ngIf="personalBlogs.length > 0; else noBlogsRef">
+        <app-blog
+          *ngFor="let blog of personalBlogs; trackBy: trackByBlogName"
+          [blog]="blog"
+        ></app-blog>
+      </ng-container>
+    </div>
+  </ng-container>
 
   <ng-template #noBlogsRef>
     <strong class="no-blog-message"> Sorry, no blogs found. </strong>
+  </ng-template>
+
+  <ng-template #loader>
+    <app-loader></app-loader>
   </ng-template>
 </section>

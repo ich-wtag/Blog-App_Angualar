@@ -281,3 +281,8 @@ button {
 .tox-statusbar__right-container {
   display: none !important;
 }
+
+.error-message {
+  margin-top: 4rem;
+  color: $red-color-500;
+}
