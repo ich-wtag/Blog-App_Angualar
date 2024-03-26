@@ -132,13 +132,8 @@ export class AuthService {
 
   autoLogout(timeInterVal: string) {
     const timeToLogOut = Number(timeInterVal) * 1000;
-    const timeVar = new Date().getHours() + ':' + new Date().getMinutes();
-    localStorage.setItem('login time', JSON.stringify(timeVar));
 
     setTimeout(() => {
-      const timeVar = new Date().getHours() + ':' + new Date().getMinutes();
-      localStorage.setItem('logout time', JSON.stringify(timeVar));
-
       this.onLogOut();
     }, timeToLogOut);
   }

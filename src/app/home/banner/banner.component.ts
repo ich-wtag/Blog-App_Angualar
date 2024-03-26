@@ -36,9 +36,6 @@ export class BannerComponent implements OnInit, OnDestroy {
 
     this.blogObserver = this.blogService.blogSubject.subscribe((blogs) => {
       this.lastBlogs = blogs[0];
-      if (this.lastBlogs?.bloggerImage) {
-        this.dummyUserImage = this.lastBlogs.bloggerImage;
-      }
     });
   }
 
