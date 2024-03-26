@@ -29,6 +29,12 @@ export class BlogService {
 
   blogSubject: BehaviorSubject<Blog[]> = new BehaviorSubject<Blog[]>([]);
 
+  constructor(
+    private authService: AuthService,
+    private userService: UserService,
+    private httpClient: HttpClient
+  ) {}
+
   getAllBlogsFromDb() {
     return this.httpClient
       .get<{ [key: string]: Blog }>(
@@ -60,23 +66,6 @@ export class BlogService {
         '.json'
     );
   }
-
-  constructor(
-    private authService: AuthService,
-    private userService: UserService,
-    private httpClient: HttpClient
-  ) {}
-
-  // getBlogsFromLocalStorage() {
-  //   const blogs = localStorage.getItem('createdBlog');
-
-  //   if (blogs) {
-  //     this.createdBlogs = JSON.parse(blogs);
-  //   }
-
-  //   const allBlog = this.getAllBlog();
-  //   this.blogSubject.next(allBlog);
-  // }
 
   addBlog(formGroup: FormGroup, blogImageFileName: string) {
     const { title, tags, blogImage, description } = formGroup.value;

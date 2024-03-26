@@ -1,5 +1,4 @@
 import {
-  AfterViewInit,
   Component,
   ElementRef,
   EventEmitter,
@@ -40,6 +39,12 @@ export class SelectComponent implements OnChanges {
   blogTags: string[] = BLOG_TAGS;
 
   constructor(private router: Router) {}
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes?.['tagsFromEditedBlog']?.currentValue !== undefined) {
+      this.selectedTags = this.tagsFromEditedBlog;
+    }
+  }
 
   dropDownClicked() {
     if (this.isDropdownVisible || this.selectedTags.length === 0) {
@@ -94,11 +99,5 @@ export class SelectComponent implements OnChanges {
 
   onUnSelectFilteredTag(tag: string) {
     this.OnUnSelectFilterTags.emit(tag);
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes?.['tagsFromEditedBlog']?.currentValue !== undefined) {
-      this.selectedTags = this.tagsFromEditedBlog;
-    }
   }
 }

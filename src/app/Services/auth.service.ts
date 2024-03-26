@@ -6,7 +6,6 @@ import { User } from '../Models/user';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { AuthResponse } from '../Models/authResponse';
-import { USER } from '../Models/constants';
 
 @Injectable({
   providedIn: 'root',
@@ -132,9 +131,16 @@ export class AuthService {
 
   autoLogout(timeInterVal: string) {
     const timeToLogOut = Number(timeInterVal) * 1000;
+    const loginTime = new Date().getHours() + ':' + new Date().getMinutes();
+
+    localStorage.setItem('Log In time', loginTime);
 
     setTimeout(() => {
       this.onLogOut();
+
+      const logoutTime = new Date().getHours() + ':' + new Date().getMinutes();
+
+      localStorage.setItem('Log Out time', logoutTime);
     }, timeToLogOut);
   }
 }
