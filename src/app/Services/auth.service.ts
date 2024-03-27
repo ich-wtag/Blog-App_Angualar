@@ -85,6 +85,9 @@ export class AuthService {
 
     this.router.navigate(['/home', { showSearchBox: true }]);
     localStorage.removeItem('loggedInUser');
+
+    const logoutTime = new Date().getHours() + ':' + new Date().getMinutes();
+    localStorage.setItem('Log Out time', logoutTime);
   }
 
   updateLoginUser(
@@ -137,10 +140,6 @@ export class AuthService {
 
     setTimeout(() => {
       this.onLogOut();
-
-      const logoutTime = new Date().getHours() + ':' + new Date().getMinutes();
-
-      localStorage.setItem('Log Out time', logoutTime);
     }, timeToLogOut);
   }
 }

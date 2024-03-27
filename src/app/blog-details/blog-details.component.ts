@@ -22,6 +22,7 @@ export class BlogDetailsComponent implements OnInit, AfterViewChecked {
   creatorImage!: string;
   isEditable: boolean = false;
   selectedBlogId!: string;
+  isLoading: boolean = false;
 
   @ViewChild('descriptionRef') descriptionElement!: ElementRef;
   constructor(

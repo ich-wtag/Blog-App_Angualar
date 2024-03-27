@@ -69,7 +69,7 @@ export class BlogService {
   }
 
   getSingleBlog(id: string) {
-    return this.httpClient.get(
+    return this.httpClient.get<Blog>(
       'https://blog-angular-a0e04-default-rtdb.asia-southeast1.firebasedatabase.app/blog/' +
         id +
         '.json'
