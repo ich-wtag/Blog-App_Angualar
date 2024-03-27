@@ -35,6 +35,8 @@ export class UserProfileComponent implements OnInit, OnDestroy {
 
     if (isBlogEdited !== undefined && editedBlogId) {
       this.blogService.showBlogFormSubject.next(true);
+    } else {
+      this.blogService.showBlogFormSubject.next(false);
     }
   }
   ngOnDestroy(): void {

@@ -98,7 +98,6 @@ export class BlogCreationFormComponent implements OnInit {
       this.blogService.addBlog(this.blogForm, this.imageFileName as string);
     }
     this.resetForm();
-    this.toggleBlogForm();
     this.toastrService.success('New blog created successfully');
   }
 
