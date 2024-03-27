@@ -34,9 +34,9 @@ export class BannerComponent implements OnInit, OnDestroy {
       this.isLoggedIn = value;
     });
 
-    this.blogObserver = this.blogService.blogSubject.subscribe((blogs) => {
-      this.lastBlogs = blogs[0];
-    });
+    this.blogObserver = this.blogService.blogSubject.subscribe(
+      (blogs) => (this.lastBlogs = blogs[0])
+    );
   }
 
   ngOnDestroy(): void {
