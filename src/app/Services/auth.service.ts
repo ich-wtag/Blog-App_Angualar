@@ -18,6 +18,18 @@ export class AuthService {
 
   constructor(private userService: UserService, private router: Router) {}
 
+  getLoggedInUser() {
+    const user = localStorage.getItem('loggedInUser');
+
+    if (user) {
+      this.loggedInUser = JSON.parse(user);
+      this.loggedInUserObserver.next(<User>this.loggedInUser);
+      this.loggerObserver.next(true);
+    } else {
+      this.onLogOut();
+    }
+  }
+
   onLogggedIn(userName: string, password: string) {
     this.loggedInUser = this.userService
       ?.getAllUsers()
@@ -25,6 +37,7 @@ export class AuthService {
         (user) => user.userName === userName && user.password === password
       );
 
+    localStorage.setItem('loggedInUser', JSON.stringify(this.loggedInUser));
     this.loggedInUserObserver.next(this.loggedInUser as User);
     this.loggerObserver.next(true);
   }
@@ -35,6 +48,7 @@ export class AuthService {
     this.loggerObserver.next(false);
 
     this.router.navigate(['/home', { showSearchBox: true }]);
+    localStorage.removeItem('loggedInUser');
   }
 
   updateLoginUser(
@@ -61,6 +75,7 @@ export class AuthService {
       };
 
       this.loggedInUserObserver.next(this.loggedInUser);
+      localStorage.setItem('loggedInUser', JSON.stringify(this.loggedInUser));
     }
   }
 }

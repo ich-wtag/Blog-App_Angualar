@@ -18,6 +18,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   logginUserObserver!: Subscription;
   navigatorObserver!: Subscription;
   showSearchBox: boolean = false;
+  searchedText: string = '';
 
   constructor(
     private authService: AuthService,
@@ -35,6 +36,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
       } else {
         this.showSearchBox = false;
       }
+    });
+
+    this.activatedRoute.queryParams.subscribe((data) => {
+      this.searchedText = data['searchedText'] || '';
     });
 
     this.logginUserObserver = this.authService.loggedInUserObserver.subscribe(
@@ -57,6 +62,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   handleSearch(seacrhedValue: string) {
-    this.blogService.searchedValueSubject.next(seacrhedValue);
+    this.router.navigate(['/home'], {
+      queryParams: { searchedText: seacrhedValue },
+      queryParamsHandling: 'merge',
+    });
   }
 }

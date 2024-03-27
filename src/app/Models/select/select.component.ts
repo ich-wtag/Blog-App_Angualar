@@ -6,6 +6,7 @@ import {
   Output,
   ViewChild,
 } from '@angular/core';
+import { Router } from '@angular/router';
 import { FormControl } from '@angular/forms';
 import { BLOG_TAGS } from '../constants';
 
@@ -34,6 +35,8 @@ export class SelectComponent {
 
   isDropdownVisible: boolean = false;
   blogTags: string[] = BLOG_TAGS;
+
+  constructor(private router: Router) {}
 
   dropDownClicked() {
     if (this.isDropdownVisible || this.selectedTags.length === 0) {

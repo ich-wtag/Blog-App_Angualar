@@ -34,10 +34,20 @@ export class UserService {
     };
 
     this.users.push(user);
+
+    localStorage.setItem('registeredUsers', JSON.stringify(this.users));
   }
 
   getAllUsers() {
     return this.users;
+  }
+
+  getAllTheUsersFromLocalStorage() {
+    const allUsers = localStorage.getItem('registeredUsers');
+
+    if (allUsers) {
+      this.users = JSON.parse(allUsers);
+    }
   }
 
   updateUserInfo(id: number, formData: FormGroup, imageFileName: string) {
@@ -55,5 +65,7 @@ export class UserService {
       }
       return user;
     });
+
+    localStorage.setItem('registeredUsers', JSON.stringify(this.users));
   }
 }

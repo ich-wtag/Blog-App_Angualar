@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription, debounceTime } from 'rxjs';
 import { Blog } from 'src/app/Models/blog';
 import { BLOG_TAGS } from 'src/app/Models/constants';
@@ -21,14 +22,27 @@ export class BlogListComponent implements OnInit, OnDestroy {
   isLoadMoreButtonVisible: boolean = false;
   endIndex: number = 9;
   loadMoreButtonText: string = 'Load More';
+  searchedText: string = '';
 
-  constructor(private blogService: BlogService) {}
+  constructor(
+    private blogService: BlogService,
+    private activatedRoute: ActivatedRoute,
+    private router: Router
+  ) {}
 
   getFilteredTags($event: string) {
+    this.router.navigate(['home'], {
+      queryParams: { filterTags: this.filteredTags },
+      queryParamsHandling: 'merge',
+    });
     this.filterByTags();
   }
 
   removeFilteredTag($event: string) {
+    this.router.navigate(['home'], {
+      queryParams: { filterTags: this.filteredTags },
+      queryParamsHandling: 'merge',
+    });
     this.filterByTags();
   }
 
@@ -37,11 +51,24 @@ export class BlogListComponent implements OnInit, OnDestroy {
       (data) => (this.blogs = data)
     );
 
-    this.searchedBlogObserver = this.blogService.searchedValueSubject
-      .pipe(debounceTime(600))
-      .subscribe((searchValue) => {
+    this.activatedRoute.queryParams
+      .pipe(debounceTime(500))
+      .subscribe((data) => {
+        const searchedString = data['searchedText'] || '';
+        const tag = data['filterTags'] || [];
+
+        if (typeof tag === 'string') {
+          this.filteredTags.push(tag);
+        } else {
+          this.filteredTags = [...tag];
+        }
+
+        this.blogTags = this.blogTags.filter(
+          (tag: string) => !this.filteredTags.includes(tag)
+        );
+
         this.seacrhedBlogs = this.blogs.filter((blog) =>
-          blog?.blogTitle.toLowerCase().includes(searchValue.toLowerCase())
+          blog?.blogTitle.toLowerCase().includes(searchedString?.toLowerCase())
         );
 
         this.filterByTags();
@@ -50,7 +77,6 @@ export class BlogListComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.blogObserverVer.unsubscribe();
-    this.searchedBlogObserver.unsubscribe();
   }
 
   filterByTags() {

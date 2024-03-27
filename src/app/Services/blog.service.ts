@@ -9,10 +9,6 @@ import { Blog } from '../Models/blog';
   providedIn: 'root',
 })
 export class BlogService {
-  constructor(
-    private authService: AuthService,
-    private userService: UserService
-  ) {}
   private createdBlogs: Blog[] = [];
 
   private isBlogFormVisible: boolean = false;
@@ -36,6 +32,22 @@ export class BlogService {
     this.blogs
   );
 
+  constructor(
+    private authService: AuthService,
+    private userService: UserService
+  ) {}
+
+  getBlogsFromLocalStorage() {
+    const blogs = localStorage.getItem('createdBlog');
+
+    if (blogs) {
+      this.createdBlogs = JSON.parse(blogs);
+    }
+
+    const allBlog = this.getAllBlog();
+    this.blogSubject.next(allBlog);
+  }
+
   addBlog(formGroup: FormGroup, blogImageFileName: string) {
     const { title, tags, blogImage, description } = formGroup.value;
     const blogCreator = this.authService.loggedInUser;
@@ -53,6 +65,8 @@ export class BlogService {
     };
 
     this.createdBlogs.unshift(newBlog);
+
+    localStorage.setItem('createdBlog', JSON.stringify(this.createdBlogs));
 
     const allBlog = this.getAllBlog();
     this.blogSubject.next(allBlog);
@@ -75,6 +89,8 @@ export class BlogService {
       }
       return blog;
     });
+
+    localStorage.setItem('createdBlog', JSON.stringify(this.createdBlogs));
 
     const allBlog = this.getAllBlog();
     this.blogSubject.next(allBlog);
