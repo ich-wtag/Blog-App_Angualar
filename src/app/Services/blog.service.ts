@@ -92,12 +92,12 @@ export class BlogService {
     };
 
     this.httpClient
-      .post<{ name: string }>(
+      .post<{ id: string }>(
         'https://blog-angular-a0e04-default-rtdb.asia-southeast1.firebasedatabase.app/blog.json',
         newBlog
       )
       .subscribe((data) => {
-        newBlog.blogId = data.name;
+        newBlog.blogId = data.id;
 
         this.createdBlogs.unshift(newBlog);
         this.getAllBlog();
