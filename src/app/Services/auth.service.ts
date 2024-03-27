@@ -34,7 +34,9 @@ export class AuthService {
 
       this.autoLogout(this.loggedInUser?.expiresIn as string);
     } else {
-      this.onLogOut();
+      this.loggedInUser = <User>{};
+      this.loggedInUserObserver.next(this.loggedInUser);
+      this.loggerObserver.next(false);
     }
   }
 

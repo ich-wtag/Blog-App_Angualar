@@ -10,6 +10,8 @@ import { BlogService } from '../Services/blog.service';
 import { Blog } from '../Models/blog';
 import { DUMMY_USER_IMAGE } from '../Models/constants';
 import { AuthService } from '../Services/auth.service';
+import { ToastrService } from 'ngx-toastr';
+import { User } from '../Models/user';
 
 @Component({
   selector: 'app-blog-details',
@@ -29,7 +31,8 @@ export class BlogDetailsComponent implements OnInit, AfterViewChecked {
     private activatedRoute: ActivatedRoute,
     private blogService: BlogService,
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private toastService: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -64,6 +67,13 @@ export class BlogDetailsComponent implements OnInit, AfterViewChecked {
   }
 
   handleEditClicked() {
+    this.authService.getLoggedInUser();
+
+    if (Object.keys(<User>this.authService.loggedInUser).length === 0) {
+      this.toastService.error('Please Login first to edit you blog');
+      return;
+    }
+
     this.blogService.showBlogFormSubject.next(true);
     this.router.navigate(['/me'], {
       queryParams: { edit: true, id: this.selectedBlogId },
