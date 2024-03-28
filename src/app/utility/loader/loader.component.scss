@@ -1,8 +1,8 @@
 @import "../../../assets/style/variable.scss";
 
 .loader {
-  border: 0.5rem solid #f3f3f3; /* Light grey */
-  border-top: 0.5rem solid #3498db; /* Blue */
+  border: 0.5rem solid $black-color-50;
+  border-top: 0.5rem solid $sky-color-300;
   border-radius: 50%;
   width: 7.5rem;
   height: 7.5rem;
