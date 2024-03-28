@@ -31,6 +31,9 @@ export class BlogService {
   blogErrorSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
     false
   );
+  blogLoaderSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
+    false
+  );
 
   constructor(
     private authService: AuthService,
@@ -39,6 +42,7 @@ export class BlogService {
   ) {}
 
   getAllBlogsFromDb() {
+    this.blogLoaderSubject.next(true);
     return this.httpClient
       .get<{ [key: string]: Blog }>(
         'https://blog-angular-a0e04-default-rtdb.asia-southeast1.firebasedatabase.app/blog.json'
@@ -61,9 +65,11 @@ export class BlogService {
           this.createdBlogs = blogs;
           this.getAllBlog();
           this.blogErrorSubject.next(false);
+          this.blogLoaderSubject.next(false);
         },
         error: (err) => {
           this.blogErrorSubject.next(true);
+          this.blogLoaderSubject.next(false);
         },
       });
   }
@@ -101,6 +107,7 @@ export class BlogService {
 
         this.createdBlogs.unshift(newBlog);
         this.getAllBlog();
+        this.showBlogFormSubject.next(false);
       });
   }
 
