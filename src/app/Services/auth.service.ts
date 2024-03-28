@@ -4,6 +4,8 @@ import { FormGroup } from '@angular/forms';
 import { UserService } from './user.service';
 import { User } from '../Models/user';
 import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import { AuthResponse } from '../Models/authResponse';
 
 @Injectable({
   providedIn: 'root',
@@ -16,7 +18,11 @@ export class AuthService {
   );
   loggerObserver: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
-  constructor(private userService: UserService, private router: Router) {}
+  constructor(
+    private userService: UserService,
+    private router: Router,
+    private httpClient: HttpClient
+  ) {}
 
   getLoggedInUser() {
     const user = localStorage.getItem('loggedInUser');
@@ -25,21 +31,53 @@ export class AuthService {
       this.loggedInUser = JSON.parse(user);
       this.loggedInUserObserver.next(<User>this.loggedInUser);
       this.loggerObserver.next(true);
+
+      this.autoLogout(this.loggedInUser?.expiresIn as string);
     } else {
-      this.onLogOut();
+      this.loggedInUser = <User>{};
+      this.loggedInUserObserver.next(this.loggedInUser);
+      this.loggerObserver.next(false);
     }
   }
 
   onLogggedIn(userName: string, password: string) {
-    this.loggedInUser = this.userService
+    const user = this.userService
       ?.getAllUsers()
       ?.find(
         (user) => user.userName === userName && user.password === password
       );
 
-    localStorage.setItem('loggedInUser', JSON.stringify(this.loggedInUser));
-    this.loggedInUserObserver.next(this.loggedInUser as User);
-    this.loggerObserver.next(true);
+    const requiredData = {
+      email: user?.email,
+      password,
+      returnSecureToken: true,
+    };
+
+    this.httpClient
+      .post<AuthResponse>(
+        'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyDwM-ShZnxIb2edxgTLLOdK9DFaxyvFPRw',
+        requiredData
+      )
+      .subscribe((data) => {
+        const { expiresIn, idToken, localId } = data;
+        if (user) {
+          this.loggedInUser = {
+            ...user,
+            id: localId,
+            expiresIn,
+            idToken,
+          };
+          this.loggedInUserObserver.next(this.loggedInUser as User);
+          this.loggerObserver.next(true);
+
+          localStorage.setItem(
+            'loggedInUser',
+            JSON.stringify(this.loggedInUser)
+          );
+        }
+
+        this.autoLogout(expiresIn);
+      });
   }
 
   onLogOut() {
@@ -49,6 +87,9 @@ export class AuthService {
 
     this.router.navigate(['/home', { showSearchBox: true }]);
     localStorage.removeItem('loggedInUser');
+
+    const logoutTime = new Date().getHours() + ':' + new Date().getMinutes();
+    localStorage.setItem('Log Out time', logoutTime);
   }
 
   updateLoginUser(
@@ -72,10 +113,35 @@ export class AuthService {
         subTitle,
         image: profileImage,
         imageFileName,
+        idToken: this.loggedInUser?.idToken,
       };
 
-      this.loggedInUserObserver.next(this.loggedInUser);
-      localStorage.setItem('loggedInUser', JSON.stringify(this.loggedInUser));
+      this.httpClient
+        .put(
+          'https://blog-angular-a0e04-default-rtdb.asia-southeast1.firebasedatabase.app/users/' +
+            currentUser.id +
+            '.json',
+          this.loggedInUser
+        )
+        .subscribe(() => {
+          this.loggedInUserObserver.next(<User>this.loggedInUser);
+
+          localStorage.setItem(
+            'loggedInUser',
+            JSON.stringify(this.loggedInUser)
+          );
+        });
     }
+  }
+
+  autoLogout(timeInterVal: string) {
+    const timeToLogOut = Number(timeInterVal) * 1000;
+    const loginTime = new Date().getHours() + ':' + new Date().getMinutes();
+
+    localStorage.setItem('Log In time', loginTime);
+
+    setTimeout(() => {
+      this.onLogOut();
+    }, timeToLogOut);
   }
 }

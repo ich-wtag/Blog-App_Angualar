@@ -13,13 +13,15 @@
     ></app-select>
   </div>
 
-  <div class="blog-list__container">
-    <ng-container *ngIf="paginatedBlogs.length; else emptyBlogsMessage">
-      <ng-container *ngFor="let blog of paginatedBlogs">
-        <app-blog [blog]="blog"></app-blog>
+  <ng-container *ngIf="!isLoading; else loader">
+    <div class="blog-list__container">
+      <ng-container *ngIf="paginatedBlogs.length; else emptyBlogsMessage">
+        <ng-container *ngFor="let blog of paginatedBlogs">
+          <app-blog [blog]="blog"></app-blog>
+        </ng-container>
       </ng-container>
-    </ng-container>
-  </div>
+    </div>
+  </ng-container>
 
   <div class="flex-center blog-list__button">
     <app-button
@@ -33,6 +35,17 @@
   </div>
 
   <ng-template #emptyBlogsMessage>
-    <strong class="blog-list__blank-message">Sorry, No Blogs Found</strong>
+    <strong *ngIf="!isLoading" class="blog-list__blank-message"
+      >Sorry, No Blogs Found</strong
+    >
+  </ng-template>
+
+  <ng-template #loader>
+    <app-loader *ngIf="!isError; else errorMessage"></app-loader>
+    <ng-template #errorMessage>
+      <strong class="flex-center error-message">
+        Sorry..! Some error occured. Please try again after some times
+      </strong>
+    </ng-template>
   </ng-template>
 </section>

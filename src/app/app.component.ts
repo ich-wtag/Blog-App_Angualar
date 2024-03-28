@@ -33,6 +33,6 @@ export class AppComponent implements OnInit {
 
     this.userService.getAllTheUsersFromLocalStorage();
     this.authService.getLoggedInUser();
-    this.blogService.getBlogsFromLocalStorage();
+    this.blogService.getAllBlogsFromDb();
   }
 }

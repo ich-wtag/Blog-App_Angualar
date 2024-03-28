@@ -21,7 +21,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     const isBlogEdited = this.activatedRoute.snapshot.queryParams['edit'];
-    const editedBlogId = Number(this.activatedRoute.snapshot.queryParams['id']);
+    const editedBlogId: string = this.activatedRoute.snapshot.queryParams['id'];
 
     this.blogFormVisibilityObserver =
       this.blogService.showBlogFormSubject.subscribe(

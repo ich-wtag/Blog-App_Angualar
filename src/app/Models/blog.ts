@@ -1,11 +1,11 @@
 export interface Blog {
-  blogId: number;
+  blogId?: string;
   blogTitle: string;
   tags: string[];
   blogImage: string;
   blogImageFileName: string;
   bloggrUserName?: string;
-  bloggerUserId?: number;
+  bloggerUserId?: string;
   bloggerImage?: string;
   bloggerName?: string;
   createdAt: string;

@@ -3,7 +3,9 @@ import {
   ElementRef,
   EventEmitter,
   Input,
+  OnChanges,
   Output,
+  SimpleChanges,
   ViewChild,
 } from '@angular/core';
 import { Router } from '@angular/router';
@@ -15,7 +17,7 @@ import { BLOG_TAGS } from '../constants';
   templateUrl: './select.component.html',
   styleUrls: ['./select.component.scss'],
 })
-export class SelectComponent {
+export class SelectComponent implements OnChanges {
   @Input() label?: string;
   @Input() placeholder?: string;
   @Input() wrapperClassName?: string;
@@ -37,6 +39,12 @@ export class SelectComponent {
   blogTags: string[] = BLOG_TAGS;
 
   constructor(private router: Router) {}
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes?.['tagsFromEditedBlog']?.currentValue !== undefined) {
+      this.selectedTags = this.tagsFromEditedBlog;
+    }
+  }
 
   dropDownClicked() {
     if (this.isDropdownVisible || this.selectedTags.length === 0) {
@@ -91,11 +99,5 @@ export class SelectComponent {
 
   onUnSelectFilteredTag(tag: string) {
     this.OnUnSelectFilterTags.emit(tag);
-  }
-
-  ngOnInit(): void {
-    if (this.tagsFromEditedBlog.length) {
-      this.selectedTags = this.tagsFromEditedBlog;
-    }
   }
 }

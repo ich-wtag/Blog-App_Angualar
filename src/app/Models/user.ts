@@ -1,5 +1,5 @@
 export interface User {
-  id: number;
+  id: string;
   firstName: string;
   lastName: string;
   userName: string;
@@ -10,4 +10,6 @@ export interface User {
   imageFileName?: string;
   subTitle?: string;
   about?: string;
+  idToken?: string;
+  expiresIn?: string;
 }

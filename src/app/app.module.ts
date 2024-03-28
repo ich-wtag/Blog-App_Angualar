@@ -6,6 +6,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { ToastrModule } from 'ngx-toastr';
 import { EditorModule } from '@tinymce/tinymce-angular';
 import { AppRoutingModule } from './app-routing.module';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
@@ -24,6 +25,8 @@ import { BlogDetailsComponent } from './blog-details/blog-details.component';
 import { UserInfoUpdateFormComponent } from './user-profile/user-info-update-form/user-info-update-form.component';
 import { BannerComponent } from './home/banner/banner.component';
 import { BlogListComponent } from './home/blog-list/blog-list.component';
+import { AuthInterceptorInterceptor } from './Services/auth-interceptor.interceptor';
+import { LoaderComponent } from './utility/loader/loader.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +48,7 @@ import { BlogListComponent } from './home/blog-list/blog-list.component';
     UserInfoUpdateFormComponent,
     BannerComponent,
     BlogListComponent,
+    LoaderComponent,
   ],
   imports: [
     BrowserModule,
@@ -58,8 +62,15 @@ import { BlogListComponent } from './home/blog-list/blog-list.component';
     }),
     EditorModule,
     FormsModule,
+    HttpClientModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptorInterceptor,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

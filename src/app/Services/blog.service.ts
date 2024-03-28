@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, map } from 'rxjs';
 import { AuthService } from './auth.service';
 import { UserService } from './user.service';
 import { Blog } from '../Models/blog';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
@@ -26,26 +27,59 @@ export class BlogService {
     ''
   );
 
-  private blogs: Blog[] = this.getAllBlog();
-
-  blogSubject: BehaviorSubject<Blog[]> = new BehaviorSubject<Blog[]>(
-    this.blogs
+  blogSubject: BehaviorSubject<Blog[]> = new BehaviorSubject<Blog[]>([]);
+  blogErrorSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
+    false
+  );
+  blogLoaderSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
+    false
   );
 
   constructor(
     private authService: AuthService,
-    private userService: UserService
+    private userService: UserService,
+    private httpClient: HttpClient
   ) {}
 
-  getBlogsFromLocalStorage() {
-    const blogs = localStorage.getItem('createdBlog');
+  getAllBlogsFromDb() {
+    this.blogLoaderSubject.next(true);
+    return this.httpClient
+      .get<{ [key: string]: Blog }>(
+        'https://blog-angular-a0e04-default-rtdb.asia-southeast1.firebasedatabase.app/blog.json'
+      )
+      .pipe(
+        map((responseData) => {
+          let blogs: Blog[] = [];
 
-    if (blogs) {
-      this.createdBlogs = JSON.parse(blogs);
-    }
+          for (let key in responseData) {
+            if (responseData.hasOwnProperty(key)) {
+              blogs.unshift({ blogId: key, ...responseData[key] });
+            }
+          }
 
-    const allBlog = this.getAllBlog();
-    this.blogSubject.next(allBlog);
+          return blogs;
+        })
+      )
+      .subscribe({
+        next: (blogs) => {
+          this.createdBlogs = blogs;
+          this.getAllBlog();
+          this.blogErrorSubject.next(false);
+          this.blogLoaderSubject.next(false);
+        },
+        error: (err) => {
+          this.blogErrorSubject.next(true);
+          this.blogLoaderSubject.next(false);
+        },
+      });
+  }
+
+  getSingleBlog(id: string) {
+    return this.httpClient.get<Blog>(
+      'https://blog-angular-a0e04-default-rtdb.asia-southeast1.firebasedatabase.app/blog/' +
+        id +
+        '.json'
+    );
   }
 
   addBlog(formGroup: FormGroup, blogImageFileName: string) {
@@ -53,7 +87,6 @@ export class BlogService {
     const blogCreator = this.authService.loggedInUser;
 
     const newBlog: Blog = {
-      blogId: this.getBlogId(),
       blogTitle: title,
       blogImageFileName,
       tags,
@@ -64,12 +97,18 @@ export class BlogService {
       createdAt: new Date().toISOString(),
     };
 
-    this.createdBlogs.unshift(newBlog);
+    this.httpClient
+      .post<{ id: string }>(
+        'https://blog-angular-a0e04-default-rtdb.asia-southeast1.firebasedatabase.app/blog.json',
+        newBlog
+      )
+      .subscribe((data) => {
+        newBlog.blogId = data.id;
 
-    localStorage.setItem('createdBlog', JSON.stringify(this.createdBlogs));
-
-    const allBlog = this.getAllBlog();
-    this.blogSubject.next(allBlog);
+        this.createdBlogs.unshift(newBlog);
+        this.getAllBlog();
+        this.showBlogFormSubject.next(false);
+      });
   }
 
   hideShowBlogForm() {
@@ -77,7 +116,12 @@ export class BlogService {
     this.showBlogFormSubject.next(this.isBlogFormVisible);
   }
 
-  updateBlog(blogId: number, formGroup: FormGroup, blogImageFileName: string) {
+  updateBlog(
+    blogId: string,
+    formGroup: FormGroup,
+    blogImageFileName: string,
+    editedBlog: Blog
+  ) {
     const { title, tags, blogImage, description } = formGroup.value;
     this.createdBlogs = this.createdBlogs.map((blog) => {
       if (blog.blogId === blogId) {
@@ -90,10 +134,22 @@ export class BlogService {
       return blog;
     });
 
-    localStorage.setItem('createdBlog', JSON.stringify(this.createdBlogs));
+    const data: Blog = {
+      ...editedBlog,
+      blogTitle: title,
+      blogImage,
+      blogImageFileName,
+      tags,
+      description,
+    };
+    this.getAllBlog();
 
-    const allBlog = this.getAllBlog();
-    this.blogSubject.next(allBlog);
+    return this.httpClient.put(
+      'https://blog-angular-a0e04-default-rtdb.asia-southeast1.firebasedatabase.app/blog/' +
+        blogId +
+        '.json',
+      data
+    );
   }
 
   toggleUserEditForm() {
@@ -102,27 +158,17 @@ export class BlogService {
   }
 
   updateBlogWithUser() {
-    const allBlog = this.getAllBlog();
-    this.blogSubject.next(allBlog);
-  }
-
-  private getBlogId() {
-    const maxId = this.createdBlogs.reduce(
-      (maxId, blog) => Math.max(blog.blogId, maxId),
-      0
-    );
-    return maxId + 1;
+    this.getAllBlog();
   }
 
   private getAllBlog() {
-    return this.createdBlogs?.map((currentBlog) => {
+    const allBlogs = this.createdBlogs.map((blog) => {
       const desiredUser = this.userService.users?.find((user) => {
         return (
-          currentBlog.bloggerUserId === user.id &&
-          currentBlog.bloggrUserName === user.userName
+          blog.bloggerUserId === user.id &&
+          blog.bloggrUserName === user.userName
         );
       });
-
       const {
         blogId,
         blogImage,
@@ -133,9 +179,8 @@ export class BlogService {
         tags,
         createdAt,
         blogImageFileName,
-      } = currentBlog;
-
-      const blog: Blog = {
+      } = blog;
+      const completeBlogInfo: Blog = {
         blogId,
         blogImage,
         blogImageFileName,
@@ -148,8 +193,9 @@ export class BlogService {
         bloggerImage: desiredUser?.image,
         createdAt,
       };
-
-      return blog;
+      return completeBlogInfo;
     });
+
+    this.blogSubject.next(allBlogs);
   }
 }
